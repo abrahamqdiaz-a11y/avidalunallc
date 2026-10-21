@@ -1,5 +1,14 @@
 # Avida Luna Wellness website
 
-Website for Avida Luna LLC, doing business as Avida Luna Wellness.
+Next.js (App Router) + Tailwind, content in Sanity (`/studio`), deployed on Netlify.
 
-Source material goes in `/docs`. Site work happens on feature branches and is merged here by pull request.
+```bash
+nvm use            # Node 24 LTS (22.12+ works)
+npm install
+cp .env.example .env.local   # optional: the site runs on fallback content without it
+npm run dev
+```
+
+Checks: `npm run typecheck`, `npm run lint`, `npm run build`, `npm run test:e2e`.
+
+See `CHECKLIST.md` (setup tasks) and `HANDOFF.md` (accounts and operations).
