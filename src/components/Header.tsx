@@ -18,7 +18,7 @@ export function Header() {
           <ul className="flex items-center gap-6 text-[0.9375rem] font-medium">
             {mainNav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-ink no-underline hover:text-olive hover:underline">
+                <Link href={item.href} className="inline-block py-2 text-ink no-underline hover:text-olive hover:underline">
                   {item.label}
                 </Link>
               </li>

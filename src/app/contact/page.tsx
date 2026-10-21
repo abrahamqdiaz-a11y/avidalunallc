@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Contact Avida Luna Wellness",
+  title: "Contact Shary, Mobile IV Nurse in Lakewood Ranch",
   description:
     "Call, email or message Shary Gonzalez, RN, BSN, at Avida Luna Wellness in Lakewood Ranch, FL. Questions, group events and partnerships. Se habla español.",
   path: "/contact",

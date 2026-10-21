@@ -15,28 +15,30 @@ export function ArchPhoto({
   sizes?: string;
 }) {
   return (
-    <figure className="relative mx-auto w-full max-w-[16rem] md:max-w-[22rem]">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-[1.5rem] border-4 border-paper bg-moon shadow-[var(--shadow-soft)]">
-        {image ? (
-          <Image
-            src={image.src}
-            alt={image.alt}
-            fill
-            sizes={sizes}
-            priority={priority}
-            className="object-cover"
-          />
-        ) : (
-          <div className="absolute inset-0 grid place-items-center bg-gradient-to-b from-moon to-sage p-6 text-center">
-            <span className="text-sm font-semibold text-ink">Photo of Shary coming soon</span>
-          </div>
-        )}
+    <figure className="mx-auto w-full max-w-[16rem] md:max-w-[22rem]">
+      <div className="relative">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-[1.5rem] border-4 border-paper bg-moon shadow-[var(--shadow-soft)]">
+          {image ? (
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes={sizes}
+              priority={priority}
+              className="object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 grid place-items-center bg-gradient-to-b from-moon to-sage p-6 text-center">
+              <span className="text-sm font-semibold text-ink">Photo of Shary coming soon</span>
+            </div>
+          )}
+        </div>
+        {caption ? (
+          <figcaption className="card absolute -bottom-5 left-1/2 w-max max-w-[90%] -translate-x-1/2 px-4 py-2 text-center text-sm">
+            {caption}
+          </figcaption>
+        ) : null}
       </div>
-      {caption ? (
-        <figcaption className="card absolute -bottom-5 left-1/2 w-max max-w-[90%] -translate-x-1/2 px-4 py-2 text-center text-sm">
-          {caption}
-        </figcaption>
-      ) : null}
       {!image ? <Todo className="mt-12">Shary&apos;s photo (start with SharyPic.jpg from the current site).</Todo> : null}
     </figure>
   );
@@ -45,7 +47,7 @@ export function ArchPhoto({
 /** Neutral block for a card photo we don't have yet. Never stock photos of patients, needles or IV bags. */
 export function PhotoSlot({ image, label, sizes }: { image: ImageRef; label: string; sizes: string }) {
   return (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-[1rem] bg-moon/60">
+    <div className={`relative overflow-hidden rounded-[1rem] bg-moon/60 ${image ? "aspect-[4/3]" : "aspect-[16/9]"}`}>
       {image ? (
         <Image src={image.src} alt={image.alt} fill sizes={sizes} className="object-cover" loading="lazy" />
       ) : (

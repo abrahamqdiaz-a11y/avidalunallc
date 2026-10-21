@@ -52,7 +52,7 @@ const offers = [
     title: "Personalized wellness programs",
     text: "Some services start with a consultation, so you can talk through your goals with Shary first.",
     href: "/services#consultation",
-    linkLabel: "Learn more",
+    linkLabel: "About consultations",
   },
 ];
 

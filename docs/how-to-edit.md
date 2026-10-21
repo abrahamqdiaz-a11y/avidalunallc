@@ -1,0 +1,62 @@
+# How to edit your website, Shary
+
+Your editor lives at **https://avidaluna.sanity.studio**. Log in with the Sanity account we set up together.
+
+Changes show on avidaluna.com **about a minute after you press Publish**. You don't need to do anything else.
+
+*[Screenshot: the editor's left menu]*
+
+## The menu
+
+| Menu item | What it changes |
+|---|---|
+| **Services** | Your drips and vitamin boosts on the Services page |
+| **Add-ons** | Red light, aromatherapy and other rituals, with prices people pay online |
+| **Events** | Public events and pop-ups. They disappear from the site by themselves after the date. |
+| **Wellness articles** | Your Wellness Education articles |
+| **FAQ** | The questions and answers |
+| **Page text** | Headings and short intros on each page |
+| **Contact info** | Phone, email, service area, Instagram, Facebook, footer note |
+| **Testimonials** | Client quotes (hidden on the site until you add one) |
+
+## Everyday tasks
+
+**Change an add-on price**
+Add-ons → click the add-on → change **Price** → **Publish**. Online checkout uses the new price right away.
+
+*[Screenshot: an add-on with the Price field]*
+
+**Hide something without deleting it**
+Open it → turn off **Show on the website** → **Publish**.
+
+**Change the order**
+Set **Order**: 1 shows first, then 2, 3...
+
+**Add an event**
+Events → **+** → fill in the title, click **Generate** for the short name, then add the date, start time (24-hour, like 18:30), place and a short description → **Publish**.
+
+**Add a photo**
+Click the photo box → upload → write a short description of the photo → **Publish**. Use your own photos. No photos of needles, IV bags, or clients without their permission.
+
+**Show a service price**
+Add the price, then turn on **Show the price** only once you've checked it matches Hydreight.
+
+**Add a testimonial**
+Testimonials → **+** → quote and first name → tick **I have this person's written permission** → **Publish**. Only quotes about the experience. No health results or medical claims.
+
+## Yellow warnings
+
+If you see a yellow warning like *"This word can sound like a medical claim"*, the editor spotted a word such as *cure, treat, prevent, detox, migraine, anxiety, guaranteed*, or a medication or peptide name. You can still publish, but please reword it first, or check with your advisor.
+
+*[Screenshot: a yellow warning under a description]*
+
+Red messages mean something required is missing, like a price or a title.
+
+## What you can't change here
+Layout, colors, fonts and new pages. Ask your developer for those.
+
+## Two important reminders
+- Never put health information in the website, and never ask for it here. Booking and screening stay on Hydreight.
+- Prices for IV drips are set in **Hydreight**. The website only shows them if you turn on **Show the price**.
+
+Need help? Email your developer.

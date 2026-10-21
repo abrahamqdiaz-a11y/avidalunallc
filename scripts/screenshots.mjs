@@ -6,6 +6,7 @@ for (const [name, vp] of [["mobile", { width: 375, height: 812 }], ["desktop", {
   const page = await browser.newPage({ viewport: vp, deviceScaleFactor: name === "mobile" ? 2 : 1 });
   for (const p of paths) {
     await page.goto(base + p, { waitUntil: "load" });
+    await page.waitForTimeout(300);
     const file = `${out}/${(p === "/" ? "home" : p.slice(1).replaceAll("/", "_"))}-${name}.png`;
     await page.screenshot({ path: file, fullPage: true });
     console.log(file);
