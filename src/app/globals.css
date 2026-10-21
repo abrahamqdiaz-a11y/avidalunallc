@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* Brand tokens sampled from Shary's logo and current site. Refined in Step 2. */
+@theme {
+  --color-cream: #f7f3ee;
+  --color-sage: #b7caa3;
+  --color-moon: #b8bc98;
+  --color-olive: #576d52;
+  --color-ink: #3e4436;
+  --color-terracotta: #c08a67;
+  --color-terracotta-deep: #9c6646;
+  --color-gold: #d4aa30;
+
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-montserrat), system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
