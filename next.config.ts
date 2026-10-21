@@ -1,9 +1,19 @@
 import type { NextConfig } from "next";
+import { securityHeaders } from "./src/lib/security-headers";
+
+// Old Squarespace URLs -> new URLs. 301 (not Next's default 308) so search engines
+// treat them as classic permanent moves.
+const legacyRedirects: Array<[string, string]> = [
+  ["/about-me", "/about"],
+  ["/cart", "/add-ons"],
+  ["/wellnesseducation", "/wellness-education"],
+  ["/wellnesseducation/:slug*", "/wellness-education"],
+  ["/faq-1", "/faq"],
+  ["/home", "/"],
+];
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  poweredByHeader: false,
   turbopack: {
     rules: {
       "*.css": {
@@ -11,6 +21,20 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  images: {
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
+  },
+  async redirects() {
+    return legacyRedirects.map(([source, destination]) => ({
+      source,
+      destination,
+      statusCode: 301 as const,
+    }));
+  },
+  async headers() {
+    return [{ source: "/:path*", headers: securityHeaders }];
   },
 };
 
