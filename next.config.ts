@@ -34,7 +34,13 @@ const nextConfig: NextConfig = {
     }));
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    const noindex = [{ key: "X-Robots-Tag", value: "noindex" }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      { source: "/api/:path*", headers: noindex },
+      { source: "/add-ons/success", headers: noindex },
+      { source: "/add-ons/cancel", headers: noindex },
+    ];
   },
 };
 

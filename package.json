@@ -12,7 +12,8 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "test:e2e": "playwright test",
-    "qr": "node scripts/make-qr.mjs"
+    "qr": "node scripts/make-qr.mjs",
+    "seed:build": "node --no-warnings scripts/make-seed.mts"
   },
   "dependencies": {
     "next": "16.4.2",

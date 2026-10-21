@@ -8,10 +8,10 @@ const LOGO_SRC: string | null = null;
 export function Logo({ size = "md" }: { size?: "md" | "lg" }) {
   const textSize = size === "lg" ? "text-2xl" : "text-xl";
   return (
-    <Link href="/" className="inline-flex items-center gap-2 no-underline" aria-label="Avida Luna Wellness, home">
+    <Link href="/" className="inline-flex items-center gap-2 no-underline">
       {LOGO_SRC ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={LOGO_SRC} alt="" width={56} height={56} className="size-14" />
+        <img src={LOGO_SRC} alt="Avida Luna Wellness, home" width={56} height={56} className="size-14" />
       ) : (
         <>
           <CrescentSprig className="size-9" />
@@ -19,6 +19,7 @@ export function Logo({ size = "md" }: { size?: "md" | "lg" }) {
             <span className={`font-serif ${textSize} text-olive`}>Avida Luna</span>
             <span className="mt-1 text-[0.625rem] font-semibold tracking-[0.3em] text-olive-dark">WELLNESS</span>
           </span>
+          <span className="sr-only"> home</span>
         </>
       )}
     </Link>
