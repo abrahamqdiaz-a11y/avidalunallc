@@ -31,23 +31,54 @@ export const siteSettings: SiteSettings = {
 export const services: Service[] = [
   {
     id: "service-recovery",
-    name: "Recovery",
+    name: "Hydration",
     category: "iv",
-    description:
-      "Hydration and a quiet hour to reset after a long week, a hard workout or a busy weekend.",
-    price: null,
-    showPrice: false,
+    description: "Our starting option for IV hydration.",
+    price: 99,
+    showPrice: true,
     image: null,
+    todo: "Starting price and menu details pending Shary\u2019s confirmation.",
   },
   {
-    id: "service-todo-drips",
-    name: "More drips",
+    id: "service-athlete-recovery",
+    name: "Athlete Recovery",
     category: "iv",
-    description: "The rest of Shary's drip menu will be listed here.",
-    price: null,
-    showPrice: false,
+    description: "An IV option to discuss as part of your post-training plans.",
+    price: 180,
+    showPrice: true,
     image: null,
-    todo: "Shary's full drip menu: compliant names, one plain sentence each, and whether prices match Hydreight.",
+    todo: "Starting price and menu details pending Shary\u2019s confirmation.",
+  },
+  {
+    id: "service-energy",
+    name: "Energy",
+    category: "iv",
+    description: "Personalized IV wellness, with your nurse.",
+    price: 180,
+    showPrice: true,
+    image: null,
+    todo: "Starting price and menu details pending Shary\u2019s confirmation.",
+  },
+  {
+    id: "service-myers",
+    name: "Myers",
+    category: "iv",
+    description: "Discuss this IV option with Shary during your assessment.",
+    price: 199,
+    showPrice: true,
+    image: null,
+    todo: "Starting price and menu details pending Shary\u2019s confirmation.",
+  },
+  {
+    id: "service-myers-chromium",
+    name: "Myers with Chromium",
+    category: "iv",
+    description:
+      "A Myers option with chromium. Ask Shary whether it is right for you.",
+    price: 240,
+    showPrice: true,
+    image: null,
+    todo: "Starting price and menu details pending Shary\u2019s confirmation.",
   },
   {
     id: "service-b12",
@@ -62,7 +93,8 @@ export const services: Service[] = [
     id: "service-b-complex",
     name: "B-complex",
     category: "vitamin",
-    description: "A blend of B vitamins, given as a quick shot or added to your drip.",
+    description:
+      "A blend of B vitamins, given as a quick shot or added to your drip.",
     price: null,
     showPrice: false,
     image: null,
@@ -72,7 +104,8 @@ export const services: Service[] = [
     id: "service-glutathione",
     name: "Glutathione",
     category: "vitamin",
-    description: "A popular add-in for wellness visits. Ask Shary if it's a fit for you.",
+    description:
+      "A popular add-in for wellness visits. Ask Shary if it's a fit for you.",
     price: null,
     showPrice: false,
     image: null,
@@ -99,7 +132,7 @@ export const addOns: AddOn[] = [
   },
   {
     id: "addon-recovery-ritual",
-    name: "Recovery Ritual",
+    name: "Recovery add-on",
     description: "A little extra comfort for your visit. Details coming soon.",
     durationMinutes: null,
     price: 39,
@@ -115,11 +148,12 @@ export const articles: Article[] = [
     id: "article-understanding-iv-therapy",
     slug: "understanding-iv-therapy",
     title: "Understanding IV Therapy",
-    summary: "A plain-language look at what a mobile IV visit is and what to expect.",
+    summary:
+      "A plain-language look at what a mobile IV visit is and what to expect.",
     body: [
       {
         type: "p",
-        text: "Shary's article from the current site will be migrated here with light edits.",
+        text: "A mobile IV visit brings nursing care to your location. Booking starts with your name and email on this website. Service selection, scheduling and confidential health screening happen on Hydreight. Before an IV begins, Shary reviews your screening with you and checks that the service is a good fit. She stays with you throughout the visit.",
       },
     ],
     sources: [],
@@ -221,7 +255,8 @@ export const faqs: Faq[] = [
   {
     id: "faq-spanish",
     question: "¿Hablas español?",
-    answer: "Sí. Shary habla inglés y español. Puedes llamarnos o escribirnos en español.",
+    answer:
+      "Sí. Shary habla inglés y español. Puedes llamarnos o escribirnos en español.",
   },
 ];
 
@@ -272,7 +307,7 @@ export const pageText: Record<PageKey, PageText> = {
     },
   },
   addons: {
-    heading: "Wellness add-ons",
+    heading: "After you book",
     intro:
       "Optional extras for an IV appointment you've already booked. Add them here, or ask Shary at your visit and pay by card then.",
     sections: {},
@@ -295,13 +330,14 @@ export const pageText: Record<PageKey, PageText> = {
   },
   education: {
     heading: "Wellness education",
-    intro: "Plain-language reading from Shary. General information, not medical advice.",
+    intro:
+      "Plain-language reading from Shary. General information, not medical advice.",
     sections: {},
   },
   about: {
     heading: "Shary Gonzalez, RN, BSN",
     intro:
-      "Shamarith \"Shary\" Gonzalez is a registered nurse with a BSN, more than 17 years in nursing and 25 years in healthcare. She founded Avida Luna to bring professional, personalized care directly to her community.",
+      'Shamarith "Shary" Gonzalez is a registered nurse with a BSN, more than 17 years in nursing and 25 years in healthcare. She founded Avida Luna to bring professional, personalized care directly to her community.',
     sections: {
       story: {
         text: "Shary started Avida Luna because she wanted care to feel personal again: one nurse, who knows your name, taking the time to do things properly.\n\nWhen you book with Avida Luna, Shary is the nurse who shows up. Not a call center, and not a rotating staff. She reviews your screening, assesses you in person, places your IV and stays with you for the whole visit, at your home, your office or your event.\n\nShe speaks English and Spanish, so you can talk through your care in whichever language feels better for you.",
@@ -318,7 +354,8 @@ export const pageText: Record<PageKey, PageText> = {
   },
   contact: {
     heading: "Get in touch",
-    intro: "Questions about services, group visits or partnerships. Shary will get back to you personally.",
+    intro:
+      "Questions about services, group visits or partnerships. Shary will get back to you personally.",
     sections: {},
   },
   book: {
@@ -329,7 +366,8 @@ export const pageText: Record<PageKey, PageText> = {
   },
   join: {
     heading: "Join the Avida Luna list",
-    intro: "Get event news and offers from Shary by email. Unsubscribe anytime.",
+    intro:
+      "Get event news and offers from Shary by email. Unsubscribe anytime.",
     sections: {},
   },
 };

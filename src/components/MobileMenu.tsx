@@ -56,6 +56,7 @@ export function MobileMenu() {
               <Link
                 href={item.href}
                 className="block py-3 text-lg text-ink no-underline"
+                onClick={() => setOpen(false)}
                 aria-current={pathname === item.href ? "page" : undefined}
               >
                 {item.label}
@@ -67,6 +68,7 @@ export function MobileMenu() {
               <Link
                 href={item.href}
                 className="block py-3 text-base text-muted no-underline"
+                onClick={() => setOpen(false)}
                 aria-current={pathname === item.href ? "page" : undefined}
               >
                 {item.label}

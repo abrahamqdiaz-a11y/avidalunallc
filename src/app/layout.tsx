@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
@@ -9,20 +9,13 @@ import { getSiteSettings } from "@/lib/content";
 import { allowIndexing } from "@/lib/env";
 import { localBusinessSchema } from "@/lib/schema";
 import "./globals.css";
+import "./site.css";
 
-// next/font downloads these at build time and serves them from our own domain,
-// so visitors never make a request to Google.
-const manrope = Manrope({
+// Bundled variable font: no external font requests at build time or in the browser.
+const manrope = localFont({
+  src: "../../public/fonts/manrope-latin-variable.woff2",
   variable: "--font-manrope",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  display: "swap",
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: "200 800",
   display: "swap",
 });
 
@@ -46,14 +39,20 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const settings = await getSiteSettings();
   return (
-    <html lang="en" className={`${manrope.variable} ${inter.variable} antialiased`}>
+    <html lang="en" className={`${manrope.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
-        <Header phoneTel={settings.phoneTel} phoneDisplay={settings.phoneDisplay} />
+        <Header
+          phoneTel={settings.phoneTel}
+          phoneDisplay={settings.phoneDisplay}
+        />
         <main id="main" className="flex-1">
           {children}
         </main>
         <Footer settings={settings} />
-        <StickyBookBar phoneTel={settings.phoneTel} phoneDisplay={settings.phoneDisplay} />
+        <StickyBookBar
+          phoneTel={settings.phoneTel}
+          phoneDisplay={settings.phoneDisplay}
+        />
         <JsonLd data={localBusinessSchema(settings)} />
       </body>
     </html>

@@ -19,7 +19,8 @@ function loadSelection(validIds: Set<string>): Selection {
     const parsed = JSON.parse(raw) as Selection;
     const out: Selection = {};
     for (const [id, q] of Object.entries(parsed)) {
-      if (validIds.has(id) && Number.isInteger(q) && q > 0) out[id] = Math.min(MAX, q);
+      if (validIds.has(id) && Number.isInteger(q) && q > 0)
+        out[id] = Math.min(MAX, q);
     }
     return out;
   } catch {
@@ -27,7 +28,13 @@ function loadSelection(validIds: Set<string>): Selection {
   }
 }
 
-export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paymentsEnabled: boolean }) {
+export function AddOnPicker({
+  addOns,
+  paymentsEnabled,
+}: {
+  addOns: AddOn[];
+  paymentsEnabled: boolean;
+}) {
   const [qty, setQty] = useState<Selection>({});
   const [restored, setRestored] = useState(false);
   const [pending, setPending] = useState(false);
@@ -41,7 +48,8 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
   }, [addOns]);
 
   useEffect(() => {
-    if (restored) safeSession()?.setItem(STORAGE.selection, JSON.stringify(qty));
+    if (restored)
+      safeSession()?.setItem(STORAGE.selection, JSON.stringify(qty));
   }, [qty, restored]);
 
   const { count, total } = useMemo(() => {
@@ -70,17 +78,23 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
     if (count === 0 || pending) return;
     setPending(true);
     setError(null);
-    const items = Object.entries(qty).map(([id, quantity]) => ({ id, quantity }));
+    const items = Object.entries(qty).map(([id, quantity]) => ({
+      id,
+      quantity,
+    }));
     const email = safeSession()?.getItem(STORAGE.email) ?? "";
     const result = (await postJson("/api/checkout", { items, email })) as
-      | { ok: true; url?: string }
-      | { ok: false; error: string };
+      { ok: true; url?: string } | { ok: false; error: string };
     if (result.ok && "url" in result && result.url) {
       window.location.assign(result.url);
       return;
     }
     setPending(false);
-    setError(result.ok ? "We couldn't start checkout. Please try again." : result.error);
+    setError(
+      result.ok
+        ? "We couldn't start checkout. Please try again."
+        : result.error,
+    );
   }
 
   const summaryText = `${count} ${count === 1 ? "add-on" : "add-ons"} · ${formatPrice(total)}`;
@@ -96,29 +110,46 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
       {pending ? "Opening checkout…" : "Pay now"}
     </button>
   ) : (
-    <p className="rounded-xl bg-sage/50 px-4 py-3 text-[0.9375rem]" data-testid="payments-off">
+    <p
+      className="rounded-xl bg-sage/50 px-4 py-3 text-[0.9375rem]"
+      data-testid="payments-off"
+    >
       Online payment coming soon. Add your add-ons at your visit.
     </p>
   );
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_20rem] lg:items-start">
-      <ul className="grid gap-5 sm:grid-cols-2" aria-label="Wellness add-ons">
+    <div className="addon-layout grid gap-8 lg:grid-cols-[1fr_20rem] lg:items-start">
+      <ul className="addon-list" aria-label="Wellness add-ons">
         {addOns.map((a) => {
           const q = qty[a.id] ?? 0;
           const duration = formatDuration(a.durationMinutes);
           return (
-            <li key={a.id} className="card flex flex-col overflow-hidden" data-testid={`addon-${a.id}`}>
-              <div className="p-3 pb-0">
-                <PhotoSlot image={a.image} label={a.name} sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 90vw" />
-              </div>
-              <div className="flex flex-1 flex-col p-5">
+            <li
+              key={a.id}
+              className="card flex flex-col overflow-hidden"
+              data-testid={`addon-${a.id}`}
+            >
+              {a.image ? (
+                <div className="addon-image">
+                  <PhotoSlot
+                    image={a.image}
+                    label={a.name}
+                    sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 90vw"
+                  />
+                </div>
+              ) : null}
+              <div className="addon-item-body flex flex-1 flex-col p-5">
                 <h2 className="text-2xl">{a.name}</h2>
                 <p className="mt-1 text-[0.9375rem] font-semibold">
                   {[duration, formatPrice(a.price)].filter(Boolean).join(" · ")}
                 </p>
                 <p className="mt-2 flex-1">{a.description}</p>
-                <div className="mt-4 flex items-center gap-3" role="group" aria-label={`${a.name} quantity`}>
+                <div
+                  className="mt-4 flex items-center gap-3"
+                  role="group"
+                  aria-label={`${a.name} quantity`}
+                >
                   <button
                     type="button"
                     className="grid size-11 place-items-center rounded-md border-[1.5px] border-olive text-olive-dark disabled:opacity-40"
@@ -128,7 +159,11 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
                   >
                     <MinusIcon />
                   </button>
-                  <output className="w-8 text-center text-lg font-semibold" aria-live="polite" aria-label={`${a.name}: ${q}`}>
+                  <output
+                    className="w-8 text-center text-lg font-semibold"
+                    aria-live="polite"
+                    aria-label={`${a.name}: ${q}`}
+                  >
                     {q}
                   </output>
                   <button
@@ -148,10 +183,16 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
       </ul>
 
       {/* Desktop summary card */}
-      <aside className="card sticky top-28 hidden p-6 lg:block" aria-label="Your add-ons">
+      <aside
+        className="card sticky top-28 hidden p-6 lg:block"
+        aria-label="Your add-ons"
+      >
+        <p className="eyebrow mb-3">YOUR SELECTION</p>
         <h2 className="text-2xl">Your add-ons</h2>
         {count === 0 ? (
-          <p className="mt-3">Nothing added yet.</p>
+          <p className="mt-3">
+            Nothing added yet. Choose an optional add-on to see your total.
+          </p>
         ) : (
           <ul className="mt-3 space-y-1">
             {addOns
@@ -166,7 +207,11 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
               ))}
           </ul>
         )}
-        <p id="addon-summary" className="mt-4 border-t border-olive/15 pt-4 font-semibold" aria-live="polite">
+        <p
+          id="addon-summary"
+          className="mt-4 border-t border-olive/15 pt-4 font-semibold"
+          aria-live="polite"
+        >
           {summaryText}
         </p>
         <div className="mt-4">{payButton}</div>

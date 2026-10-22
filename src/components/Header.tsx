@@ -1,3 +1,7 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { PHONE_DISPLAY, PHONE_TEL } from "@/lib/constants";
 import { PhoneIcon } from "./Icons";
@@ -12,8 +16,23 @@ export function Header({
   phoneTel?: string;
   phoneDisplay?: string;
 }) {
+  const pathname = usePathname();
+  const focused = ["/book", "/join", "/add-ons"].some(
+    (path) => pathname === path || pathname.startsWith(`${path}/`),
+  );
+  const [condensed, setCondensed] = useState(false);
+  useEffect(() => {
+    const update = () => setCondensed(window.scrollY > 60);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur supports-[backdrop-filter]:bg-cream/85">
+    <header
+      data-focused={focused}
+      data-condensed={condensed}
+      className="site-header sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur supports-[backdrop-filter]:bg-cream/85"
+    >
       <a
         href="#main"
         className="visually-hidden focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:h-auto focus:w-auto focus:rounded-md focus:bg-paper focus:px-4 focus:py-2 focus:[clip:auto]"
@@ -26,7 +45,10 @@ export function Header({
           <ul className="flex items-center gap-6 text-[0.9375rem] font-medium">
             {mainNav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="inline-block py-2 text-ink no-underline hover:text-olive hover:underline">
+                <Link
+                  href={item.href}
+                  className="inline-block py-2 text-ink no-underline hover:text-olive hover:underline"
+                >
                   {item.label}
                 </Link>
               </li>
@@ -40,10 +62,19 @@ export function Header({
           >
             <PhoneIcon className="size-4" /> {phoneDisplay}
           </a>
-          <Link href="/book" className="btn btn-primary hidden min-h-11 px-4 text-[0.9375rem] sm:inline-flex md:px-5">
+          <Link
+            href="/book"
+            className="btn btn-primary hidden min-h-11 px-4 text-[0.9375rem] sm:inline-flex md:px-5"
+          >
             Book an appointment
           </Link>
-          <MobileMenu />
+          {focused ? (
+            <Link href="/services" className="focused-back">
+              Back to services
+            </Link>
+          ) : (
+            <MobileMenu />
+          )}
         </div>
       </div>
     </header>

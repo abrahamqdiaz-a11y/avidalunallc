@@ -11,11 +11,13 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="border-b border-line">
+    <section className="page-hero border-b border-line">
       <div className="container-page py-12 md:py-16">
         {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
         <h1 className="mt-2 text-4xl md:text-5xl">{heading}</h1>
-        {intro ? <p className="prose-width mt-4 text-lg text-muted">{intro}</p> : null}
+        {intro ? (
+          <p className="prose-width mt-4 text-lg text-muted">{intro}</p>
+        ) : null}
         {children}
       </div>
     </section>

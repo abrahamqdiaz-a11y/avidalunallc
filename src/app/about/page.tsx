@@ -21,13 +21,17 @@ export default async function AboutPage() {
   const paragraphs = (s.story?.text ?? "").split(/\n\n+/).filter(Boolean);
   return (
     <>
-      <section className="border-b border-line">
+      <section className="about-profile border-b border-line">
         <div className="container-page grid items-center gap-10 pb-14 pt-10 md:grid-cols-[1.2fr_1fr] md:pb-16 md:pt-16">
           <div>
             <p className="eyebrow">Meet your nurse</p>
             <h1 className="mt-3 text-4xl md:text-[3.25rem]">{text.heading}</h1>
-            <p className="mt-2 font-semibold text-olive">Founder and registered nurse, Avida Luna</p>
-            <p className="prose-width mt-5 text-lg text-muted md:text-xl">{text.intro}</p>
+            <p className="mt-2 font-semibold text-olive">
+              Founder and registered nurse, Avida Luna
+            </p>
+            <p className="prose-width mt-5 text-lg text-muted md:text-xl">
+              {text.intro}
+            </p>
           </div>
           <Portrait priority />
         </div>
@@ -41,11 +45,15 @@ export default async function AboutPage() {
             </p>
           ))}
           <Todo className="mt-6">
-            This story is a draft built only from facts on her current site. Shary to replace or edit it in her own
-            words (Sanity: Page text → About).
+            This story is a draft built only from facts on her current site.
+            Shary to replace or edit it in her own words (Sanity: Page text →
+            About).
           </Todo>
         </div>
-        <aside className="card self-start p-6" aria-labelledby="cred-heading">
+        <aside
+          className="about-credentials card self-start p-6"
+          aria-labelledby="cred-heading"
+        >
           <h2 id="cred-heading" className="text-xl">
             {s.credentials?.heading}
           </h2>
@@ -57,8 +65,9 @@ export default async function AboutPage() {
             ))}
           </ul>
           <Todo className="mt-4">
-            Confirm credentials, add her Florida RN license number (verifiable on the Florida Board of Nursing lookup)
-            and her areas of nursing experience.
+            Confirm credentials, add her Florida RN license number (verifiable
+            on the Florida Board of Nursing lookup) and her areas of nursing
+            experience.
           </Todo>
         </aside>
       </section>
@@ -69,11 +78,15 @@ export default async function AboutPage() {
             &ldquo;{s.mission.text}&rdquo;
           </blockquote>
         ) : (
-          <Todo className="mx-auto max-w-xl">Shary&apos;s mission quote, word for word from her current site.</Todo>
+          <Todo className="mx-auto max-w-xl">
+            Shary&apos;s mission quote, word for word from her current site.
+          </Todo>
         )}
       </section>
 
-      <FinalCta secondary={{ href: "/contact", label: "Ask Shary a question" }} />
+      <FinalCta
+        secondary={{ href: "/contact", label: "Ask Shary a question" }}
+      />
     </>
   );
 }

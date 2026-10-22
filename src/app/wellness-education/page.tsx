@@ -15,21 +15,32 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default async function EducationPage() {
-  const [text, articles] = await Promise.all([getPageText("education"), getArticles()]);
+  const [text, articles] = await Promise.all([
+    getPageText("education"),
+    getArticles(),
+  ]);
   return (
     <>
       <PageHero heading={text.heading} intro={text.intro} />
       <section className="container-page py-12 md:py-16">
-        <ul className="grid gap-5 md:grid-cols-2">
+        <ul className="resource-list">
           {articles.map((a) => (
             <li key={a.id} className="card p-6 md:p-8">
               <article>
                 <h2 className="text-2xl md:text-3xl">
-                  <Link href={`/wellness-education/${a.slug}`} className="text-olive no-underline hover:underline">
+                  <Link
+                    href={`/wellness-education/${a.slug}`}
+                    className="text-olive no-underline hover:underline"
+                  >
                     {a.title}
                   </Link>
                 </h2>
                 <p className="mt-2">{a.summary}</p>
+                <p className="eyebrow mt-6">
+                  <Link href={`/wellness-education/${a.slug}`}>
+                    Read the overview →
+                  </Link>
+                </p>
                 {a.todo ? <Todo className="mt-3">{a.todo}</Todo> : null}
               </article>
             </li>

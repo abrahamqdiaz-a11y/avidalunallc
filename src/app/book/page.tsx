@@ -17,25 +17,11 @@ export const metadata: Metadata = pageMetadata({
 export default async function BookPage() {
   const text = await getPageText("book");
   return (
-    <>
+    <div className="booking-page">
       <PageHero eyebrow="Book" heading={text.heading} intro={text.intro} />
       <section className="container-page max-w-2xl py-10 md:py-14">
-        <ol className="mb-8 flex flex-wrap gap-x-6 gap-y-2 text-[0.9375rem] font-semibold" aria-label="Booking steps">
-          <li>
-            <span className="mr-2 inline-grid size-7 place-items-center rounded-md bg-olive text-white">1</span>
-            Your details <span className="sr-only">(current step)</span>
-          </li>
-          <li>
-            <span className="mr-2 inline-grid size-7 place-items-center rounded-md bg-sage text-ink">2</span>
-            Service, time and screening
-          </li>
-          <li>
-            <span className="mr-2 inline-grid size-7 place-items-center rounded-md bg-sage text-ink">3</span>
-            Your nurse comes to you
-          </li>
-        </ol>
         <IntakeForm mode="book" hydreightUrl={HYDREIGHT_BOOKING_URL} />
       </section>
-    </>
+    </div>
   );
 }

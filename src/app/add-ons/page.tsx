@@ -17,13 +17,21 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default async function AddOnsPage() {
-  const [text, addOns] = await Promise.all([getPageText("addons"), getAddOns()]);
+  const [text, addOns] = await Promise.all([
+    getPageText("addons"),
+    getAddOns(),
+  ]);
   const todos = addOns.filter((a) => a.todo);
   return (
     <>
-      <PageHero eyebrow="Optional add-ons" heading={text.heading} intro={text.intro}>
+      <PageHero
+        eyebrow="After you book"
+        heading={text.heading}
+        intro={text.intro}
+      >
         <p className="mt-3 text-[0.9375rem]">
-          Haven&apos;t booked yet? <Link href="/book">Book an appointment first</Link>.
+          Haven&apos;t booked yet?{" "}
+          <Link href="/book">Book an appointment first</Link>.
         </p>
       </PageHero>
       <section className="container-page py-10 md:py-14">

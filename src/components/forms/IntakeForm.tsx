@@ -5,13 +5,20 @@ import { useEffect, useRef, useState } from "react";
 import { ExternalIcon } from "@/components/Icons";
 import { NO_MEDICAL_INFO_NOTE } from "@/lib/constants";
 import { fieldErrors, intakeSchema, joinSchema } from "@/lib/validation";
-import { CheckboxField, FormError, Honeypot, SelectField, TextField } from "./fields";
+import {
+  CheckboxField,
+  FormError,
+  Honeypot,
+  SelectField,
+  TextField,
+} from "./fields";
 import { postJson, readForm, safeSession, STORAGE } from "./submit";
 import { useStartedAt } from "./useGuard";
 
 type Mode = "book" | "join";
 
-const OPT_IN_LABEL = "Yes, email me Avida Luna news and offers. Unsubscribe anytime.";
+const OPT_IN_LABEL =
+  "Yes, email me Avida Luna news and offers. Unsubscribe anytime.";
 
 /**
  * The intake form used on /book (opt-in optional) and /join (opt-in required).
@@ -81,13 +88,37 @@ export function IntakeForm({
     }
   }
 
+  const progress =
+    mode === "book" ? (
+      <ol className="booking-progress" aria-label="Booking steps">
+        {["Your details", "Booking & screening", "Visit"].map((label, i) => (
+          <li
+            key={label}
+            aria-current={i === (done ? 1 : 0) ? "step" : undefined}
+            data-complete={done && i === 0}
+          >
+            <span aria-hidden>{i + 1}</span>
+            {label}
+          </li>
+        ))}
+      </ol>
+    ) : null;
+
   if (done && mode === "book") {
     return (
-      <div ref={successRef} tabIndex={-1} className="card p-6 outline-none md:p-8" data-testid="book-success">
-        <h2 className="text-3xl">Thank you. Next, choose your service and time.</h2>
+      <div
+        ref={successRef}
+        tabIndex={-1}
+        className="card p-6 outline-none md:p-8"
+        data-testid="book-success"
+      >
+        {progress}
+        <p className="eyebrow mb-4">YOUR NEXT STEP</p>
+        <h2 className="text-3xl">Your next step is ready.</h2>
         <p className="mt-3">
-          Our secure booking page (powered by Hydreight) opens in a new tab. That&apos;s where you pick your service,
-          choose a time and complete a short screening.
+          Our secure booking page (powered by Hydreight) opens in a new tab.
+          That&apos;s where you pick your service, choose a time and complete a
+          short screening.
         </p>
         <a
           href={hydreightUrl}
@@ -101,13 +132,19 @@ export function IntakeForm({
         </a>
         <p className="mt-4 text-[0.9375rem]">
           If it didn&apos;t open, use this link:{" "}
-          <a href={hydreightUrl} target="_blank" rel="noopener" className="break-all">
+          <a
+            href={hydreightUrl}
+            target="_blank"
+            rel="noopener"
+            className="break-all"
+          >
             {hydreightUrl.replace(/^https:\/\//, "")}
           </a>
         </p>
         <div className="mt-6 border-t border-olive/15 pt-5">
           <p>
-            After you book, you can add an optional wellness add-on like red light or aromatherapy.{" "}
+            After you book, you can add an optional wellness add-on like red
+            light or aromatherapy.{" "}
             <Link href="/add-ons" className="font-semibold">
               See add-ons
             </Link>
@@ -119,9 +156,17 @@ export function IntakeForm({
 
   if (done && mode === "join") {
     return (
-      <div ref={successRef} tabIndex={-1} className="card p-6 outline-none md:p-8" data-testid="join-success">
+      <div
+        ref={successRef}
+        tabIndex={-1}
+        className="card p-6 outline-none md:p-8"
+        data-testid="join-success"
+      >
         <h2 className="text-3xl">You&apos;re on the list.</h2>
-        <p className="mt-3">Thanks for joining. Watch your inbox for event news and offers from Shary.</p>
+        <p className="mt-3">
+          Thanks for joining. Watch your inbox for event news and offers from
+          Shary.
+        </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link href="/book" className="btn btn-primary">
             Book an appointment
@@ -135,11 +180,28 @@ export function IntakeForm({
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="card relative space-y-5 p-6 md:p-8">
+    <form
+      onSubmit={onSubmit}
+      noValidate
+      className="card relative space-y-5 p-6 md:p-8"
+    >
+      {progress}
       <Honeypot />
       <div className="grid gap-5 sm:grid-cols-2">
-        <TextField name="firstName" label="First name" required autoComplete="given-name" error={errors.firstName} />
-        <TextField name="lastName" label="Last name" required autoComplete="family-name" error={errors.lastName} />
+        <TextField
+          name="firstName"
+          label="First name"
+          required
+          autoComplete="given-name"
+          error={errors.firstName}
+        />
+        <TextField
+          name="lastName"
+          label="Last name"
+          required
+          autoComplete="family-name"
+          error={errors.lastName}
+        />
       </div>
       <TextField
         name="email"
@@ -170,17 +232,26 @@ export function IntakeForm({
       ) : null}
       <CheckboxField
         name="optIn"
-        label={mode === "join" ? "Yes, email me Avida Luna event news and offers. Unsubscribe anytime." : OPT_IN_LABEL}
+        label={
+          mode === "join"
+            ? "Yes, email me Avida Luna event news and offers. Unsubscribe anytime."
+            : OPT_IN_LABEL
+        }
         required={mode === "join"}
         error={errors.optIn}
       />
       <FormError message={formError} />
-      <button type="submit" className="btn btn-primary w-full text-lg" disabled={pending}>
+      <button
+        type="submit"
+        className="btn btn-primary w-full text-lg"
+        disabled={pending}
+      >
         {mode === "book" ? "Continue" : pending ? "Joining…" : "Join the list"}
       </button>
       <p className="text-[0.9375rem] text-[#5a6150]">
-        {NO_MEDICAL_INFO_NOTE} Health screening happens privately on our secure booking page. We only email you if
-        you tick the box. See our <Link href="/privacy">privacy notice</Link>.
+        {NO_MEDICAL_INFO_NOTE} Health screening happens privately on our secure
+        booking page. We only email you if you tick the box. See our{" "}
+        <Link href="/privacy">privacy notice</Link>.
       </p>
     </form>
   );
