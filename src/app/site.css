@@ -725,10 +725,6 @@ footer .border-t {
   border-radius: 2px;
   font-size: 15px;
 }
-/* The call button is a 48px circle; the shared .btn padding would squeeze its icon to nothing. */
-.fixed.inset-x-0.bottom-0 a[href^="tel:"] {
-  padding: 0;
-}
 .site-header :focus-visible {
   outline-offset: 4px;
 }

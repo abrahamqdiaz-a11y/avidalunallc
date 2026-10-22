@@ -49,10 +49,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer settings={settings} />
-        <StickyBookBar
-          phoneTel={settings.phoneTel}
-          phoneDisplay={settings.phoneDisplay}
-        />
+        <StickyBookBar />
         <JsonLd data={localBusinessSchema(settings)} />
       </body>
     </html>
