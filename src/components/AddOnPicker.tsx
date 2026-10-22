@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { formatDuration, formatPrice } from "@/lib/format";
 import type { AddOn } from "@/lib/types";
 import { PhotoSlot } from "./Portrait";
-import { FormError } from "./forms/fields";
-import { postJson, safeSession, STORAGE } from "./forms/submit";
-import { MinusIcon, PlusIcon } from "./Icons";
+import { FormError, Honeypot, TextField } from "./forms/fields";
+import { postJson, readForm, safeSession, STORAGE } from "./forms/submit";
+import { useStartedAt } from "./forms/useGuard";
+import { CheckIcon, MinusIcon, PlusIcon } from "./Icons";
 
 const MAX = 10;
 
@@ -39,6 +40,13 @@ export function AddOnPicker({
   const [restored, setRestored] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const startedAt = useStartedAt();
+  const [contact, setContact] = useState({ firstName: "", email: "" });
+  const [visitErrors, setVisitErrors] = useState<Record<string, string>>({});
+  const [visitError, setVisitError] = useState<string | null>(null);
+  const [visitPending, setVisitPending] = useState(false);
+  const [visitSent, setVisitSent] = useState(false);
 
   // Restore the last selection (e.g. after cancelling checkout).
   useEffect(() => {
@@ -97,24 +105,74 @@ export function AddOnPicker({
     );
   }
 
+  function openAtVisit() {
+    if (count === 0) return;
+    const session = safeSession();
+    setContact({
+      firstName: session?.getItem(STORAGE.firstName) ?? "",
+      email: session?.getItem(STORAGE.email) ?? "",
+    });
+    setVisitErrors({});
+    setVisitError(null);
+    setVisitSent(false);
+    dialog.current?.showModal();
+  }
+
+  async function sendAtVisit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (visitPending) return;
+    const { str } = readForm(e.currentTarget);
+    setVisitPending(true);
+    setVisitError(null);
+    const result = await postJson("/api/add-ons/at-visit", {
+      items: Object.entries(qty).map(([id, quantity]) => ({ id, quantity })),
+      firstName: str("firstName"),
+      email: str("email"),
+      website: str("website"),
+      startedAt: startedAt.current,
+    });
+    setVisitPending(false);
+    if (result.ok) {
+      safeSession()?.setItem(STORAGE.email, str("email"));
+      safeSession()?.setItem(STORAGE.firstName, str("firstName"));
+      setVisitSent(true);
+      setQty({});
+    } else {
+      setVisitErrors(result.fields ?? {});
+      setVisitError(result.error);
+    }
+  }
+
   const summaryText = `${count} ${count === 1 ? "add-on" : "add-ons"} · ${formatPrice(total)}`;
+
+  const atVisitButton = (
+    <button
+      type="button"
+      className="btn btn-primary w-full"
+      onClick={openAtVisit}
+      disabled={count === 0}
+      aria-describedby="addon-summary"
+    >
+      Pay at my visit
+    </button>
+  );
 
   const payButton = paymentsEnabled ? (
     <button
       type="button"
-      className="btn btn-primary w-full"
+      className="btn btn-outline w-full"
       onClick={pay}
       disabled={count === 0 || pending}
       aria-describedby="addon-summary"
     >
-      {pending ? "Opening checkout…" : "Pay now"}
+      {pending ? "Opening checkout…" : "Pay now by card"}
     </button>
   ) : (
     <p
       className="rounded-xl bg-sage/50 px-4 py-3 text-[0.9375rem]"
       data-testid="payments-off"
     >
-      Online payment coming soon. Add your add-ons at your visit.
+      Online payment coming soon. Pay for your add-ons at your visit.
     </p>
   );
 
@@ -214,7 +272,13 @@ export function AddOnPicker({
         >
           {summaryText}
         </p>
-        <div className="mt-4">{payButton}</div>
+        <div className="mt-4 space-y-3">
+          {atVisitButton}
+          {payButton}
+        </div>
+        <p className="mt-3 text-[0.9375rem] text-muted">
+          At your visit, Shary takes tap-to-pay or card.
+        </p>
         <div className="mt-3">
           <FormError message={error} />
         </div>
@@ -229,14 +293,95 @@ export function AddOnPicker({
               <FormError message={error} />
             </div>
           ) : null}
+          <p className="mb-2 font-semibold" aria-hidden>
+            {summaryText}
+          </p>
           <div className="flex items-center gap-3">
-            <p className="shrink-0 font-semibold" aria-hidden>
-              {summaryText}
-            </p>
+            <div className="flex-1">{atVisitButton}</div>
             <div className="flex-1">{payButton}</div>
           </div>
         </div>
       </div>
+
+      <dialog
+        ref={dialog}
+        className="addon-dialog card p-6 md:p-8"
+        aria-labelledby="at-visit-heading"
+        data-testid="at-visit-dialog"
+      >
+        {visitSent ? (
+          <div>
+            <span className="grid size-12 place-items-center rounded-full bg-sage text-ink">
+              <CheckIcon className="size-6" />
+            </span>
+            <h2 id="at-visit-heading" className="mt-4 text-3xl">
+              You&apos;re all set.
+            </h2>
+            <p className="mt-2">
+              Shary will bring your add-ons to your appointment. Pay at your
+              visit by tapping your card or phone.
+            </p>
+            <button
+              type="button"
+              className="btn btn-primary mt-6 w-full"
+              onClick={() => dialog.current?.close()}
+            >
+              Done
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={sendAtVisit} noValidate className="space-y-5">
+            <div>
+              <p className="eyebrow mb-3">PAY AT MY VISIT</p>
+              <h2 id="at-visit-heading" className="text-3xl">
+                Who should Shary bring these for?
+              </h2>
+              <p className="mt-2 text-[0.9375rem]">
+                {summaryText}. Use the same email you booked with. Nothing is
+                charged now.
+              </p>
+            </div>
+            <Honeypot />
+            <TextField
+              key={`n-${contact.firstName}`}
+              name="firstName"
+              label="First name"
+              required
+              autoComplete="given-name"
+              defaultValue={contact.firstName}
+              error={visitErrors.firstName}
+            />
+            <TextField
+              key={`e-${contact.email}`}
+              name="email"
+              type="email"
+              label="Email"
+              required
+              autoComplete="email"
+              inputMode="email"
+              defaultValue={contact.email}
+              error={visitErrors.email}
+            />
+            <FormError message={visitError} />
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button
+                type="submit"
+                className="btn btn-primary flex-1"
+                disabled={visitPending}
+              >
+                {visitPending ? "Sending…" : "Confirm add-ons"}
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline flex-1"
+                onClick={() => dialog.current?.close()}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        )}
+      </dialog>
     </div>
   );
 }

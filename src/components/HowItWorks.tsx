@@ -5,17 +5,17 @@ const steps = [
   {
     label: "Request",
     title: "Request an appointment",
-    text: "Share your name and email, then choose your service and a time on our secure booking page, powered by Hydreight.",
+    text: "Tap Book and leave your name and email. You get your booking link right away, then pick your services and a time on our secure booking page, powered by Hydreight.",
   },
   {
     label: "Assessment",
     title: "Health screening and assessment",
-    text: "You complete a confidential health screening when you book. Before your IV starts, Shary reviews it with you and checks that IV hydration is a good fit.",
+    text: "You complete a confidential health screening and pay for your IV on Hydreight when you book. Before your IV starts, Shary reviews it with you and checks that IV hydration is a good fit.",
   },
   {
     label: "Visit",
     title: "Your nurse comes to you",
-    text: "Shary arrives at your home, office or event in the Lakewood Ranch area and stays with you for the whole visit.",
+    text: "Shary arrives at your home, office or event in the Lakewood Ranch area and stays with you for the whole visit. Pay for any add-ons at your visit or online.",
   },
 ];
 
@@ -43,7 +43,7 @@ export function HowItWorks({ compact = false }: { compact?: boolean }) {
       {compact ? null : (
         <p className="mt-5 text-muted">
           Optional <Link href="/add-ons">wellness add-ons</Link>, like red light or aromatherapy, can be added after you
-          book.
+          book. Pay for them at your visit or online.
         </p>
       )}
     </div>

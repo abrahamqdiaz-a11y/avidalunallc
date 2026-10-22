@@ -201,7 +201,7 @@ export const faqs: Faq[] = [
     id: "faq-book",
     question: "How do I book?",
     answer:
-      "Start on our Book page. After you share your name and email, you'll continue to our secure booking page on Hydreight to choose your drip and time.",
+      "Tap Book and share your name and email. You'll get your booking link right away, then pick your services, a time, and complete your screening and payment on our secure booking page on Hydreight. Optional add-ons come after.",
   },
   {
     id: "faq-travel",
@@ -232,13 +232,13 @@ export const faqs: Faq[] = [
     id: "faq-addons",
     question: "Can I add red light or aromatherapy?",
     answer:
-      "Yes, as optional add-ons to an IV appointment. After you book, add them on our Add-ons page, or ask Shary at your visit and pay by card then.",
+      "Yes, as optional add-ons to an IV appointment. After you book, choose them on our Add-ons page and pay at your visit or online by card.",
   },
   {
     id: "faq-pay",
     question: "How do I pay?",
     answer:
-      "IV services are booked and paid on Hydreight. Add-ons can be paid by card online on our Add-ons page, or at your visit.",
+      "IV services are booked and paid on Hydreight. Add-ons can be paid at your visit (tap to pay or card) or online by card on our Add-ons page.",
   },
   {
     id: "faq-cancel",
@@ -309,7 +309,7 @@ export const pageText: Record<PageKey, PageText> = {
   addons: {
     heading: "After you book",
     intro:
-      "Optional extras for an IV appointment you've already booked. Add them here, or ask Shary at your visit and pay by card then.",
+      "Make it a ritual. Optional extras for an IV appointment you've already booked. Choose them here, then pay at your visit or now by card.",
     sections: {},
   },
   events: {
@@ -361,7 +361,7 @@ export const pageText: Record<PageKey, PageText> = {
   book: {
     heading: "Book an appointment",
     intro:
-      "Takes 30 seconds. Next, you'll choose your service and time and complete a short health screening on our secure booking page.",
+      "Takes 30 seconds and you get your booking link right away. Next, you'll pick your services and a time, then complete a short health screening and payment on our secure booking page.",
     sections: {},
   },
   join: {

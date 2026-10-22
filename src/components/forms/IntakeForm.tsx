@@ -38,6 +38,7 @@ export function IntakeForm({
   const [formError, setFormError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [done, setDone] = useState(false);
+  const [firstName, setFirstName] = useState("");
   const successRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -71,6 +72,8 @@ export function IntakeForm({
       // Show the booking button right away. The intake request runs in the background;
       // Mailchimp problems are handled on the server and never block booking.
       safeSession()?.setItem(STORAGE.email, parsed.data.email);
+      safeSession()?.setItem(STORAGE.firstName, parsed.data.firstName);
+      setFirstName(parsed.data.firstName);
       setDone(true);
       void postJson("/api/intake", payload);
       return;
@@ -91,7 +94,7 @@ export function IntakeForm({
   const progress =
     mode === "book" ? (
       <ol className="booking-progress" aria-label="Booking steps">
-        {["Your details", "Booking & screening", "Visit"].map((label, i) => (
+        {["Your details", "Services, time & screening", "Add-ons & visit"].map((label, i) => (
           <li
             key={label}
             aria-current={i === (done ? 1 : 0) ? "step" : undefined}
@@ -113,12 +116,11 @@ export function IntakeForm({
         data-testid="book-success"
       >
         {progress}
-        <p className="eyebrow mb-4">YOUR NEXT STEP</p>
-        <h2 className="text-3xl">Your next step is ready.</h2>
+        <p className="eyebrow mb-4">YOUR BOOKING LINK</p>
+        <h2 className="text-3xl">You&apos;re in, {firstName}.</h2>
         <p className="mt-3">
-          Our secure booking page (powered by Hydreight) opens in a new tab.
-          That&apos;s where you pick your service, choose a time and complete a
-          short screening.
+          Your booking link is ready. It opens our secure booking page (powered
+          by Hydreight) in a new tab.
         </p>
         <a
           href={hydreightUrl}
@@ -127,7 +129,7 @@ export function IntakeForm({
           className="btn btn-primary mt-6 w-full text-lg sm:w-auto"
           data-testid="hydreight-button"
         >
-          Continue to secure booking <ExternalIcon />
+          Book now <ExternalIcon />
           <span className="sr-only">(opens in a new tab)</span>
         </a>
         <p className="mt-4 text-[0.9375rem]">
@@ -142,13 +144,21 @@ export function IntakeForm({
           </a>
         </p>
         <div className="mt-6 border-t border-olive/15 pt-5">
-          <p>
-            After you book, you can add an optional wellness add-on like red
-            light or aromatherapy.{" "}
-            <Link href="/add-ons" className="font-semibold">
-              See add-ons
-            </Link>
-          </p>
+          <p className="eyebrow mb-3">WHAT HAPPENS NEXT</p>
+          <ol className="list-decimal space-y-1 pl-5">
+            <li>Pick your services and a time on Hydreight.</li>
+            <li>
+              Complete a quick, secure health screening and pay for your IV
+              there.
+            </li>
+            <li>
+              Then make it a ritual with an optional add-on, like red light or
+              aromatherapy. Pay online or at your visit.{" "}
+              <Link href="/add-ons" className="font-semibold">
+                See add-ons
+              </Link>
+            </li>
+          </ol>
         </div>
       </div>
     );
@@ -246,9 +256,12 @@ export function IntakeForm({
         className="btn btn-primary w-full text-lg"
         disabled={pending}
       >
-        {mode === "book" ? "Continue" : pending ? "Joining…" : "Join the list"}
+        {mode === "book" ? "Get my booking link" : pending ? "Joining…" : "Join the list"}
       </button>
       <p className="text-[0.9375rem] text-[#5a6150]">
+        {mode === "book"
+          ? "You'll get your booking link right away. Ticking the box is optional and doesn't affect your booking. "
+          : null}
         {NO_MEDICAL_INFO_NOTE} Health screening happens privately on our secure
         booking page. We only email you if you tick the box. See our{" "}
         <Link href="/privacy">privacy notice</Link>.

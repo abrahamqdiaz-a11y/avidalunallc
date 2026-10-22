@@ -48,6 +48,7 @@ export function TextField({
   max,
   min,
   maxLength = 120,
+  defaultValue,
   ...p
 }: Common & {
   type?: "text" | "email" | "tel" | "date";
@@ -56,6 +57,7 @@ export function TextField({
   max?: string;
   min?: string;
   maxLength?: number;
+  defaultValue?: string;
 }) {
   const id = useId();
   return (
@@ -69,6 +71,7 @@ export function TextField({
         autoComplete={autoComplete}
         inputMode={inputMode}
         maxLength={maxLength}
+        defaultValue={defaultValue}
         min={min}
         max={max}
         className="field-input"

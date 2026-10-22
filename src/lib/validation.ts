@@ -96,6 +96,15 @@ export const checkoutSchema = z.object({
 });
 export type CheckoutInput = z.infer<typeof checkoutSchema>;
 
+/** "Pay at my visit": the add-ons plus who to bring them for. No prices, no health details. */
+export const atVisitSchema = z.object({
+  items: checkoutSchema.shape.items,
+  firstName: name,
+  email,
+  ...guard,
+});
+export type AtVisitInput = z.infer<typeof atVisitSchema>;
+
 /** Field errors keyed by field name, first message only. */
 export function fieldErrors(error: z.ZodError): Record<string, string> {
   const out: Record<string, string> = {};
