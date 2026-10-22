@@ -25,7 +25,8 @@ export const service = defineType({
       options: {
         list: [
           { title: "IV drip", value: "iv" },
-          { title: "Vitamin boost or injection", value: "vitamin" },
+          { title: "Drip add-in (added to an IV)", value: "boost" },
+          { title: "Vitamin injection", value: "vitamin" },
           { title: "By consultation", value: "consultation" },
         ],
         layout: "radio",
@@ -33,7 +34,31 @@ export const service = defineType({
       validation: (rule) => rule.required().error("Please choose a category."),
     }),
     checkedText("description", "Short description", "One or two plain sentences about the experience. No health promises."),
+    defineField({
+      name: "goodFor",
+      title: "Good for",
+      type: "string",
+      description: "IV drips only. A few short words, e.g. “Training · Endurance · Rest days”. No health promises.",
+      hidden: ({ document }) => document?.category !== "iv",
+      validation: (rule) => [rule.max(60), rule.custom(complianceCheck).warning()],
+    }),
     priceField("Leave empty if you don't want a price shown. Must match your Hydreight price."),
+    defineField({
+      name: "optionName",
+      title: "Upgrade name",
+      type: "string",
+      description: "Optional. One upgrade shown on the same card, e.g. “With chromium”.",
+      hidden: ({ document }) => document?.category !== "iv",
+      validation: (rule) => [rule.max(40), rule.custom(complianceCheck).warning()],
+    }),
+    defineField({
+      name: "optionPrice",
+      title: "Upgrade price (US dollars)",
+      type: "number",
+      description: "The full price with the upgrade, e.g. 240. Must match your Hydreight price.",
+      hidden: ({ document }) => document?.category !== "iv",
+      validation: (rule) => rule.min(1).max(1000).precision(2),
+    }),
     defineField({
       name: "showPrice",
       title: "Show the price",

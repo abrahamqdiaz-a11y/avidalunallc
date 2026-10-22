@@ -5,26 +5,39 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { IvServiceCard } from "@/components/Cards";
 import { ArrowRightIcon } from "@/components/Icons";
 import { PageHero } from "@/components/PageHero";
-import { getPageText, getServices } from "@/lib/content";
+import { getAddOns, getPageText, getServices } from "@/lib/content";
+import { formatDuration, formatPrice } from "@/lib/format";
 import { pageMetadata } from "@/lib/seo";
+import type { Service } from "@/lib/types";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
   title: "Nurse-Led Mobile IV Hydration in Lakewood Ranch",
   description:
-    "Mobile IV hydration, consultations and group visits from Shary Gonzalez, RN, BSN, at your home, office or event in Lakewood Ranch, FL. Screened before every visit.",
+    "Mobile IV drips, vitamin injections, consultations and group visits from Shary Gonzalez, RN, BSN, at your home, office or event in Lakewood Ranch, FL. Screened before every visit.",
   path: "/services",
 });
 
 export default async function ServicesPage() {
-  const [text, services] = await Promise.all([
+  const [text, services, addOns] = await Promise.all([
     getPageText("services"),
     getServices(),
+    getAddOns(),
   ]);
   const s = text.sections;
   const drips = services.filter((x) => x.category === "iv");
+  const boosts = services.filter((x) => x.category === "boost");
   const vitamins = services.filter((x) => x.category === "vitamin");
+  const extras = addOns.filter((a) => !a.todo);
+  const jumpLinks = [
+    { href: "#iv-drips", label: "IV drips", show: drips.length > 0 },
+    { href: "#boosts", label: "Drip add-ins", show: boosts.length > 0 },
+    { href: "#injections", label: "Injections", show: vitamins.length > 0 },
+    { href: "#consultation", label: "Consultations", show: true },
+    { href: "#add-ons", label: "Wellness add-ons", show: true },
+    { href: "#groups", label: "Groups", show: true },
+  ].filter((l) => l.show);
 
   return (
     <>
@@ -32,10 +45,18 @@ export default async function ServicesPage() {
         <Link href="/book" className="btn btn-primary mt-7">
           Book an appointment
         </Link>
+        <nav aria-label="On this page" className="service-jump">
+          {jumpLinks.map((l) => (
+            <a key={l.href} href={l.href}>
+              {l.label}
+            </a>
+          ))}
+        </nav>
       </PageHero>
 
       <section
-        className="container-page py-12 md:py-16"
+        id="iv-drips"
+        className="container-page scroll-mt-32 py-12 md:py-16"
         aria-labelledby="iv-heading"
         data-section="iv-services"
       >
@@ -68,6 +89,51 @@ export default async function ServicesPage() {
         </div>
       </section>
 
+      {boosts.length ? (
+        <section
+          id="boosts"
+          className="container-page scroll-mt-32 pb-12 md:pb-16"
+          aria-labelledby="boost-heading"
+        >
+          <div className="price-panel">
+            <div>
+              <p className="eyebrow">Add to any IV</p>
+              <h2 id="boost-heading" className="mt-2 text-3xl md:text-4xl">
+                {s.boost?.heading}
+              </h2>
+              {s.boost?.text ? (
+                <p className="mt-3 text-muted">{s.boost.text}</p>
+              ) : null}
+            </div>
+            <PriceList items={boosts} />
+          </div>
+        </section>
+      ) : null}
+
+      {vitamins.length ? (
+        <section
+          id="injections"
+          className="container-page scroll-mt-32 pb-12 md:pb-16"
+          aria-labelledby="vitamin-heading"
+        >
+          <div className="price-panel">
+            <div>
+              <p className="eyebrow">Quick visits</p>
+              <h2 id="vitamin-heading" className="mt-2 text-3xl md:text-4xl">
+                {s.vitamin?.heading}
+              </h2>
+              {s.vitamin?.text ? (
+                <p className="mt-3 text-muted">{s.vitamin.text}</p>
+              ) : null}
+              <Link href="/book" className="btn btn-outline mt-6">
+                Book an injection <ArrowRightIcon />
+              </Link>
+            </div>
+            <PriceList items={vitamins} />
+          </div>
+        </section>
+      ) : null}
+
       <section
         id="consultation"
         className="container-page scroll-mt-32 pb-12 md:pb-16"
@@ -89,30 +155,45 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      {vitamins.length ? (
-        <section
-          className="container-page pb-12 md:pb-16"
-          aria-labelledby="vitamin-heading"
-        >
-          <h2 id="vitamin-heading" className="text-3xl md:text-4xl">
-            {s.vitamin?.heading}
-          </h2>
-          <ul className="vitamin-list">
-            {vitamins.map((service) => (
-              <li key={service.id}>
-                <h3>{service.name}</h3>
-                <p>{service.description}</p>
-                <Link href="/book">
-                  Book an appointment{" "}
-                  <ArrowRightIcon className="inline size-4 ml-2" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
 
-      <section className="container-page pb-12 md:pb-16">
+      <section
+        id="add-ons"
+        className="container-page scroll-mt-32 pb-12 md:pb-16"
+        aria-labelledby="addons-heading"
+      >
+        <div className="price-panel">
+          <div>
+            <p className="eyebrow">A little extra</p>
+            <h2 id="addons-heading" className="mt-2 text-3xl md:text-4xl">
+              {s.addons?.heading}
+            </h2>
+            <p className="mt-3 text-muted">{s.addons?.text}</p>
+            <Link href="/add-ons" className="btn btn-outline mt-6">
+              See add-ons <ArrowRightIcon />
+            </Link>
+          </div>
+          {extras.length ? (
+            <ul className="price-list">
+              {extras.map((a) => (
+                <li key={a.id}>
+                  <div>
+                    <h3>{a.name}</h3>
+                    <p>{a.description}</p>
+                  </div>
+                  <p className="price-list-price">
+                    {formatPrice(a.price)}
+                    {a.durationMinutes ? (
+                      <small>{formatDuration(a.durationMinutes)}</small>
+                    ) : null}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      </section>
+
+      <section id="groups" className="container-page scroll-mt-32 pb-12 md:pb-16">
         <div className="practice-feature">
           <div>
             <p className="eyebrow mb-4">CARE, TOGETHER</p>
@@ -140,24 +221,27 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      <section
-        className="container-page py-12 md:py-14"
-        aria-labelledby="addons-heading"
-      >
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 id="addons-heading" className="text-2xl">
-              {s.addons?.heading}
-            </h2>
-            <p className="mt-2 text-muted">{s.addons?.text}</p>
-          </div>
-          <Link href="/add-ons" className="btn btn-outline">
-            See add-ons <ArrowRightIcon />
-          </Link>
-        </div>
-      </section>
 
       <FinalCta />
     </>
+  );
+}
+
+/** Compact name / description / price rows for drip add-ins and injections. */
+function PriceList({ items }: { items: Service[] }) {
+  return (
+    <ul className="price-list">
+      {items.map((item) => (
+        <li key={item.id}>
+          <div>
+            <h3>{item.name}</h3>
+            <p>{item.description}</p>
+          </div>
+          {item.showPrice && item.price !== null ? (
+            <p className="price-list-price">{formatPrice(item.price)}</p>
+          ) : null}
+        </li>
+      ))}
+    </ul>
   );
 }

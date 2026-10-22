@@ -132,7 +132,7 @@ export default async function HomePage() {
         <div className="service-editorial">
           <Link href="/services" className="service-main">
             <Image
-              src="/brand/iv-hydration.webp"
+              src="/services/iv-hydration.webp"
               alt=""
               fill
               className="service-photo"
