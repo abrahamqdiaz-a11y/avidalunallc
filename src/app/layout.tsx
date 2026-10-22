@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F8F9F6",
+  themeColor: "#F7F3EE",
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
@@ -48,7 +48,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${manrope.variable} ${inter.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
-        <Header />
+        <Header phoneTel={settings.phoneTel} phoneDisplay={settings.phoneDisplay} />
         <main id="main" className="flex-1">
           {children}
         </main>

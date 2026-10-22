@@ -22,25 +22,17 @@ const steps = [
 export function HowItWorks({ compact = false }: { compact?: boolean }) {
   return (
     <div>
-      <ol className={`grid gap-4 ${compact ? "md:grid-cols-3" : "md:grid-cols-3 md:gap-6"}`}>
+      <ol className={`grid gap-8 ${compact ? "md:grid-cols-3" : "md:grid-cols-3 md:gap-10"}`}>
         {steps.map((s, i) => (
-          <li key={s.title} className="card flex gap-4 p-5 md:flex-col md:p-6">
-            <span
-              aria-hidden
-              className="grid size-10 shrink-0 place-items-center rounded-md bg-forest font-display text-lg font-semibold text-white"
-            >
-              {i + 1}
-            </span>
-            <div>
-              <p aria-hidden className="eyebrow">
-                {s.label}
-              </p>
-              <h3 className="mt-1 text-lg">
-                <span className="sr-only">Step {i + 1}: </span>
-                {s.title}
-              </h3>
-              <p className="mt-1 text-muted">{s.text}</p>
-            </div>
+          <li key={s.title} className="border-t-[3px] border-terracotta pt-5">
+            <p aria-hidden className="eyebrow">
+              {String(i + 1).padStart(2, "0")}
+            </p>
+            <h3 className="mt-1 text-xl">
+              <span className="sr-only">Step {i + 1}: </span>
+              {s.label}
+            </h3>
+            <p className="mt-2 text-muted">{s.text}</p>
           </li>
         ))}
       </ol>

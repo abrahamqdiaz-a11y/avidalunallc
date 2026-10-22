@@ -11,7 +11,7 @@ export function FaqList({ faqs, headingLevel = "h3" }: { faqs: Faq[]; headingLev
         <details key={f.id} className="group px-5 md:px-6">
           <summary className="flex items-center justify-between gap-4 py-5">
             <H className="text-lg text-ink">{f.question}</H>
-            <PlusIcon className="chev size-5 shrink-0 text-forest" />
+            <PlusIcon className="chev size-5 shrink-0 text-olive" />
           </summary>
           <div className="prose-width pb-5">
             <p>{f.answer}</p>

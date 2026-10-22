@@ -21,15 +21,15 @@ export default async function AboutPage() {
   const paragraphs = (s.story?.text ?? "").split(/\n\n+/).filter(Boolean);
   return (
     <>
-      <section className="band-sage on-sage">
+      <section className="border-b border-line">
         <div className="container-page grid items-center gap-10 pb-14 pt-10 md:grid-cols-[1.2fr_1fr] md:pb-16 md:pt-16">
           <div>
             <p className="eyebrow">Meet your nurse</p>
             <h1 className="mt-3 text-4xl md:text-[3.25rem]">{text.heading}</h1>
-            <p className="mt-2 font-semibold text-forest">Founder and registered nurse, Avida Luna</p>
+            <p className="mt-2 font-semibold text-olive">Founder and registered nurse, Avida Luna</p>
             <p className="prose-width mt-5 text-lg text-muted md:text-xl">{text.intro}</p>
           </div>
-          <Portrait image={null} priority />
+          <Portrait priority />
         </div>
       </section>
 
@@ -52,7 +52,7 @@ export default async function AboutPage() {
           <ul className="mt-4 space-y-2">
             {credentials.map((c) => (
               <li key={c} className="flex gap-2">
-                <CheckIcon className="mt-1 size-5 shrink-0 text-forest" /> {c}
+                <CheckIcon className="mt-1 size-5 shrink-0 text-olive" /> {c}
               </li>
             ))}
           </ul>
@@ -65,7 +65,7 @@ export default async function AboutPage() {
 
       <section className="container-page pb-14 md:pb-20" aria-label="Mission">
         {s.mission?.text ? (
-          <blockquote className="prose-width mx-auto text-center font-display text-2xl font-medium text-forest md:text-3xl">
+          <blockquote className="prose-width mx-auto text-center font-display text-2xl font-medium text-olive md:text-3xl">
             &ldquo;{s.mission.text}&rdquo;
           </blockquote>
         ) : (

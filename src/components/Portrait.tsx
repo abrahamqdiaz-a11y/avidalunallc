@@ -2,25 +2,36 @@ import Image from "next/image";
 import type { ImageRef } from "@/lib/types";
 import { Todo } from "./Todo";
 
+// Shary's photos from /public/brand/ (detected in next.config.ts). A Sanity image passed in wins.
+const PORTRAITS = {
+  main: process.env.BRAND_PORTRAIT,
+  alt: process.env.BRAND_PORTRAIT_ALT || process.env.BRAND_PORTRAIT,
+};
+const PORTRAIT_ALT = "Shary Gonzalez, RN, BSN, founder of Avida Luna Wellness";
+
 /** Clean, unframed portrait of Shary. Shows a neutral placeholder until a professional photo exists. */
 export function Portrait({
-  image,
+  image: imageProp = null,
+  variant = "main",
   priority = false,
   caption,
   sizes = "(min-width: 768px) 420px, 90vw",
 }: {
-  image: ImageRef;
+  image?: ImageRef;
+  variant?: keyof typeof PORTRAITS;
   priority?: boolean;
   caption?: React.ReactNode;
   sizes?: string;
 }) {
+  const fileSrc = PORTRAITS[variant];
+  const image = imageProp ?? (fileSrc ? { src: fileSrc, alt: PORTRAIT_ALT } : null);
   return (
     <figure className="mx-auto w-full max-w-[22rem] md:max-w-[26rem]">
       <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)] bg-sage">
         {image ? (
-          <Image src={image.src} alt={image.alt} fill sizes={sizes} priority={priority} className="object-cover" />
+          <Image src={image.src} alt={image.alt} fill sizes={sizes} priority={priority} className="object-cover object-[50%_30%]" />
         ) : (
-          <div className="absolute inset-0 grid place-items-center bg-gradient-to-b from-sage to-slate/50 p-6 text-center">
+          <div className="absolute inset-0 grid place-items-center bg-gradient-to-b from-cream to-line p-6 text-center">
             <span className="text-sm font-semibold text-ink">Professional portrait of Shary coming soon</span>
           </div>
         )}
@@ -43,9 +54,9 @@ export function PhotoSlot({ image, label, sizes }: { image: ImageRef; label: str
       {image ? (
         <Image src={image.src} alt={image.alt} fill sizes={sizes} className="object-cover" loading="lazy" />
       ) : (
-        <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-sage to-slate/40">
+        <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-cream to-line">
           <span className="sr-only">{label}: photo coming soon</span>
-          <svg viewBox="0 0 48 48" className="size-10 text-forest/40" aria-hidden>
+          <svg viewBox="0 0 48 48" className="size-10 text-olive/40" aria-hidden>
             <circle cx="24" cy="24" r="12" fill="none" stroke="currentColor" strokeWidth="2" />
           </svg>
         </div>

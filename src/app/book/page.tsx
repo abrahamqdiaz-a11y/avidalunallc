@@ -22,7 +22,7 @@ export default async function BookPage() {
       <section className="container-page max-w-2xl py-10 md:py-14">
         <ol className="mb-8 flex flex-wrap gap-x-6 gap-y-2 text-[0.9375rem] font-semibold" aria-label="Booking steps">
           <li>
-            <span className="mr-2 inline-grid size-7 place-items-center rounded-md bg-forest text-white">1</span>
+            <span className="mr-2 inline-grid size-7 place-items-center rounded-md bg-olive text-white">1</span>
             Your details <span className="sr-only">(current step)</span>
           </li>
           <li>

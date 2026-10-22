@@ -101,18 +101,3 @@ export function ExternalIcon({ className = "size-4" }: IconProps) {
     </svg>
   );
 }
-
-/** Simple crescent mark: a restrained nod to her logo, not a logo. */
-export function CrescentSprig({ className = "size-8" }: IconProps) {
-  return (
-    <svg viewBox="0 0 48 48" className={className} aria-hidden focusable={false}>
-      <path d="M30 8a17 17 0 1 0 8 28 14 14 0 1 1-8-28z" fill="#293C32" />
-      <g fill="#A6B6BD">
-        <path d="M17 36c3-4 7-6 12-7" stroke="#A6B6BD" strokeWidth="1.2" fill="none" />
-        <ellipse cx="20" cy="32.5" rx="2.2" ry="1.1" transform="rotate(-35 20 32.5)" />
-        <ellipse cx="24" cy="30.5" rx="2.2" ry="1.1" transform="rotate(-20 24 30.5)" />
-        <ellipse cx="22" cy="35.5" rx="2.2" ry="1.1" transform="rotate(20 22 35.5)" />
-      </g>
-    </svg>
-  );
-}

@@ -36,7 +36,7 @@ export function MobileMenu() {
       <button
         ref={buttonRef}
         type="button"
-        className="grid size-11 place-items-center rounded-full text-forest-deep hover:bg-forest/10"
+        className="grid size-11 place-items-center rounded-full text-olive-dark hover:bg-olive/10"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
@@ -48,7 +48,7 @@ export function MobileMenu() {
         id={panelId}
         aria-label="Main"
         hidden={!open}
-        className="absolute inset-x-0 top-full border-b border-line bg-canvas shadow-[var(--shadow-soft)]"
+        className="absolute inset-x-0 top-full border-b border-line bg-cream shadow-[var(--shadow-soft)]"
       >
         <ul className="container-page flex flex-col py-2">
           {mainNav.map((item) => (
