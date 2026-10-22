@@ -291,7 +291,7 @@ export const pageText: Record<PageKey, PageText> = {
       "Nurse-led mobile IV hydration, consultations and group visits. Every appointment includes a health screening, and Shary assesses you in person before your IV begins.",
     sections: {
       iv: {
-        heading: "Mobile IV hydration",
+        heading: "Mobile IV Hydration",
         text: "Administered and monitored by Shary, a registered nurse, at your location.",
       },
       consultation: {
