@@ -12,7 +12,7 @@ Where it lives: this copy is in `/content/fallback.ts` (what the site shows with
 
 ## Global
 
-- **Logo:** Shary's real logo, larger, from `/public/brand/logo.*` (and `logo-horizontal.*` if she approves a wide version). See `/public/brand/README.md`. Until a file is there, the header shows the plain name "Avida Luna / WELLNESS". No invented mark or tagline.
+- **Logo:** Shary's real logo (stacked), shown larger in the header and on a cream tile in the footer, from `/public/brand/logo.png`. A horizontal mock-up for her approval is at `/docs/brand/logo-horizontal-mockup.png`. See `/docs/brand/README.md`.
 - **Header nav:** Services · How it works (/#how) · Meet your nurse (/about) · Group & corporate · FAQ · phone (941) 348-6972 (wide screens) · button **Book an appointment**
 - **Mobile menu:** the same five links, then Contact · Wellness add-ons · Wellness education, then **Book an appointment**
 - **Mobile sticky bar:** **Book an appointment** + call icon (tel:9413486972). Hidden on /book, /join and /add-ons.

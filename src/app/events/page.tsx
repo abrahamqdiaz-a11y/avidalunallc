@@ -133,7 +133,7 @@ export default async function EventsPage() {
         )}
       </section>
 
-      <section id="request" className="container-page scroll-mt-24 pb-14 md:pb-20" aria-labelledby="request-heading">
+      <section id="request" className="container-page scroll-mt-32 pb-14 md:pb-20" aria-labelledby="request-heading">
         <div className="max-w-2xl">
           <h2 id="request-heading" className="text-3xl md:text-4xl">
             {s.form?.heading}

@@ -3,7 +3,7 @@ import path from "node:path";
 import type { NextConfig } from "next";
 import { securityHeaders } from "./src/lib/security-headers";
 
-// Brand files Shary supplies. Drop them into /public/brand/ and rebuild; nothing else to change.
+// Brand files Shary supplies (see /docs/brand/README.md). Drop them into /public/brand/ and rebuild.
 // Checked once at build time so the result is baked in (serverless revalidation can't see /public).
 function brandFile(name: string): string {
   for (const ext of ["svg", "png", "webp", "jpg", "jpeg"]) {

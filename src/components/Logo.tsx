@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-// Shary's real logo files live in /public/brand/ (see the README there). next.config.ts
+// Shary's real logo files live in /public/brand/ (see /docs/brand/README.md). next.config.ts
 // detects them at build time. Until then, the plain brand name stands in. No mark, no tagline.
 const LOGO = process.env.BRAND_LOGO;
 const LOGO_HORIZONTAL = process.env.BRAND_LOGO_HORIZONTAL;
@@ -15,7 +15,7 @@ export function Logo({ placement = "header" }: { placement?: "header" | "footer"
       <img
         src={src}
         alt="Avida Luna Wellness, home"
-        className={isWide ? "h-12 w-auto md:h-14" : placement === "header" ? "h-14 w-auto md:h-16" : "h-20 w-auto"}
+        className={isWide ? "h-12 w-auto md:h-14" : placement === "header" ? "h-[3.75rem] w-auto md:h-[5.25rem]" : "h-24 w-auto"}
       />
     );
     return (

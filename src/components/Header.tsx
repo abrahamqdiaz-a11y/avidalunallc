@@ -20,7 +20,7 @@ export function Header({
       >
         Skip to content
       </a>
-      <div className="container-page flex h-[4.75rem] items-center justify-between gap-3 md:h-[5.5rem]">
+      <div className="container-page flex h-[4.75rem] items-center justify-between gap-3 md:h-[6.5rem]">
         <Logo />
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-6 text-[0.9375rem] font-medium">

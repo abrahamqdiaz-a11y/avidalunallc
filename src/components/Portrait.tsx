@@ -29,7 +29,7 @@ export function Portrait({
     <figure className="mx-auto w-full max-w-[22rem] md:max-w-[26rem]">
       <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)] bg-sage">
         {image ? (
-          <Image src={image.src} alt={image.alt} fill sizes={sizes} priority={priority} className="object-cover" />
+          <Image src={image.src} alt={image.alt} fill sizes={sizes} priority={priority} className="object-cover object-[50%_30%]" />
         ) : (
           <div className="absolute inset-0 grid place-items-center bg-gradient-to-b from-cream to-line p-6 text-center">
             <span className="text-sm font-semibold text-ink">Professional portrait of Shary coming soon</span>

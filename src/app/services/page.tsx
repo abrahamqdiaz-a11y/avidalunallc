@@ -46,7 +46,7 @@ export default async function ServicesPage() {
 
       <section
         id="consultation"
-        className="container-page scroll-mt-24 pb-12 md:pb-16"
+        className="container-page scroll-mt-32 pb-12 md:pb-16"
         aria-labelledby="consult-heading"
       >
         <div className="card p-6 md:p-10">

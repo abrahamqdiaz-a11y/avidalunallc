@@ -141,7 +141,7 @@ export default async function HomePage() {
       </section>
 
       {/* 4. Meet Shary */}
-      <section id="meet" className="band-sage on-sage scroll-mt-24" aria-labelledby="meet-heading">
+      <section id="meet" className="band-sage on-sage scroll-mt-32" aria-labelledby="meet-heading">
         <div className="container-page grid items-center gap-10 py-14 md:grid-cols-[1fr_1.2fr] md:py-20">
           <Portrait variant="alt" />
           <div>
@@ -164,7 +164,7 @@ export default async function HomePage() {
       </section>
 
       {/* 5. How appointments work */}
-      <section id="how" className="container-page scroll-mt-24 py-14 md:py-20" aria-labelledby="how-heading">
+      <section id="how" className="container-page scroll-mt-32 py-14 md:py-20" aria-labelledby="how-heading">
         <p className="eyebrow">How appointments work</p>
         <h2 id="how-heading" className="mt-2 text-3xl md:text-4xl">
           {s.how?.heading}
