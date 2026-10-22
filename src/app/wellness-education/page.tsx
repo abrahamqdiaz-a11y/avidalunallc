@@ -25,7 +25,7 @@ export default async function EducationPage() {
             <li key={a.id} className="card p-6 md:p-8">
               <article>
                 <h2 className="text-2xl md:text-3xl">
-                  <Link href={`/wellness-education/${a.slug}`} className="text-olive no-underline hover:underline">
+                  <Link href={`/wellness-education/${a.slug}`} className="text-forest no-underline hover:underline">
                     {a.title}
                   </Link>
                 </h2>

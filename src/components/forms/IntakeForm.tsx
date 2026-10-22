@@ -84,9 +84,9 @@ export function IntakeForm({
   if (done && mode === "book") {
     return (
       <div ref={successRef} tabIndex={-1} className="card p-6 outline-none md:p-8" data-testid="book-success">
-        <h2 className="text-3xl">Thank you. Next, choose your IV and time.</h2>
+        <h2 className="text-3xl">Thank you. Next, choose your service and time.</h2>
         <p className="mt-3">
-          Our secure booking page (powered by Hydreight) opens in a new tab. That&apos;s where you pick your drip,
+          Our secure booking page (powered by Hydreight) opens in a new tab. That&apos;s where you pick your service,
           choose a time and complete a short screening.
         </p>
         <a
@@ -105,9 +105,9 @@ export function IntakeForm({
             {hydreightUrl.replace(/^https:\/\//, "")}
           </a>
         </p>
-        <div className="mt-6 border-t border-olive/15 pt-5">
+        <div className="mt-6 border-t border-forest/15 pt-5">
           <p>
-            After you book, you can add a wellness ritual like red light or aromatherapy.{" "}
+            After you book, you can add an optional wellness add-on like red light or aromatherapy.{" "}
             <Link href="/add-ons" className="font-semibold">
               See add-ons
             </Link>
@@ -124,7 +124,7 @@ export function IntakeForm({
         <p className="mt-3">Thanks for joining. Watch your inbox for event news and offers from Shary.</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link href="/book" className="btn btn-primary">
-            Book your IV
+            Book an appointment
           </Link>
           <Link href="/" className="btn btn-outline">
             Back to home

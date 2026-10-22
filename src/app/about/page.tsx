@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { ArchPhoto } from "@/components/ArchPhoto";
 import { FinalCta } from "@/components/FinalCta";
 import { CheckIcon } from "@/components/Icons";
+import { Portrait } from "@/components/Portrait";
 import { Todo } from "@/components/Todo";
-import { WaveDivider } from "@/components/WaveDivider";
 import { credentials, getPageText } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
@@ -12,7 +11,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "About Shary Gonzalez, RN, BSN",
   description:
-    "Meet Shary Gonzalez, RN, BSN: a registered nurse with 17+ years in nursing who brings mobile IV hydration and wellness to Lakewood Ranch, FL. Se habla español.",
+    "Meet Shary Gonzalez, RN, BSN: a registered nurse with 17+ years in nursing who founded Avida Luna to bring professional mobile IV care to Lakewood Ranch, FL.",
   path: "/about",
 });
 
@@ -23,16 +22,16 @@ export default async function AboutPage() {
   return (
     <>
       <section className="band-sage on-sage">
-        <div className="container-page grid items-center gap-10 pb-16 pt-10 md:grid-cols-[1.2fr_1fr] md:pt-16">
+        <div className="container-page grid items-center gap-10 pb-14 pt-10 md:grid-cols-[1.2fr_1fr] md:pb-16 md:pt-16">
           <div>
-            <p className="eyebrow">About</p>
-            <h1 className="mt-2 text-5xl md:text-6xl">{text.heading}</h1>
-            <p className="prose-width mt-5 text-lg md:text-xl">{text.intro}</p>
+            <p className="eyebrow">Meet your nurse</p>
+            <h1 className="mt-3 text-4xl md:text-[3.25rem]">{text.heading}</h1>
+            <p className="mt-2 font-semibold text-forest">Founder and registered nurse, Avida Luna</p>
+            <p className="prose-width mt-5 text-lg text-muted md:text-xl">{text.intro}</p>
           </div>
-          <ArchPhoto image={null} priority caption={<span className="font-semibold">Shary Gonzalez, RN, BSN</span>} />
+          <Portrait image={null} priority />
         </div>
       </section>
-      <WaveDivider from="sage" to="cream" />
 
       <section className="container-page grid gap-10 py-12 md:grid-cols-[1.4fr_1fr] md:py-16">
         <div className="prose-width">
@@ -47,23 +46,26 @@ export default async function AboutPage() {
           </Todo>
         </div>
         <aside className="card self-start p-6" aria-labelledby="cred-heading">
-          <h2 id="cred-heading" className="text-2xl">
+          <h2 id="cred-heading" className="text-xl">
             {s.credentials?.heading}
           </h2>
           <ul className="mt-4 space-y-2">
             {credentials.map((c) => (
               <li key={c} className="flex gap-2">
-                <CheckIcon className="mt-1 size-5 shrink-0 text-olive" /> {c}
+                <CheckIcon className="mt-1 size-5 shrink-0 text-forest" /> {c}
               </li>
             ))}
           </ul>
-          <Todo className="mt-4">Confirm credentials and add her areas of nursing experience.</Todo>
+          <Todo className="mt-4">
+            Confirm credentials, add her Florida RN license number (verifiable on the Florida Board of Nursing lookup)
+            and her areas of nursing experience.
+          </Todo>
         </aside>
       </section>
 
       <section className="container-page pb-14 md:pb-20" aria-label="Mission">
         {s.mission?.text ? (
-          <blockquote className="prose-width mx-auto text-center font-serif text-2xl text-olive md:text-3xl">
+          <blockquote className="prose-width mx-auto text-center font-display text-2xl font-medium text-forest md:text-3xl">
             &ldquo;{s.mission.text}&rdquo;
           </blockquote>
         ) : (
@@ -71,7 +73,7 @@ export default async function AboutPage() {
         )}
       </section>
 
-      <FinalCta heading="Ready when you are." secondary={{ href: "/events", label: "Plan a group event" }} />
+      <FinalCta secondary={{ href: "/contact", label: "Ask Shary a question" }} />
     </>
   );
 }

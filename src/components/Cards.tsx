@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { formatDuration, formatPrice } from "@/lib/format";
 import type { AddOn, Service } from "@/lib/types";
-import { PhotoSlot } from "./ArchPhoto";
+import { PhotoSlot } from "./Portrait";
 import { ArrowRightIcon } from "./Icons";
 import { Todo } from "./Todo";
 
 export function ServiceCard({ service }: { service: Service }) {
   return (
     <article className="card flex flex-col p-5 md:p-6">
-      <h3 className="text-2xl">{service.name}</h3>
-      <p className="mt-2 flex-1">{service.description}</p>
+      <h3 className="text-xl">{service.name}</h3>
+      <p className="mt-2 flex-1 text-muted">{service.description}</p>
       {service.showPrice && service.price ? (
         <p className="mt-3 font-semibold">{formatPrice(service.price)}</p>
       ) : null}
@@ -26,7 +26,7 @@ export function AddOnTeaserCard({ addOn }: { addOn: AddOn }) {
         <PhotoSlot image={addOn.image} label={addOn.name} sizes="(min-width: 768px) 320px, 90vw" />
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-2xl">{addOn.name}</h3>
+        <h3 className="text-xl">{addOn.name}</h3>
         <p className="mt-1 text-[0.9375rem] font-semibold">
           {[duration, formatPrice(addOn.price)].filter(Boolean).join(" · ")}
         </p>
@@ -39,22 +39,28 @@ export function AddOnTeaserCard({ addOn }: { addOn: AddOn }) {
   );
 }
 
+/** Core service card. `primary` marks the lead service (mobile IV hydration) with a stronger treatment. */
 export function OfferCard({
   title,
   text,
   href,
   linkLabel,
+  primary = false,
 }: {
   title: string;
   text: string;
   href: string;
   linkLabel: string;
+  primary?: boolean;
 }) {
   return (
-    <article className="card flex flex-col p-5 md:p-6">
-      <h3 className="text-2xl">{title}</h3>
-      <p className="mt-2 flex-1">{text}</p>
-      <Link href={href} className="mt-4 inline-flex items-center gap-1.5 font-semibold text-olive-dark">
+    <article
+      className={`card flex flex-col p-6 md:p-8 ${primary ? "border-t-4 border-t-forest" : "border-t-4 border-t-slate"}`}
+    >
+      {primary ? <p className="eyebrow">Core service</p> : null}
+      <h3 className={`${primary ? "mt-2 text-2xl md:text-[1.75rem]" : "text-xl md:text-2xl"}`}>{title}</h3>
+      <p className="mt-3 flex-1 text-muted">{text}</p>
+      <Link href={href} className="mt-5 inline-flex items-center gap-1.5 font-semibold text-forest">
         {linkLabel} <ArrowRightIcon />
       </Link>
     </article>

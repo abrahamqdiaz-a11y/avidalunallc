@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { formatDuration, formatPrice } from "@/lib/format";
 import type { AddOn } from "@/lib/types";
-import { PhotoSlot } from "./ArchPhoto";
+import { PhotoSlot } from "./Portrait";
 import { FormError } from "./forms/fields";
 import { postJson, safeSession, STORAGE } from "./forms/submit";
 import { MinusIcon, PlusIcon } from "./Icons";
@@ -83,7 +83,7 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
     setError(result.ok ? "We couldn't start checkout. Please try again." : result.error);
   }
 
-  const summaryText = `${count} ${count === 1 ? "ritual" : "rituals"} · ${formatPrice(total)}`;
+  const summaryText = `${count} ${count === 1 ? "add-on" : "add-ons"} · ${formatPrice(total)}`;
 
   const payButton = paymentsEnabled ? (
     <button
@@ -97,13 +97,13 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
     </button>
   ) : (
     <p className="rounded-xl bg-sage/50 px-4 py-3 text-[0.9375rem]" data-testid="payments-off">
-      Online payment coming soon. Add your ritual at your visit.
+      Online payment coming soon. Add your add-ons at your visit.
     </p>
   );
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_20rem] lg:items-start">
-      <ul className="grid gap-5 sm:grid-cols-2" aria-label="Wellness rituals">
+      <ul className="grid gap-5 sm:grid-cols-2" aria-label="Wellness add-ons">
         {addOns.map((a) => {
           const q = qty[a.id] ?? 0;
           const duration = formatDuration(a.durationMinutes);
@@ -121,7 +121,7 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
                 <div className="mt-4 flex items-center gap-3" role="group" aria-label={`${a.name} quantity`}>
                   <button
                     type="button"
-                    className="grid size-11 place-items-center rounded-full border-2 border-olive text-olive-dark disabled:opacity-40"
+                    className="grid size-11 place-items-center rounded-md border-[1.5px] border-forest text-forest-deep disabled:opacity-40"
                     onClick={() => change(a.id, -1)}
                     disabled={q === 0}
                     aria-label={`Remove one ${a.name}`}
@@ -133,7 +133,7 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
                   </output>
                   <button
                     type="button"
-                    className="grid size-11 place-items-center rounded-full border-2 border-olive text-olive-dark disabled:opacity-40"
+                    className="grid size-11 place-items-center rounded-md border-[1.5px] border-forest text-forest-deep disabled:opacity-40"
                     onClick={() => change(a.id, 1)}
                     disabled={q >= MAX}
                     aria-label={`Add one ${a.name}`}
@@ -148,8 +148,8 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
       </ul>
 
       {/* Desktop summary card */}
-      <aside className="card sticky top-28 hidden p-6 lg:block" aria-label="Your rituals">
-        <h2 className="text-2xl">Your rituals</h2>
+      <aside className="card sticky top-28 hidden p-6 lg:block" aria-label="Your add-ons">
+        <h2 className="text-2xl">Your add-ons</h2>
         {count === 0 ? (
           <p className="mt-3">Nothing added yet.</p>
         ) : (
@@ -166,7 +166,7 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
               ))}
           </ul>
         )}
-        <p id="addon-summary" className="mt-4 border-t border-olive/15 pt-4 font-semibold" aria-live="polite">
+        <p id="addon-summary" className="mt-4 border-t border-forest/15 pt-4 font-semibold" aria-live="polite">
           {summaryText}
         </p>
         <div className="mt-4">{payButton}</div>
@@ -177,7 +177,7 @@ export function AddOnPicker({ addOns, paymentsEnabled }: { addOns: AddOn[]; paym
 
       {/* Mobile sticky summary bar */}
       <div aria-hidden className="h-24 lg:hidden" />
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-olive/15 bg-cream/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-forest/15 bg-canvas/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur lg:hidden">
         <div className="mx-auto max-w-md">
           {error ? (
             <div className="mb-2">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { CloseIcon, MenuIcon } from "./Icons";
-import { mainNav } from "./nav";
+import { mainNav, secondaryNav } from "./nav";
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
@@ -36,7 +36,7 @@ export function MobileMenu() {
       <button
         ref={buttonRef}
         type="button"
-        className="grid size-11 place-items-center rounded-full text-olive-dark hover:bg-olive/10"
+        className="grid size-11 place-items-center rounded-full text-forest-deep hover:bg-forest/10"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
@@ -48,7 +48,7 @@ export function MobileMenu() {
         id={panelId}
         aria-label="Main"
         hidden={!open}
-        className="absolute inset-x-0 top-full border-b border-olive/10 bg-cream shadow-[var(--shadow-soft)]"
+        className="absolute inset-x-0 top-full border-b border-line bg-canvas shadow-[var(--shadow-soft)]"
       >
         <ul className="container-page flex flex-col py-2">
           {mainNav.map((item) => (
@@ -62,9 +62,20 @@ export function MobileMenu() {
               </Link>
             </li>
           ))}
-          <li>
-            <Link href="/wellness-education" className="block py-3 text-lg text-ink no-underline">
-              Wellness Education
+          {secondaryNav.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="block py-3 text-base text-muted no-underline"
+                aria-current={pathname === item.href ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+          <li className="py-3">
+            <Link href="/book" className="btn btn-primary w-full">
+              Book an appointment
             </Link>
           </li>
         </ul>
