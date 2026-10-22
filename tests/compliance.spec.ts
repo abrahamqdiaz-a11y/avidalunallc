@@ -112,11 +112,12 @@ test.describe("SEO and privacy basics", () => {
   });
 
   test("sticky mobile bar shows on content pages and hides on /book and /add-ons", async ({ page }) => {
+    const barLink = page.locator(".fixed.inset-x-0.bottom-0").getByRole("link", { name: "Book an appointment" });
     await page.goto("/services");
-    await expect(page.getByRole("link", { name: /Call Shary/ })).toBeVisible();
+    await expect(barLink).toBeVisible();
     await page.goto("/book");
-    await expect(page.getByRole("link", { name: /Call Shary/ })).toHaveCount(0);
+    await expect(barLink).toHaveCount(0);
     await page.goto("/add-ons");
-    await expect(page.getByRole("link", { name: /Call Shary/ })).toHaveCount(0);
+    await expect(barLink).toHaveCount(0);
   });
 });
