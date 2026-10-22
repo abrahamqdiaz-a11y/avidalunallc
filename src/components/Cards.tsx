@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { formatDuration, formatPrice } from "@/lib/format";
 import type { AddOn, Service } from "@/lib/types";
 import { PhotoSlot } from "./Portrait";
@@ -14,6 +15,48 @@ export function ServiceCard({ service }: { service: Service }) {
         <p className="mt-3 font-semibold">{formatPrice(service.price)}</p>
       ) : null}
       {service.todo ? <Todo className="mt-3">{service.todo}</Todo> : null}
+    </article>
+  );
+}
+
+/** IV service card on /services: 4:3 photo, name, one-line description, starting price, quiet link to booking. */
+export function IvServiceCard({ service }: { service: Service }) {
+  const headingId = `${service.id}-name`;
+  return (
+    <article className="iv-card" aria-labelledby={headingId}>
+      <div className="iv-card-photo">
+        {service.image ? (
+          <Image
+            src={service.image.src}
+            alt={service.image.alt}
+            fill
+            sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 92vw"
+            className="object-cover"
+          />
+        ) : (
+          <div className="iv-card-photo-empty" aria-hidden>
+            <svg viewBox="0 0 48 48" className="size-9">
+              <circle cx="24" cy="24" r="12" fill="none" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+          </div>
+        )}
+      </div>
+      <div className="iv-card-body">
+        <h3 id={headingId}>{service.name}</h3>
+        <p className="iv-card-text">{service.description}</p>
+        <p className="iv-card-price">
+          {service.showPrice && service.price !== null ? (
+            <>
+              <span>From</span> {formatPrice(service.price)}
+            </>
+          ) : (
+            <span>Pricing confirmed at booking</span>
+          )}
+        </p>
+        <Link href="/book" className="iv-card-link" aria-label={`Explore ${service.name} and book`}>
+          Explore service <ArrowRightIcon className="size-4" />
+        </Link>
+      </div>
     </article>
   );
 }

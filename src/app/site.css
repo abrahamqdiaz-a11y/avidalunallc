@@ -419,70 +419,130 @@ footer .border-t {
 .addon-layout .fixed .btn {
   min-height: 44px;
 }
-.service-menu {
-  margin-top: 35px;
-  border-top: 1px solid var(--color-line);
+/* Services: IV cards. Warm ivory, forest green, sage hairlines. No shadows or gradients. */
+[data-section="iv-services"] {
+  --iv-ivory: #f7f5ef;
+  --iv-forest: #344b3b;
+  --iv-sage: #a8b5a0;
+  --iv-border: #e2e0d6;
 }
-.service-menu details {
-  border-bottom: 1px solid var(--color-line);
-}
-.service-menu summary {
-  list-style: none;
-  cursor: pointer;
+.iv-grid {
   display: grid;
-  grid-template-columns: 45px 1fr auto 24px;
-  align-items: center;
-  gap: 20px;
-  padding-block: 28px;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  margin-top: 40px;
 }
-.service-menu summary::-webkit-details-marker {
-  display: none;
+@media (min-width: 640px) {
+  .iv-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 24px;
+  }
 }
-.service-menu summary h3 {
-  font-size: 32px;
-  line-height: 1.2;
+@media (min-width: 1024px) {
+  .iv-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px 28px;
+  }
 }
-.service-menu .menu-number {
-  font-size: 11px;
-  color: #805437;
-}
-.service-menu .service-price {
-  font-size: 25px;
-  white-space: nowrap;
-}
-.service-menu small {
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  display: block;
-}
-.service-menu .menu-plus {
-  font-size: 22px;
-  text-align: right;
-}
-.service-menu details[open] .menu-plus {
-  transform: rotate(45deg);
-}
-.service-menu .service-description {
+.iv-card {
   display: flex;
-  align-items: start;
-  gap: 30px;
-  justify-content: space-between;
-  padding: 0 44px 28px 65px;
+  flex-direction: column;
+  background: var(--iv-ivory);
+  border: 1px solid var(--iv-border);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
 }
-.service-description p {
-  max-width: 630px;
-  font-size: 15px;
+.iv-card:has(.iv-card-link:hover) {
+  border-color: var(--iv-sage);
 }
-.service-description a {
-  white-space: nowrap;
-  font-size: 13px;
+.iv-card-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #ece9df;
+  border-bottom: 1px solid var(--iv-border);
+}
+.iv-card-photo-empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--iv-sage);
+}
+.iv-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 24px 24px 22px;
+}
+.iv-card h3 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--iv-forest);
+}
+.iv-card-text {
+  flex: 1;
+  margin-top: 8px;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+.iv-card-price {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--iv-border);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
   font-weight: 600;
+  color: var(--iv-forest);
 }
-.price-note {
-  font-size: 12px;
-  color: #53604f;
-  max-width: 650px;
-  margin-top: 22px;
+.iv-card-price span {
+  margin-right: 2px;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.iv-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  min-height: 44px;
+  margin-top: 6px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--iv-forest);
+  text-decoration: none;
+}
+.iv-card-link:hover {
+  text-decoration: underline;
+}
+.iv-card-link svg {
+  transition: transform 0.2s ease;
+}
+.iv-card-link:hover svg {
+  transform: translateX(3px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .iv-card,
+  .iv-card-link svg {
+    transition: none;
+  }
+}
+.iv-note {
+  max-width: 680px;
+  margin-top: 36px;
+  padding-left: 16px;
+  border-left: 2px solid var(--iv-sage);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--color-muted);
+}
+.iv-note p + p {
+  margin-top: 8px;
 }
 .vitamin-list {
   list-style: none;
@@ -727,25 +787,6 @@ main > section > h1 {
   }
   .addon-list > li {
     padding-block: 24px;
-  }
-  .service-menu summary {
-    grid-template-columns: 20px 1fr auto 16px;
-    gap: 10px;
-    padding-block: 24px;
-  }
-  .service-menu summary h3 {
-    font-size: 25px;
-  }
-  .service-menu .service-price {
-    font-size: 22px;
-  }
-  .service-menu .service-description {
-    flex-direction: column;
-    gap: 18px;
-    padding: 0 0 25px 30px;
-  }
-  .service-description p {
-    font-size: 14px;
   }
   .vitamin-list > li {
     grid-template-columns: 1fr;

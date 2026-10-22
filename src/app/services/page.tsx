@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { formatPrice } from "@/lib/format";
 import { FinalCta } from "@/components/FinalCta";
 import { HowItWorks } from "@/components/HowItWorks";
+import { IvServiceCard } from "@/components/Cards";
 import { ArrowRightIcon } from "@/components/Icons";
 import { PageHero } from "@/components/PageHero";
 import { getPageText, getServices } from "@/lib/content";
@@ -37,6 +37,7 @@ export default async function ServicesPage() {
       <section
         className="container-page py-12 md:py-16"
         aria-labelledby="iv-heading"
+        data-section="iv-services"
       >
         <p className="eyebrow">Core service</p>
         <h2 id="iv-heading" className="mt-2 text-3xl md:text-4xl">
@@ -45,45 +46,26 @@ export default async function ServicesPage() {
         {s.iv?.text ? (
           <p className="prose-width mt-3 text-muted">{s.iv.text}</p>
         ) : null}
-        <div className="service-menu">
-          {drips.map((service, index) => (
-            <details key={service.id}>
-              <summary>
-                <span className="menu-number">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3>{service.name}</h3>
-                <span className="service-price">
-                  {service.showPrice && service.price !== null ? (
-                    <>
-                      <small>FROM</small>
-                      {formatPrice(service.price)}
-                    </>
-                  ) : (
-                    <small>ASK SHARY</small>
-                  )}
-                </span>
-                <span className="menu-plus" aria-hidden>
-                  +
-                </span>
-              </summary>
-              <div className="service-description">
-                <p>{service.description}</p>
-                <Link href="/book">
-                  Book an appointment{" "}
-                  <ArrowRightIcon className="inline size-4 ml-2" />
-                </Link>
-              </div>
-            </details>
+        <div className="iv-grid">
+          {drips.map((service) => (
+            <IvServiceCard key={service.id} service={service} />
           ))}
         </div>
-        <p className="price-note">
-          {drips.some((service) => service.todo)
-            ? "Starting prices and menu details are pending Shary’s confirmation. "
-            : ""}
-          Final service selection, screening and pricing are confirmed on
-          Hydreight.
-        </p>
+        <div className="iv-note">
+          <p>
+            Every visit begins with a clinical assessment by your registered
+            nurse. Eligibility is confirmed through a short health screening on
+            Hydreight before any IV is placed, and some services may not be
+            right for everyone. Availability depends on your location and
+            scheduling.
+          </p>
+          <p>
+            {drips.some((service) => service.todo)
+              ? "Starting prices and menu details are pending Shary’s confirmation. "
+              : ""}
+            Final service selection and pricing are confirmed on Hydreight.
+          </p>
+        </div>
       </section>
 
       <section
