@@ -1,8 +1,22 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-const steps = [
+type StepPhoto = { src: string; alt: string; position?: string } | null;
+
+// Step photos for the sticky card. A step with no photo keeps the line drawing.
+// Step 01 needs public/how/step-01-request.webp: a phone showing a booking screen
+// on a table in a bright Sarasota home. Add it, then set its src below.
+const steps: {
+  label: string;
+  title: string;
+  text: string;
+  detail: string;
+  visual: string;
+  note: string;
+  photo: StepPhoto;
+}[] = [
   {
     label: "Request",
     title: "A little about you. Then a time that works.",
@@ -10,6 +24,7 @@ const steps = [
     detail: "01 / YOUR DETAILS",
     visual: "Your care starts with a conversation.",
     note: "A simple first step. About 30 seconds.",
+    photo: null,
   },
   {
     label: "Assessment",
@@ -18,6 +33,11 @@ const steps = [
     detail: "02 / BOOKING & SCREENING",
     visual: "Personal attention. From the very beginning.",
     note: "Medical screening happens securely on Hydreight.",
+    photo: {
+      src: "/services/vitamin-vials.webp",
+      alt: "Labeled vitamin vials and IV supplies neatly arranged on a stone tray in a sunlit home",
+      position: "50% 60%",
+    },
   },
   {
     label: "Visit",
@@ -26,6 +46,11 @@ const steps = [
     detail: "03 / YOUR VISIT",
     visual: "Professional care. Personally delivered.",
     note: "Add an optional ritual after booking. Pay at your visit or online.",
+    photo: {
+      src: "/how/step-03-visit.webp",
+      alt: "An Avida Luna IV bag on a stand beside a cream armchair in a bright Sarasota home with palm trees outside",
+      position: "35% 50%",
+    },
   },
 ];
 
@@ -48,7 +73,23 @@ export function HomeExperience() {
   }, []);
   return (
     <div className="visit-story" ref={root}>
-      <div className="visit-visual" aria-hidden="true">
+      <div
+        className={`visit-visual${steps[active].photo ? " has-photo" : ""}`}
+        aria-hidden="true"
+      >
+        {steps.map((step, i) =>
+          step.photo ? (
+            <Image
+              key={step.label}
+              src={step.photo.src}
+              alt={step.photo.alt}
+              fill
+              sizes="(min-width: 768px) 40vw, 100vw"
+              className={`visit-photo${i === active ? " is-active" : ""}`}
+              style={{ objectPosition: step.photo.position }}
+            />
+          ) : null,
+        )}
         <p className="home-label">{steps[active].detail}</p>
         <div className="visit-drawing">
           <span className="visit-orbit" />
