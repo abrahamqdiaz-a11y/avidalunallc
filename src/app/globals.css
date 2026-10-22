@@ -1,28 +1,32 @@
 @import "tailwindcss";
 
 /*
- * Clinical palette: professional care, personally delivered.
+ * Shary's brand colors, used with clinical restraint.
  * Contrast (WCAG 2.2 AA), checked:
- *   ink on canvas 14.6 · forest on canvas 11.1 · forest on sage 9.8 · muted on canvas 7.1 (6.3 on sage)
- *   white on forest 11.8 (primary buttons) · canvas on forest-deep 14.0
- *   Never: slate as text (decorative accent only, 2.0 on canvas).
+ *   ink on cream 9.1 · ink on sage 6.7 · muted on cream 5.4 (6.0 on white)
+ *   olive on cream 5.1 · white on olive 5.7 (buttons) · olive-dark on sage 5.1 (links on sage)
+ *   cream on ink 9.1 (final band, footer)
+ *   terracotta-deep on cream 5.5 (eyebrows) · terracotta-ink on sage 4.6 (eyebrows on sage)
+ *   Never: olive text on sage (3.7), terracotta (#C08A67) as text. It's for thin accent lines only.
  */
 @theme {
-  --color-canvas: #f8f9f6;
-  --color-sage: #e7ece6;
-  --color-slate: #a6b6bd;
-  --color-forest: #293c32;
-  --color-forest-deep: #1d2b24;
-  --color-ink: #1f2622;
-  --color-muted: #4b5751;
-  --color-line: #d6ddd5;
+  --color-cream: #f7f3ee;
   --color-paper: #ffffff;
+  --color-ink: #3e4436;
+  --color-muted: #5f6657;
+  --color-olive: #576d52;
+  --color-olive-dark: #45583f;
+  --color-sage: #c9d7b8;
+  --color-terracotta: #c08a67;
+  --color-terracotta-deep: #8a5638;
+  --color-terracotta-ink: #7e4e33;
+  --color-line: #e4ddd3;
 
   --font-display: var(--font-manrope), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --radius-card: 0.75rem;
-  --shadow-soft: 0 1px 2px rgb(31 38 34 / 0.05), 0 6px 20px -12px rgb(31 38 34 / 0.16);
+  --shadow-soft: 0 1px 2px rgb(62 68 54 / 0.05), 0 6px 20px -12px rgb(62 68 54 / 0.16);
 }
 
 @layer base {
@@ -32,7 +36,7 @@
   }
 
   body {
-    background: var(--color-canvas);
+    background: var(--color-cream);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 1.0625rem; /* 17px */
@@ -61,13 +65,13 @@
   }
 
   a {
-    color: var(--color-forest);
+    color: var(--color-olive);
     text-decoration: underline;
     text-underline-offset: 0.2em;
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-forest-deep);
+    outline: 3px solid var(--color-olive-dark);
     outline-offset: 3px;
     border-radius: 6px;
   }
@@ -125,30 +129,30 @@
   }
   .btn-primary,
   .btn-secondary {
-    background: var(--color-forest);
+    background: var(--color-olive);
     color: #fff;
   }
   .btn-primary:hover:not(:disabled),
   .btn-secondary:hover:not(:disabled) {
-    background: var(--color-forest-deep);
+    background: var(--color-olive-dark);
   }
   .btn-outline {
     background: transparent;
-    color: var(--color-forest);
+    color: var(--color-olive);
     border: 1.5px solid currentColor;
   }
   .btn-outline:hover {
-    background: rgb(41 60 50 / 0.06);
-  }
-  .on-forest .btn-primary {
-    background: #fff;
-    color: var(--color-forest);
-  }
-  .on-forest .btn-primary:hover:not(:disabled) {
-    background: var(--color-sage);
+    background: rgb(87 109 82 / 0.08);
   }
   .on-sage .btn-outline {
+    color: var(--color-olive-dark);
+  }
+  .on-ink .btn-primary {
+    background: var(--color-cream);
     color: var(--color-ink);
+  }
+  .on-ink .btn-primary:hover:not(:disabled) {
+    background: #fff;
   }
 
   .card {
@@ -163,10 +167,18 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-forest);
+    color: var(--color-terracotta-deep);
   }
   .on-sage .eyebrow {
-    color: var(--color-ink);
+    color: var(--color-terracotta-ink);
+  }
+  /* Short terracotta rule above an eyebrow or step: the one decorative accent. */
+  .accent-rule {
+    display: block;
+    width: 2rem;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--color-terracotta);
   }
 
   .band-sage {
@@ -174,7 +186,7 @@
     color: var(--color-ink);
   }
   .band-sage a:not(.btn) {
-    color: var(--color-ink);
+    color: var(--color-olive-dark);
   }
 
   /* Large numerals and short labels in the hero and trust sections. */
@@ -184,7 +196,7 @@
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.1;
-    color: var(--color-forest);
+    color: var(--color-olive);
   }
   @media (max-width: 479px) {
     .stat-value {
@@ -197,14 +209,17 @@
     color: var(--color-muted);
   }
 
-  .band-forest {
-    background: var(--color-forest);
-    color: var(--color-canvas);
+  .band-ink {
+    background: var(--color-ink);
+    color: var(--color-cream);
   }
-  .band-forest h2,
-  .band-forest h3,
-  .band-forest a:not(.btn) {
-    color: var(--color-canvas);
+  .band-ink h2,
+  .band-ink h3,
+  .band-ink a:not(.btn) {
+    color: var(--color-cream);
+  }
+  .band-ink :focus-visible {
+    outline-color: var(--color-cream);
   }
 
   .field-label {
@@ -217,14 +232,14 @@
     width: 100%;
     min-height: 3rem;
     padding: 0.625rem 0.875rem;
-    border: 1.5px solid #7d8a83;
+    border: 1.5px solid #8a927f;
     border-radius: 0.5rem;
     background: #fff;
     color: var(--color-ink);
     font: inherit;
   }
   .field-input:focus-visible {
-    border-color: var(--color-forest-deep);
+    border-color: var(--color-olive-dark);
   }
   .field-input[aria-invalid="true"] {
     border-color: #a3402e;
@@ -280,5 +295,16 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Text-color utilities that must change on colored bands (muted on sage is only 3.9:1). */
+@layer utilities {
+  .band-sage .text-muted {
+    color: var(--color-ink);
+  }
+  .band-ink .text-muted,
+  .band-ink .text-ink {
+    color: var(--color-cream);
   }
 }

@@ -45,8 +45,10 @@ export function OfferCard({
   text,
   href,
   linkLabel,
+  eyebrow,
   primary = false,
 }: {
+  eyebrow?: string;
   title: string;
   text: string;
   href: string;
@@ -55,12 +57,12 @@ export function OfferCard({
 }) {
   return (
     <article
-      className={`card flex flex-col p-6 md:p-8 ${primary ? "border-t-4 border-t-forest" : "border-t-4 border-t-slate"}`}
+      className={`card flex flex-col p-6 md:p-8 ${primary ? "border-t-[3px] border-t-terracotta" : ""}`}
     >
-      {primary ? <p className="eyebrow">Core service</p> : null}
-      <h3 className={`${primary ? "mt-2 text-2xl md:text-[1.75rem]" : "text-xl md:text-2xl"}`}>{title}</h3>
+      {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
+      <h3 className={`mt-2 ${primary ? "text-2xl md:text-[1.75rem]" : "text-xl md:text-2xl"}`}>{title}</h3>
       <p className="mt-3 flex-1 text-muted">{text}</p>
-      <Link href={href} className="mt-5 inline-flex items-center gap-1.5 font-semibold text-forest">
+      <Link href={href} className="mt-5 inline-flex items-center gap-1.5 font-semibold text-olive">
         {linkLabel} <ArrowRightIcon />
       </Link>
     </article>

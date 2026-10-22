@@ -1,27 +1,38 @@
 import Link from "next/link";
-import { CrescentSprig } from "./Icons";
 
-// TODO: replace with Shary's real logo (/docs/brand/logo.png, ideally an SVG from her designer)
-// once it's in the repo: put it at /public/brand/logo.png and set LOGO_SRC below.
-const LOGO_SRC: string | null = null;
+// Shary's real logo files live in /public/brand/ (see the README there). next.config.ts
+// detects them at build time. Until then, the plain brand name stands in. No mark, no tagline.
+const LOGO = process.env.BRAND_LOGO;
+const LOGO_HORIZONTAL = process.env.BRAND_LOGO_HORIZONTAL;
 
-export function Logo({ size = "md" }: { size?: "md" | "lg" }) {
-  const textSize = size === "lg" ? "text-[1.75rem]" : "text-[1.5rem] md:text-[1.625rem]";
+export function Logo({ placement = "header" }: { placement?: "header" | "footer" }) {
+  const src = placement === "header" ? LOGO_HORIZONTAL || LOGO : LOGO;
+  const isWide = placement === "header" && Boolean(LOGO_HORIZONTAL);
+
+  if (src) {
+    const img = (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={src}
+        alt="Avida Luna Wellness, home"
+        className={isWide ? "h-12 w-auto md:h-14" : placement === "header" ? "h-14 w-auto md:h-16" : "h-20 w-auto"}
+      />
+    );
+    return (
+      <Link href="/" className="inline-flex items-center no-underline">
+        {placement === "footer" ? <span className="rounded-lg bg-cream p-3">{img}</span> : img}
+      </Link>
+    );
+  }
+
+  const tone = placement === "footer" ? "text-cream" : "text-olive";
   return (
-    <Link href="/" className="inline-flex items-center gap-2 no-underline">
-      {LOGO_SRC ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={LOGO_SRC} alt="Avida Luna Wellness, home" width={56} height={56} className="size-14" />
-      ) : (
-        <>
-          <CrescentSprig className="size-10" />
-          <span className="flex flex-col leading-none">
-            <span className={`font-display font-bold tracking-[-0.02em] ${textSize} text-forest`}>Avida Luna</span>
-            <span className="mt-1 text-[0.6875rem] font-semibold tracking-[0.18em] text-muted">NURSE-LED IV CARE</span>
-          </span>
-          <span className="sr-only"> home</span>
-        </>
-      )}
+    <Link href="/" className="inline-flex flex-col leading-none no-underline">
+      <span className={`font-display text-[1.625rem] font-semibold tracking-[-0.01em] md:text-[1.75rem] ${tone}`}>
+        Avida Luna
+      </span>
+      <span className={`mt-1 text-[0.6875rem] font-semibold tracking-[0.32em] ${tone}`}>WELLNESS</span>
+      <span className="sr-only"> home</span>
     </Link>
   );
 }

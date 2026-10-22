@@ -1,4 +1,4 @@
-/** Simple page header for inner pages: sage band, eyebrow, heading, intro. */
+/** Simple page header for inner pages: eyebrow, heading, intro, on cream with a hairline below. */
 export function PageHero({
   eyebrow,
   heading,
@@ -11,7 +11,7 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="band-sage on-sage">
+    <section className="border-b border-line">
       <div className="container-page py-12 md:py-16">
         {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
         <h1 className="mt-2 text-4xl md:text-5xl">{heading}</h1>

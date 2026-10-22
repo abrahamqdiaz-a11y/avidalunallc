@@ -15,27 +15,24 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#F8F9F6",
+          background: "#F7F3EE",
           padding: 72,
-          color: "#1F2622",
+          color: "#3E4436",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <svg width="72" height="72" viewBox="0 0 48 48">
-            <path d="M30 8a17 17 0 1 0 8 28 14 14 0 1 1-8-28z" fill="#293C32" />
-          </svg>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 44, fontWeight: 700, color: "#293C32" }}>Avida Luna</div>
-            <div style={{ fontSize: 18, letterSpacing: 5, color: "#4B5751" }}>NURSE-LED IV CARE</div>
+            <div style={{ fontSize: 44, fontWeight: 700, color: "#576D52" }}>Avida Luna</div>
+            <div style={{ fontSize: 18, letterSpacing: 8, color: "#576D52" }}>WELLNESS</div>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 72, fontWeight: 700, color: "#293C32", lineHeight: 1.05 }}>Experienced nursing care, brought to you.</div>
+          <div style={{ fontSize: 72, fontWeight: 700, color: "#3E4436", lineHeight: 1.05 }}>Experienced nursing care, brought to you.</div>
           <div style={{ fontSize: 32, marginTop: 20 }}>
             Mobile IV therapy with Shary Gonzalez, RN, BSN · Lakewood Ranch, FL
           </div>
         </div>
-        <div style={{ display: "flex", height: 8, width: 160, background: "#A6B6BD", borderRadius: 4 }} />
+        <div style={{ display: "flex", height: 8, width: 160, background: "#C08A67", borderRadius: 4 }} />
       </div>
     ),
     size,

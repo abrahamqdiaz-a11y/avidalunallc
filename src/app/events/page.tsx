@@ -68,7 +68,7 @@ export default async function EventsPage() {
         <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {audiences.map((a) => (
             <li key={a} className="flex gap-2">
-              <CheckIcon className="mt-1 size-5 shrink-0 text-forest" /> {a}
+              <CheckIcon className="mt-1 size-5 shrink-0 text-olive" /> {a}
             </li>
           ))}
         </ul>
@@ -83,7 +83,7 @@ export default async function EventsPage() {
             <li key={step.title} className="card flex gap-4 p-5 md:flex-col md:p-6">
               <span
                 aria-hidden
-                className="grid size-10 shrink-0 place-items-center rounded-md bg-forest font-display text-lg font-semibold text-white"
+                className="grid size-10 shrink-0 place-items-center rounded-md bg-olive font-display text-lg font-semibold text-white"
               >
                 {i + 1}
               </span>

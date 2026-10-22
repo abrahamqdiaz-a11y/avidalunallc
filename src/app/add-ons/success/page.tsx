@@ -46,7 +46,7 @@ export default async function SuccessPage({ searchParams }: PageProps<"/add-ons/
         </span>
         <h1 className="mt-4 text-3xl md:text-4xl">You&apos;re all set.</h1>
         <p className="mt-2">Shary will bring your add-ons to your appointment.</p>
-        <ul className="mt-5 space-y-1 border-t border-forest/15 pt-4">
+        <ul className="mt-5 space-y-1 border-t border-olive/15 pt-4">
           {summary.items.map((item, i) => (
             <li key={i} className="flex justify-between gap-3">
               <span>
@@ -56,7 +56,7 @@ export default async function SuccessPage({ searchParams }: PageProps<"/add-ons/
             </li>
           ))}
         </ul>
-        <p className="mt-3 flex justify-between border-t border-forest/15 pt-3 font-semibold">
+        <p className="mt-3 flex justify-between border-t border-olive/15 pt-3 font-semibold">
           <span>Total paid</span>
           <span>{formatPrice(summary.totalCents / 100)}</span>
         </p>

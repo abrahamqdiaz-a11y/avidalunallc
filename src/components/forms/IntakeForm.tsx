@@ -105,7 +105,7 @@ export function IntakeForm({
             {hydreightUrl.replace(/^https:\/\//, "")}
           </a>
         </p>
-        <div className="mt-6 border-t border-forest/15 pt-5">
+        <div className="mt-6 border-t border-olive/15 pt-5">
           <p>
             After you book, you can add an optional wellness add-on like red light or aromatherapy.{" "}
             <Link href="/add-ons" className="font-semibold">
