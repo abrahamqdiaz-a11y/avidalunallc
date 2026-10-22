@@ -25,6 +25,7 @@ export function readForm(form: HTMLFormElement) {
 /** Keys for sessionStorage. Never put personal data in URLs. */
 export const STORAGE = {
   email: "avidaluna:email",
+  firstName: "avidaluna:firstName",
   selection: "avidaluna:addons",
 } as const;
 

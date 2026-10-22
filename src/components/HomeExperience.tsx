@@ -6,7 +6,7 @@ const steps = [
   {
     label: "Request",
     title: "A little about you. Then a time that works.",
-    text: "Share your name and email. Continue to Hydreight to choose your IV and appointment time. No health information is collected on this website.",
+    text: "Tap Book and share your name and email. Your booking link appears instantly, then you pick your services and a time on Hydreight. No health information is collected on this website.",
     detail: "01 / YOUR DETAILS",
     visual: "Your care starts with a conversation.",
     note: "A simple first step. About 30 seconds.",
@@ -14,7 +14,7 @@ const steps = [
   {
     label: "Assessment",
     title: "Professional care starts with listening.",
-    text: "Complete your confidential health screening on Hydreight. Before your IV begins, Shary reviews it with you and checks that the service is a good fit.",
+    text: "Complete your confidential health screening and payment on Hydreight. Before your IV begins, Shary reviews it with you and checks that the service is a good fit.",
     detail: "02 / BOOKING & SCREENING",
     visual: "Personal attention. From the very beginning.",
     note: "Medical screening happens securely on Hydreight.",
@@ -25,7 +25,7 @@ const steps = [
     text: "Shary comes to your home, office or event in the Lakewood Ranch area and stays with you throughout your visit.",
     detail: "03 / YOUR VISIT",
     visual: "Professional care. Personally delivered.",
-    note: "Optional add-ons can be arranged after booking.",
+    note: "Add an optional ritual after booking. Pay at your visit or online.",
   },
 ];
 

@@ -799,3 +799,14 @@ main > section > h1 {
 .on-sage .eyebrow {
   color: #6b452f;
 }
+
+/* "Pay at my visit" confirmation */
+.addon-dialog {
+  width: min(32rem, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  overflow-y: auto;
+}
+.addon-dialog::backdrop {
+  background: rgb(41 55 45 / 0.45);
+}

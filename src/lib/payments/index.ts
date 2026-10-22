@@ -21,14 +21,10 @@ export class CheckoutError extends Error {
 }
 
 /**
- * Prices the requested add-ons from Sanity (live read) and opens a hosted checkout.
- * Prices come only from the server, so the price shown and the price charged always match.
+ * Prices the requested add-ons from Sanity (live read). Prices come only from the server,
+ * so the price shown and the price charged (or quoted to Shary) always match.
  */
-export async function createAddOnCheckout(
-  items: { id: string; quantity: number }[],
-  email: string | undefined,
-  urls: { successUrl: string; cancelUrl: string },
-): Promise<CheckoutSession> {
+export async function priceAddOns(items: { id: string; quantity: number }[]): Promise<PricedLine[]> {
   const wanted = new Map<string, number>();
   for (const { id, quantity } of items) {
     if (quantity > 0) wanted.set(id, Math.min(MAX_ADDON_QUANTITY, (wanted.get(id) ?? 0) + quantity));
@@ -40,7 +36,7 @@ export async function createAddOnCheckout(
     throw new CheckoutError("Some of these add-ons are no longer available. Please refresh the page.", 409);
   }
 
-  const lines: PricedLine[] = addOns.map((a) => {
+  return addOns.map((a) => {
     if (!Number.isFinite(a.price) || a.price < 1 || a.price > 1000) {
       throw new CheckoutError("One of these add-ons has no valid price yet.", 409);
     }
@@ -52,7 +48,15 @@ export async function createAddOnCheckout(
       quantity: wanted.get(a.id)!,
     };
   });
+}
 
+/** Prices the add-ons on the server and opens a hosted checkout. */
+export async function createAddOnCheckout(
+  items: { id: string; quantity: number }[],
+  email: string | undefined,
+  urls: { successUrl: string; cancelUrl: string },
+): Promise<CheckoutSession> {
+  const lines = await priceAddOns(items);
   return provider.createCheckout(lines, { email: email || undefined, ...urls });
 }
 
