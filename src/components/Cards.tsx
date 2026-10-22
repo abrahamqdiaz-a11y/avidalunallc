@@ -19,7 +19,7 @@ export function ServiceCard({ service }: { service: Service }) {
   );
 }
 
-/** IV service card on /services: 4:3 photo, name, one-line description, starting price, quiet link to booking. */
+/** IV service card on /services: 4:3 photo, "good for" line, name, description, price (plus one upgrade), quiet link to booking. */
 export function IvServiceCard({ service }: { service: Service }) {
   const headingId = `${service.id}-name`;
   return (
@@ -42,19 +42,23 @@ export function IvServiceCard({ service }: { service: Service }) {
         )}
       </div>
       <div className="iv-card-body">
+        {service.goodFor ? <p className="iv-card-goodfor">{service.goodFor}</p> : null}
         <h3 id={headingId}>{service.name}</h3>
         <p className="iv-card-text">{service.description}</p>
         <p className="iv-card-price">
           {service.showPrice && service.price !== null ? (
-            <>
-              <span>From</span> {formatPrice(service.price)}
-            </>
+            formatPrice(service.price)
           ) : (
             <span>Pricing confirmed at booking</span>
           )}
         </p>
-        <Link href="/book" className="iv-card-link" aria-label={`Explore ${service.name} and book`}>
-          Explore service <ArrowRightIcon className="size-4" />
+        {service.showPrice && service.optionName && service.optionPrice ? (
+          <p className="iv-card-option">
+            {service.optionName} · {formatPrice(service.optionPrice)}
+          </p>
+        ) : null}
+        <Link href="/book" className="iv-card-link" aria-label={`Book ${service.name}`}>
+          Book this drip <ArrowRightIcon className="size-4" />
         </Link>
       </div>
     </article>

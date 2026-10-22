@@ -6,15 +6,20 @@ export type ImageRef = {
   height?: number;
 } | null;
 
-export type ServiceCategory = "iv" | "vitamin" | "consultation";
+export type ServiceCategory = "iv" | "boost" | "vitamin" | "consultation";
 
 export type Service = {
   id: string;
   name: string;
   category: ServiceCategory;
   description: string;
+  /** Short "Good for" line on drip cards, e.g. "Training · Recovery days". */
+  goodFor?: string | null;
   price: number | null;
   showPrice: boolean;
+  /** One upgrade shown on the same card, e.g. Myers "With chromium" at $240. */
+  optionName?: string | null;
+  optionPrice?: number | null;
   image: ImageRef;
   todo?: string;
 };

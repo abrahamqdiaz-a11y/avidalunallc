@@ -80,13 +80,15 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 export async function getServices(): Promise<Service[]> {
   const data = await fetchTagged<Service[]>(
     `*[_type == "service" && visible != false] | order(order asc, name asc){
-      "id": _id, name, category, description, price, "showPrice": coalesce(showPrice, false), ${imageProjection}
+      "id": _id, name, category, description, goodFor, price, "showPrice": coalesce(showPrice, false), optionName, optionPrice, ${imageProjection}
     }`,
     {},
     ["service"],
   );
   if (!data) return fallback.services;
-  return data.map((s) => ({ ...s, image: normalizeImage(s.image) }));
+  // Until Shary uploads her own, a service keeps the site's stock photo for its id.
+  const stockPhoto = (id: string) => fallback.services.find((f) => f.id === id)?.image ?? null;
+  return data.map((s) => ({ ...s, image: normalizeImage(s.image) ?? stockPhoto(s.id) }));
 }
 
 const addOnProjection = `{
