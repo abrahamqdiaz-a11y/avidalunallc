@@ -84,9 +84,9 @@ export function IntakeForm({
   if (done && mode === "book") {
     return (
       <div ref={successRef} tabIndex={-1} className="card p-6 outline-none md:p-8" data-testid="book-success">
-        <h2 className="text-3xl">Thank you. Next, choose your IV and time.</h2>
+        <h2 className="text-3xl">Thank you. Next, choose your service and time.</h2>
         <p className="mt-3">
-          Our secure booking page (powered by Hydreight) opens in a new tab. That&apos;s where you pick your drip,
+          Our secure booking page (powered by Hydreight) opens in a new tab. That&apos;s where you pick your service,
           choose a time and complete a short screening.
         </p>
         <a
