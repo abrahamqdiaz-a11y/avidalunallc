@@ -1250,3 +1250,63 @@ body:has(.home-design) .fixed.inset-x-0.bottom-0 .btn {
     transform: none;
   }
 }
+
+/* Mobile type floor: body copy stays at a comfortable reading size and small
+   labels never drop below 11px on phones. */
+@media (max-width: 767px) {
+  .home-label,
+  .hero-copy > .home-label,
+  .section-heading .home-label {
+    font-size: 11px;
+  }
+  .hero-intro,
+  .meet-copy > p:not(.home-label),
+  .home-faq details > p {
+    font-size: 16px;
+  }
+  .section-heading > p:last-child,
+  .visit-steps li p:last-child,
+  .home-area p:not(.home-label),
+  .home-final .home-wrap > div p {
+    font-size: 15px;
+  }
+  .home-button,
+  .home-text-link {
+    font-size: 14px;
+  }
+  .hero-credentials,
+  .hero-portrait figcaption,
+  .hero-bottom,
+  .hero-bottom a,
+  .small-addons,
+  .home-quotes figcaption,
+  .meet-grid figcaption,
+  .meet-credentials,
+  .visit-note,
+  .menu-foot p,
+  .menu-index,
+  .visit-steps .step-index {
+    font-size: 12px;
+  }
+  .hero-portrait figcaption span:last-child,
+  .menu-price small,
+  .area-map > p {
+    font-size: 11px !important;
+  }
+  .menu-detail,
+  .service-bottom {
+    font-size: 14px;
+  }
+  .home-faq h3 {
+    font-size: 17px;
+  }
+  body:has(.home-design) > footer .container-page {
+    font-size: 14px;
+  }
+  body:has(.home-design) > footer .container-page:last-child {
+    font-size: 12px;
+  }
+  body:has(.home-design) .fixed.inset-x-0.bottom-0 .btn {
+    font-size: 15px;
+  }
+}

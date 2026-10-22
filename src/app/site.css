@@ -723,7 +723,11 @@ footer .border-t {
 }
 .fixed.inset-x-0.bottom-0 .btn {
   border-radius: 2px;
-  font-size: 13px;
+  font-size: 15px;
+}
+/* The call button is a 48px circle; the shared .btn padding would squeeze its icon to nothing. */
+.fixed.inset-x-0.bottom-0 a[href^="tel:"] {
+  padding: 0;
 }
 .site-header :focus-visible {
   outline-offset: 4px;
@@ -1003,5 +1007,19 @@ form.card {
 @media (prefers-reduced-motion: reduce) {
   .iv-card:has(.iv-card-link:hover) {
     transform: none;
+  }
+}
+
+/* Mobile type floor for the shared page styles. */
+@media (max-width: 767px) {
+  .btn {
+    font-size: 15px;
+  }
+  .eyebrow {
+    font-size: 12px;
+  }
+  footer .prose-width,
+  footer .container-page:last-child {
+    font-size: 12px;
   }
 }
