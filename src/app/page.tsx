@@ -131,13 +131,14 @@ export default async function HomePage() {
         </div>
         <div className="service-editorial">
           <Link href="/services" className="service-main">
+            <Image
+              src="/brand/iv-hydration.webp"
+              alt=""
+              fill
+              className="service-photo"
+              sizes="(min-width: 768px) 55vw, 100vw"
+            />
             <span className="home-label">THE CORE OF OUR PRACTICE</span>
-            <div className="service-symbol" aria-hidden>
-              <svg viewBox="0 0 120 150">
-                <path d="M60 8C48 29 20 57 20 84a40 40 0 0 0 80 0C100 57 72 29 60 8Z" />
-                <path d="M39 88a21 21 0 0 0 21 21" />
-              </svg>
-            </div>
             <div>
               <h3>
                 Mobile IV

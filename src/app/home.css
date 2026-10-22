@@ -212,27 +212,39 @@
   font-size: 46px;
   line-height: 1.05;
 }
-.service-main > div:not(.service-symbol) {
+.service-main > div {
   margin-top: auto;
+}
+.service-main > :not(.service-photo) {
+  position: relative;
+  z-index: 1;
+}
+.service-main .service-photo {
+  object-fit: cover;
+  object-position: 62% 30%;
+  transition: transform 0.6s ease;
+}
+.service-main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgb(28 36 29 / 0.94) 0%,
+      rgb(28 36 29 / 0.72) 42%,
+      rgb(28 36 29 / 0.12) 72%,
+      rgb(28 36 29 / 0.45) 100%
+    );
+}
+.service-main:hover .service-photo {
+  transform: scale(1.03);
 }
 .service-main p {
   max-width: 300px;
   font-size: 14px;
   margin-top: 18px;
   color: #e1e7d9;
-}
-.service-symbol {
-  width: 115px;
-  height: 130px;
-  position: absolute;
-  right: 38px;
-  top: 56px;
-  transform: rotate(10deg);
-}
-.service-symbol svg {
-  fill: none;
-  stroke: #a8b69c;
-  stroke-width: 1;
 }
 .service-bottom {
   display: flex;
@@ -763,10 +775,6 @@ body:has(.home-design):not(.home-past-hero) .fixed.inset-x-0.bottom-0 {
   .section-heading {
     grid-template-columns: 1.4fr 1fr;
   }
-  .service-symbol {
-    width: 90px;
-    right: 25px;
-  }
   .service-main h3 {
     font-size: 40px;
   }
@@ -871,11 +879,6 @@ body:has(.home-design):not(.home-past-hero) .fixed.inset-x-0.bottom-0 {
   .service-main {
     min-height: 420px;
     padding: 28px;
-  }
-  .service-symbol {
-    width: 110px;
-    right: 30px;
-    top: 48px;
   }
   .service-main h3 {
     font-size: 43px;
