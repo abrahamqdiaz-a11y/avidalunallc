@@ -200,12 +200,8 @@ export default async function HomePage() {
           <figure>
             <div className="meet-photo">
               <Image
-                src={
-                  process.env.BRAND_PORTRAIT_ALT ||
-                  process.env.BRAND_PORTRAIT ||
-                  "/brand/shary.webp"
-                }
-                alt="Meet Shary, the nurse behind Avida Luna Wellness"
+                src="/brand/shary-meet.webp"
+                alt="Shary Gonzalez, RN, BSN, smiling outdoors in black scrubs"
                 fill
                 sizes="(min-width: 900px) 36vw, 90vw"
               />
