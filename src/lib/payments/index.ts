@@ -33,16 +33,16 @@ export async function createAddOnCheckout(
   for (const { id, quantity } of items) {
     if (quantity > 0) wanted.set(id, Math.min(MAX_ADDON_QUANTITY, (wanted.get(id) ?? 0) + quantity));
   }
-  if (wanted.size === 0) throw new CheckoutError("Please choose at least one ritual.", 400);
+  if (wanted.size === 0) throw new CheckoutError("Please choose at least one add-on.", 400);
 
   const addOns = await getAddOnsForCheckout([...wanted.keys()]);
   if (addOns.length !== wanted.size) {
-    throw new CheckoutError("Some of these rituals are no longer available. Please refresh the page.", 409);
+    throw new CheckoutError("Some of these add-ons are no longer available. Please refresh the page.", 409);
   }
 
   const lines: PricedLine[] = addOns.map((a) => {
     if (!Number.isFinite(a.price) || a.price < 1 || a.price > 1000) {
-      throw new CheckoutError("One of these rituals has no valid price yet.", 409);
+      throw new CheckoutError("One of these add-ons has no valid price yet.", 409);
     }
     return {
       id: a.id,

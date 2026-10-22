@@ -88,8 +88,8 @@ export default async function ArticlePage({ params }: PageProps<"/wellness-educa
               <Block key={i} block={b} />
             ))}
           </div>
-          <section className="mt-10 border-t border-olive/15 pt-6" aria-labelledby="sources-heading">
-            <h2 id="sources-heading" className="font-sans text-lg font-semibold text-ink">
+          <section className="mt-10 border-t border-forest/15 pt-6" aria-labelledby="sources-heading">
+            <h2 id="sources-heading" className="text-lg text-ink">
               Sources
             </h2>
             {article.sources.length ? (

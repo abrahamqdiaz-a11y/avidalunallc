@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Playfair_Display } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
@@ -12,15 +12,15 @@ import "./globals.css";
 
 // next/font downloads these at build time and serves them from our own domain,
 // so visitors never make a request to Google.
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   display: "swap",
@@ -33,20 +33,20 @@ export const metadata: Metadata = {
     template: `%s | ${BRAND_NAME}`,
   },
   description:
-    "Nurse-led mobile IV hydration and wellness add-ons in Lakewood Ranch, FL. Shary Gonzalez, RN, BSN, comes to your home, office or event. Se habla español.",
+    "Nurse-led mobile IV hydration in Lakewood Ranch, FL. Shary Gonzalez, RN, BSN, brings professional IV care to your home, office or event. Se habla español.",
   applicationName: BRAND_NAME,
   robots: allowIndexing ? undefined : { index: false, follow: false },
   formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F7F3EE",
+  themeColor: "#F8F9F6",
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const settings = await getSiteSettings();
   return (
-    <html lang="en" className={`${playfair.variable} ${montserrat.variable} antialiased`}>
+    <html lang="en" className={`${manrope.variable} ${inter.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
         <Header />
         <main id="main" className="flex-1">

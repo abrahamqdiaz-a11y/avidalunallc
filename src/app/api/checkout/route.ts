@@ -9,7 +9,7 @@ import { checkoutSchema } from "@/lib/validation";
 export async function POST(req: NextRequest) {
   if (isRateLimited(req, "checkout", 20)) return fail(429, "Too many tries. Please wait a few minutes.");
   if (!paymentsEnabled()) {
-    return fail(503, "Online payment is coming soon. Add your ritual at your visit.");
+    return fail(503, "Online payment is coming soon. Add your add-ons at your visit.");
   }
   const parsed = checkoutSchema.safeParse(await readJson(req));
   if (!parsed.success) return fail(400, "Something's off with your selection. Please try again.");

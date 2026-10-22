@@ -6,7 +6,7 @@ import { CrescentSprig } from "./Icons";
 const LOGO_SRC: string | null = null;
 
 export function Logo({ size = "md" }: { size?: "md" | "lg" }) {
-  const textSize = size === "lg" ? "text-2xl" : "text-xl";
+  const textSize = size === "lg" ? "text-[1.75rem]" : "text-[1.5rem] md:text-[1.625rem]";
   return (
     <Link href="/" className="inline-flex items-center gap-2 no-underline">
       {LOGO_SRC ? (
@@ -14,10 +14,10 @@ export function Logo({ size = "md" }: { size?: "md" | "lg" }) {
         <img src={LOGO_SRC} alt="Avida Luna Wellness, home" width={56} height={56} className="size-14" />
       ) : (
         <>
-          <CrescentSprig className="size-9" />
+          <CrescentSprig className="size-10" />
           <span className="flex flex-col leading-none">
-            <span className={`font-serif ${textSize} text-olive`}>Avida Luna</span>
-            <span className="mt-1 text-[0.625rem] font-semibold tracking-[0.3em] text-olive-dark">WELLNESS</span>
+            <span className={`font-display font-bold tracking-[-0.02em] ${textSize} text-forest`}>Avida Luna</span>
+            <span className="mt-1 text-[0.6875rem] font-semibold tracking-[0.18em] text-muted">NURSE-LED IV CARE</span>
           </span>
           <span className="sr-only"> home</span>
         </>

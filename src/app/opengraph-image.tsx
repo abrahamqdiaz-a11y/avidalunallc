@@ -15,27 +15,27 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#B7CAA3",
+          background: "#F8F9F6",
           padding: 72,
-          color: "#3E4436",
+          color: "#1F2622",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <svg width="72" height="72" viewBox="0 0 48 48">
-            <path d="M30 12a14 14 0 1 0 6 22 12 12 0 1 1-6-22z" fill="#B8BC98" stroke="#576D52" strokeWidth="1.2" />
+            <path d="M30 8a17 17 0 1 0 8 28 14 14 0 1 1-8-28z" fill="#293C32" />
           </svg>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 44, color: "#45583F" }}>Avida Luna</div>
-            <div style={{ fontSize: 18, letterSpacing: 8, color: "#45583F" }}>WELLNESS</div>
+            <div style={{ fontSize: 44, fontWeight: 700, color: "#293C32" }}>Avida Luna</div>
+            <div style={{ fontSize: 18, letterSpacing: 5, color: "#4B5751" }}>NURSE-LED IV CARE</div>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 76, color: "#45583F", lineHeight: 1.05 }}>Wellness that comes to you.</div>
+          <div style={{ fontSize: 72, fontWeight: 700, color: "#293C32", lineHeight: 1.05 }}>Experienced nursing care, brought to you.</div>
           <div style={{ fontSize: 32, marginTop: 20 }}>
-            Mobile IV hydration from Shary Gonzalez, RN, BSN · Lakewood Ranch, FL
+            Mobile IV therapy with Shary Gonzalez, RN, BSN · Lakewood Ranch, FL
           </div>
         </div>
-        <div style={{ display: "flex", height: 8, width: 160, background: "#9C6646", borderRadius: 8 }} />
+        <div style={{ display: "flex", height: 8, width: 160, background: "#A6B6BD", borderRadius: 4 }} />
       </div>
     ),
     size,

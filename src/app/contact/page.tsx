@@ -50,15 +50,15 @@ export default async function ContactPage() {
               </li>
             ) : null}
           </ul>
-          <h3 className="mt-8 font-sans text-lg font-semibold text-ink">Service area</h3>
+          <h3 className="mt-8 text-lg">Service area</h3>
           <p>{settings.serviceArea}</p>
           <Todo className="mt-2">Confirm the service area with Shary.</Todo>
           <p className="mt-4 font-semibold">Se habla español.</p>
           <Link href="/book" className="btn btn-primary mt-8">
-            Book your IV
+            Book an appointment
           </Link>
           <p className="mt-4 text-[0.9375rem]">
-            Planning a group event? Use the <Link href="/events#request">group event form</Link>.
+            Planning a group or corporate visit? Use the <Link href="/events#request">group request form</Link>.
           </p>
         </div>
         <div>

@@ -134,13 +134,34 @@ export const faqs: Faq[] = [
     id: "faq-services",
     question: "What services do you offer?",
     answer:
-      "Mobile IV hydration and wellness drips, vitamin boosts, wellness add-ons like red light and aromatherapy, group events, and personalized wellness programs that start with a consultation. Shary comes to your home, office or event.",
+      "Nurse-led mobile IV hydration, vitamin boosts, personalized consultations, and group and corporate wellness visits. Optional wellness add-ons like red light and aromatherapy can be added to an appointment. Shary comes to your home, office or event.",
   },
   {
     id: "faq-get-started",
     question: "How do I get started?",
     answer:
-      "Three steps: share your name and email (about 30 seconds), book your IV on our secure booking page, and Shary comes to you. You can add a wellness ritual after you book.",
+      "Three steps: request an appointment (share your name and email, then choose a service and time on our secure booking page), complete a health screening and assessment, and Shary comes to you.",
+  },
+  {
+    id: "faq-eligibility",
+    question: "Is IV therapy right for me?",
+    answer:
+      "Not everyone is a good fit for IV therapy, and that's why every appointment starts with a health screening. If anything in your screening or at your visit suggests an IV isn't right for you, Shary will tell you and suggest you speak with your doctor.",
+    todo: "Shary to confirm the eligibility wording and any groups she doesn't serve (for example, minors).",
+  },
+  {
+    id: "faq-safety",
+    question: "Who places my IV, and how is safety handled?",
+    answer:
+      "Shary, a registered nurse with more than 17 years of nursing experience, places and monitors every IV herself. She uses sterile, single-use supplies and stays with you for the whole visit.",
+    todo: "Shary to confirm the safety details (supplies, monitoring, medical director oversight through Hydreight).",
+  },
+  {
+    id: "faq-during",
+    question: "What happens during my appointment?",
+    answer:
+      "Shary arrives at your location, reviews your screening with you, and checks your vital signs. She then places your IV and stays with you while it runs. Most of the visit is simply time to sit back and rest.",
+    todo: "Shary to confirm the visit steps and the typical length.",
   },
   {
     id: "faq-book",
@@ -170,14 +191,14 @@ export const faqs: Faq[] = [
     id: "faq-before",
     question: "What happens before my appointment?",
     answer:
-      "Booking and health screening happen on Hydreight, our secure booking partner. Your health information stays there, never on this website.",
+      "Every appointment includes a confidential health screening on Hydreight, our secure booking partner, and Shary reviews it before your IV begins. Your health information stays there, never on this website.",
     todo: "Confirm with Shary exactly what Hydreight asks clients before a visit.",
   },
   {
     id: "faq-addons",
     question: "Can I add red light or aromatherapy?",
     answer:
-      "Yes. After you book your IV, add them on our Add-ons page, or ask Shary at your visit and pay by card then.",
+      "Yes, as optional add-ons to an IV appointment. After you book, add them on our Add-ons page, or ask Shary at your visit and pay by card then.",
   },
   {
     id: "faq-pay",
@@ -193,9 +214,9 @@ export const faqs: Faq[] = [
   },
   {
     id: "faq-groups",
-    question: "Do you offer group events?",
+    question: "Do you offer group or corporate visits?",
     answer:
-      "Yes. Birthdays, bridal parties, brunches, team days and pop-ups. Tell us about your event on our Group events page.",
+      "Yes. Shary coordinates mobile IV services for private groups, workplaces and special events. Tell us about your event on our Group & corporate page.",
   },
   {
     id: "faq-spanish",
@@ -208,66 +229,67 @@ export const testimonials: Testimonial[] = [];
 
 export const pageText: Record<PageKey, PageText> = {
   home: {
-    heading: "Wellness that comes to you.",
+    heading: "Experienced nursing care, brought to you.",
     intro:
-      "IV hydration and wellness add-ons from Shary Gonzalez, RN, BSN, at your home, office or next event in Lakewood Ranch.",
+      "Personalized IV hydration and wellness services provided by Shary Gonzalez, RN, BSN, in the comfort of your home, office or event.",
     sections: {
-      offer: { heading: "What we offer" },
-      how: { heading: "Simple from start to finish." },
-      ritual: {
-        heading: "Make it a ritual.",
-        text: "Add a little extra calm to your visit. Book your IV first, then add a ritual.",
-      },
-      events: {
-        heading: "Bring wellness to your group.",
-        text: "Birthdays, bridal parties, brunches, team days and pop-ups. Shary brings hydration and a little self-care to your guests.",
-      },
+      services: { heading: "Care designed around your needs" },
       meet: {
-        heading: "Hi, I'm Shary.",
-        text: "I'm a registered nurse and a mom of two. I started Avida Luna after my own wellness journey, because I wanted care to feel personal again. When you book, I'm the nurse who comes to you.",
+        heading: "Care from someone who knows your name.",
+        text: "With more than 17 years of nursing experience, Shary founded Avida Luna to bring professional, personalized wellness services directly to her community.\n\nRather than navigating a large clinic, patients connect directly with the nurse behind the practice. The nurse you speak with is the nurse who comes to your appointment.",
       },
-      education: { heading: "Wellness education" },
-      faq: { heading: "Questions, answered" },
-      cta: { heading: "Ready when you are.", text: "Book in a few minutes. Shary comes to you." },
+      how: { heading: "Request, assessment, visit." },
+      areas: {
+        heading: "Lakewood Ranch and surrounding communities",
+        text: "Shary is based in Lakewood Ranch and comes to homes, offices and event venues nearby. Not sure if you're in the area? Ask when you book.",
+      },
+      faq: { heading: "Before your appointment" },
+      cta: {
+        heading: "Professional care, personally delivered.",
+        text: "Book in a few minutes. Your nurse comes to you.",
+      },
     },
   },
   services: {
-    heading: "Services",
+    heading: "Care designed around your needs",
     intro:
-      "Every visit starts with a quick, secure booking. Pick your drip, choose a time, and Shary comes to you.",
+      "Nurse-led mobile IV hydration, consultations and group visits. Every appointment includes a health screening, and Shary assesses you in person before your IV begins.",
     sections: {
-      iv: { heading: "IV drips" },
-      vitamin: { heading: "Vitamin boosts" },
+      iv: {
+        heading: "Mobile IV hydration",
+        text: "Administered and monitored by Shary, a registered nurse, at your location.",
+      },
       consultation: {
-        heading: "Personalized wellness programs",
-        text: "Some services are personalized and start with a screening consultation. Book a consultation to talk through your goals.",
+        heading: "Personalized consultations",
+        text: "Some services are personalized and start with a screening consultation. Talk through your goals, health history and available services directly with your nurse.",
       },
+      vitamin: { heading: "Vitamin boosts" },
       addons: {
-        heading: "Make it a ritual.",
-        text: "Add red light or aromatherapy after you book your IV.",
+        heading: "Optional wellness add-ons",
+        text: "Red light and aromatherapy can be added to an IV appointment after you book.",
       },
-      how: { heading: "How booking works" },
+      how: { heading: "How appointments work" },
     },
   },
   addons: {
-    heading: "Make it a ritual.",
+    heading: "Wellness add-ons",
     intro:
-      "Already booked your IV? Add your rituals here. You can also add them at your visit and pay by card then.",
+      "Optional extras for an IV appointment you've already booked. Add them here, or ask Shary at your visit and pay by card then.",
     sections: {},
   },
   events: {
-    heading: "Bring wellness to your group.",
+    heading: "Group & corporate wellness",
     intro:
-      "Birthdays, bridal parties and girls' trips, brunches, office and team wellness days, and pop-ups at local businesses. Shary brings IV hydration and wellness add-ons to your group.",
+      "Coordinated mobile IV services for private groups, workplaces and special events. Each guest is screened individually, and Shary manages every IV on site.",
     sections: {
-      how: { heading: "How group events work" },
+      how: { heading: "How group visits work" },
       upcoming: {
         heading: "Upcoming events",
         text: "No public events right now. Want one for your group? Ask below.",
       },
       form: {
-        heading: "Plan your group event",
-        text: "Tell us a little about your event and Shary will get back to you.",
+        heading: "Request a group visit",
+        text: "Tell us a little about your group and Shary will get back to you.",
       },
     },
   },
@@ -277,12 +299,12 @@ export const pageText: Record<PageKey, PageText> = {
     sections: {},
   },
   about: {
-    heading: "Hi, I'm Shary.",
+    heading: "Shary Gonzalez, RN, BSN",
     intro:
-      "I'm Shamarith Gonzalez, Shary for short. I'm a registered nurse with a BSN, more than 17 years in nursing and 25 years in healthcare.",
+      "Shamarith \"Shary\" Gonzalez is a registered nurse with a BSN, more than 17 years in nursing and 25 years in healthcare. She founded Avida Luna to bring professional, personalized care directly to her community.",
     sections: {
       story: {
-        text: "I'm also a mom of two. Avida Luna grew out of my own wellness journey. I wanted a calmer, more personal kind of care, and I wanted to bring it to other people too.\n\nWhen you book with Avida Luna, I'm the nurse who shows up. Not a call center, and not a busy IV bar. I come to your home, your office or your event, and I take the time to make the visit easy.\n\nHablo español, so we can talk in English or Spanish, whichever feels better for you.",
+        text: "Shary started Avida Luna because she wanted care to feel personal again: one nurse, who knows your name, taking the time to do things properly.\n\nWhen you book with Avida Luna, Shary is the nurse who shows up. Not a call center, and not a rotating staff. She reviews your screening, assesses you in person, places your IV and stays with you for the whole visit, at your home, your office or your event.\n\nShe speaks English and Spanish, so you can talk through your care in whichever language feels better for you.",
       },
       credentials: { heading: "Credentials" },
       mission: { text: "" },
@@ -290,17 +312,19 @@ export const pageText: Record<PageKey, PageText> = {
   },
   faq: {
     heading: "Frequently asked questions",
-    intro: "Short answers to common questions. Still wondering about something? Get in touch.",
+    intro:
+      "Eligibility, screening, safety and what to expect at your appointment. Still wondering about something? Get in touch.",
     sections: {},
   },
   contact: {
     heading: "Get in touch",
-    intro: "Questions, group events or partnerships. Shary will get back to you.",
+    intro: "Questions about services, group visits or partnerships. Shary will get back to you personally.",
     sections: {},
   },
   book: {
-    heading: "Book your IV",
-    intro: "Takes 30 seconds. Next, you'll pick your IV and time on our secure booking page.",
+    heading: "Book an appointment",
+    intro:
+      "Takes 30 seconds. Next, you'll choose your service and time and complete a short health screening on our secure booking page.",
     sections: {},
   },
   join: {

@@ -105,9 +105,9 @@ export function IntakeForm({
             {hydreightUrl.replace(/^https:\/\//, "")}
           </a>
         </p>
-        <div className="mt-6 border-t border-olive/15 pt-5">
+        <div className="mt-6 border-t border-forest/15 pt-5">
           <p>
-            After you book, you can add a wellness ritual like red light or aromatherapy.{" "}
+            After you book, you can add an optional wellness add-on like red light or aromatherapy.{" "}
             <Link href="/add-ons" className="font-semibold">
               See add-ons
             </Link>
@@ -124,7 +124,7 @@ export function IntakeForm({
         <p className="mt-3">Thanks for joining. Watch your inbox for event news and offers from Shary.</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link href="/book" className="btn btn-primary">
-            Book your IV
+            Book an appointment
           </Link>
           <Link href="/" className="btn btn-outline">
             Back to home

@@ -14,12 +14,12 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#576D52",
+          background: "#293C32",
           borderRadius: 14,
         }}
       >
         <svg width="46" height="46" viewBox="0 0 48 48">
-          <path d="M30 10a15 15 0 1 0 7 24 13 13 0 1 1-7-24z" fill="#F7F3EE" />
+          <path d="M30 10a15 15 0 1 0 7 24 13 13 0 1 1-7-24z" fill="#F8F9F6" />
         </svg>
       </div>
     ),

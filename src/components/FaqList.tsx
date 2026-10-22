@@ -6,12 +6,12 @@ import { Todo } from "./Todo";
 export function FaqList({ faqs, headingLevel = "h3" }: { faqs: Faq[]; headingLevel?: "h2" | "h3" }) {
   const H = headingLevel;
   return (
-    <div className="accordion divide-y divide-olive/15 rounded-[var(--radius-card)] bg-paper shadow-[var(--shadow-soft)]">
+    <div className="accordion divide-y divide-line rounded-[var(--radius-card)] border border-line bg-paper shadow-[var(--shadow-soft)]">
       {faqs.map((f) => (
         <details key={f.id} className="group px-5 md:px-6">
           <summary className="flex items-center justify-between gap-4 py-5">
-            <H className="font-sans text-lg font-semibold text-ink">{f.question}</H>
-            <PlusIcon className="chev size-5 shrink-0 text-olive" />
+            <H className="text-lg text-ink">{f.question}</H>
+            <PlusIcon className="chev size-5 shrink-0 text-forest" />
           </summary>
           <div className="prose-width pb-5">
             <p>{f.answer}</p>

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { GroupRequestForm } from "@/components/forms/GroupRequestForm";
+import { CheckIcon } from "@/components/Icons";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { Todo } from "@/components/Todo";
-import { WaveDivider } from "@/components/WaveDivider";
 import { BRAND_NAME, SITE_URL } from "@/lib/constants";
 import { getPageText, getUpcomingEvents, todayInFlorida } from "@/lib/content";
 import { floridaIso, formatEventDate, formatTime } from "@/lib/format";
@@ -13,24 +13,24 @@ import type { EventItem } from "@/lib/types";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Group IV and Wellness Events in Lakewood Ranch",
+  title: "Group and Corporate Mobile IV in Lakewood Ranch",
   description:
-    "Bring IV hydration and wellness add-ons to your birthday, bridal party, brunch, office or pop-up event in Lakewood Ranch, FL. Request a group event with Shary.",
+    "Coordinated mobile IV hydration for private groups, workplaces and special events in Lakewood Ranch, FL, led by Shary Gonzalez, RN, BSN. Request a group visit.",
   path: "/events",
 });
 
 const steps = [
-  { title: "Send a request", text: "Tell us the date, the city and about how many guests." },
-  { title: "Plan with Shary", text: "She'll reach out to talk through timing, setup and what your group would like." },
-  { title: "Shary sets up on site", text: "She arrives, sets up and looks after each guest." },
+  { title: "Send a request", text: "Tell us the date, the location and about how many guests." },
+  { title: "Plan with Shary", text: "She'll reach out to talk through timing, setup and how each guest books and is screened." },
+  { title: "Shary manages care on site", text: "She arrives, sets up, assesses each guest and manages every IV herself." },
 ];
 
 const audiences = [
-  "Birthdays",
-  "Bridal parties and girls' trips",
-  "Brunches and private gatherings",
-  "Office and team wellness days",
-  "Pop-ups at local businesses",
+  "Workplace and team wellness days",
+  "Corporate and community events",
+  "Private gatherings and celebrations",
+  "Bridal parties and group trips",
+  "On-site visits at local businesses",
 ];
 
 function eventSchema(e: EventItem) {
@@ -55,21 +55,20 @@ export default async function EventsPage() {
 
   return (
     <>
-      <PageHero heading={text.heading} intro={text.intro}>
+      <PageHero eyebrow="Group & corporate" heading={text.heading} intro={text.intro}>
         <a href="#request" className="btn btn-primary mt-7">
-          Plan your group event
+          Request a group visit
         </a>
       </PageHero>
-      <WaveDivider from="sage" to="cream" />
 
       <section className="container-page py-12 md:py-16" aria-labelledby="who-heading">
         <h2 id="who-heading" className="text-3xl md:text-4xl">
-          Who it&apos;s for
+          Who we work with
         </h2>
-        <ul className="mt-5 flex flex-wrap gap-3">
+        <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {audiences.map((a) => (
-            <li key={a} className="rounded-full bg-paper px-4 py-2 font-medium shadow-[var(--shadow-soft)]">
-              {a}
+            <li key={a} className="flex gap-2">
+              <CheckIcon className="mt-1 size-5 shrink-0 text-forest" /> {a}
             </li>
           ))}
         </ul>
@@ -82,12 +81,15 @@ export default async function EventsPage() {
         <ol className="mt-6 grid gap-4 md:grid-cols-3 md:gap-6">
           {steps.map((step, i) => (
             <li key={step.title} className="card flex gap-4 p-5 md:flex-col md:p-6">
-              <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-full bg-sage font-serif text-xl text-ink">
+              <span
+                aria-hidden
+                className="grid size-10 shrink-0 place-items-center rounded-md bg-forest font-display text-lg font-semibold text-white"
+              >
                 {i + 1}
               </span>
               <div>
-                <h3 className="font-sans text-lg font-semibold text-ink">{step.title}</h3>
-                <p className="mt-1">{step.text}</p>
+                <h3 className="text-lg">{step.title}</h3>
+                <p className="mt-1 text-muted">{step.text}</p>
               </div>
             </li>
           ))}

@@ -156,7 +156,7 @@ export function CheckboxField({ name, label, required, error }: Omit<Common, "hi
           name={name}
           type="checkbox"
           required={required}
-          className="mt-1 size-5 shrink-0 accent-olive"
+          className="mt-1 size-5 shrink-0 accent-forest"
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? `${id}-error` : undefined}
         />

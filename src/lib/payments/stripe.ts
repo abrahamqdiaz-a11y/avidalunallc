@@ -65,7 +65,7 @@ export const stripeProvider: AddOnPaymentProvider = {
       const summary: PaidSummary = {
         paid: session.payment_status === "paid",
         items: (session.line_items?.data ?? []).map((li) => ({
-          name: li.description ?? "Wellness ritual",
+          name: li.description ?? "Wellness add-on",
           quantity: li.quantity ?? 1,
           amountCents: li.amount_total,
         })),

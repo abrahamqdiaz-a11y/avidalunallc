@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { CrescentSprig } from "./Icons";
 
 export function FinalCta({
-  heading = "Ready when you are.",
+  heading = "Professional care, personally delivered.",
   text,
   secondary,
 }: {
@@ -11,17 +10,16 @@ export function FinalCta({
   secondary?: { href: string; label: string };
 }) {
   return (
-    <section className="band-olive">
+    <section className="band-forest on-forest">
       <div className="container-page flex flex-col items-center py-14 text-center md:py-20">
-        <CrescentSprig className="size-10" />
-        <h2 className="mt-3 text-3xl md:text-5xl">{heading}</h2>
-        {text ? <p className="mt-3 text-lg">{text}</p> : null}
+        <h2 className="text-3xl md:text-[2.75rem]">{heading}</h2>
+        {text ? <p className="prose-width mt-3 text-lg">{text}</p> : null}
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link href="/book" className="btn btn-primary">
-            Book your IV
+            Book an appointment
           </Link>
           {secondary ? (
-            <Link href={secondary.href} className="btn border-2 border-cream text-cream hover:bg-cream/10">
+            <Link href={secondary.href} className="btn border-[1.5px] border-canvas text-canvas hover:bg-canvas/10">
               {secondary.label}
             </Link>
           ) : null}
