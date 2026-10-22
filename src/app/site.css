@@ -9,8 +9,11 @@
   --color-line: #d6d9cd;
   --font-sans: var(--font-manrope), Arial, sans-serif;
   --font-display: var(--font-manrope), Arial, sans-serif;
-  --radius-card: 2px;
-  --shadow-soft: none;
+  --radius-card: 20px;
+  --radius-media: 24px;
+  --radius-control: 14px;
+  --shadow-soft: 0 1px 2px rgb(41 55 45 / 0.04), 0 12px 32px -18px rgb(41 55 45 / 0.22);
+  --shadow-lift: 0 2px 6px rgb(41 55 45 / 0.06), 0 24px 48px -24px rgb(41 55 45 / 0.38);
 }
 body {
   font-size: 16px;
@@ -850,4 +853,94 @@ main > section > h1 {
 }
 .addon-dialog::backdrop {
   background: rgb(41 55 45 / 0.45);
+}
+
+/* Soft shapes: rounded corners and a gentle lift on photos, cards, buttons and forms. */
+.btn,
+.fixed.inset-x-0.bottom-0 .btn,
+.site-header .rounded-full,
+.state-card .rounded-full {
+  border-radius: 999px;
+}
+.btn-primary {
+  box-shadow: 0 8px 20px -12px rgb(41 55 45 / 0.5);
+}
+.card {
+  border-radius: var(--radius-card);
+}
+.card:has(> form),
+form.card {
+  background: #fff;
+  border-color: #e6e3d9;
+  box-shadow: var(--shadow-lift);
+}
+.card[role="status"] {
+  border-left: 0;
+  box-shadow: var(--shadow-soft);
+}
+.field-input {
+  border-radius: var(--radius-control);
+  background: #fcfaf5;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.field-input:focus {
+  border-color: var(--color-olive);
+  box-shadow: 0 0 0 4px rgb(75 98 70 / 0.14);
+}
+.field-error {
+  border-radius: 0 8px 8px 0;
+}
+[role="alert"] {
+  border-radius: var(--radius-control);
+}
+.site-header nav.absolute {
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+  box-shadow: var(--shadow-lift);
+}
+.final-cta > .container-page {
+  border-radius: 0;
+}
+.addon-layout .rounded-xl,
+.addon-item-body [role="group"] button {
+  border-radius: var(--radius-control);
+}
+.addon-image {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+.addon-layout aside,
+.state-card {
+  border-top: 0;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+}
+.iv-card {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+.iv-card:has(.iv-card-link:hover) {
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-3px);
+}
+.about-profile figure > div {
+  border-radius: var(--radius-media);
+  box-shadow: var(--shadow-lift);
+}
+.reading-page .prose-width > p[role="note"] {
+  border-radius: 0 12px 12px 0;
+}
+.legal-review-note {
+  border-radius: 0 12px 12px 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .iv-card:has(.iv-card-link:hover) {
+    transform: none;
+  }
 }

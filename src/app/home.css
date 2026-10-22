@@ -1181,3 +1181,72 @@ body:has(.home-design) > header a[href^="tel:"] {
   height: 16px;
   transform: rotate(-45deg);
 }
+
+/* Soft shapes: rounded, lifted photos and panels on the home page. */
+.home-button,
+body:has(.home-design) > header .btn,
+body:has(.home-design) .fixed.inset-x-0.bottom-0 .btn {
+  border-radius: 999px;
+}
+.home-button {
+  box-shadow: 0 10px 22px -12px rgb(41 55 45 / 0.55);
+}
+.portrait-frame,
+.meet-photo {
+  border-radius: var(--radius-media);
+  overflow: hidden;
+  box-shadow: var(--shadow-lift);
+}
+.service-main {
+  border-radius: var(--radius-media);
+  box-shadow: var(--shadow-lift);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+.service-main:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgb(41 55 45 / 0.08), 0 32px 60px -28px rgb(41 55 45 / 0.5);
+}
+.service-support > a {
+  padding: 26px 28px;
+  border: 1px solid #e6e3d9;
+  border-radius: var(--radius-card);
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+.service-support > a:first-child {
+  padding-top: 26px;
+  border-top: 1px solid #e6e3d9;
+}
+.service-support > a:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+}
+.service-support {
+  gap: 20px;
+}
+.visit-visual,
+.area-map {
+  border-radius: var(--radius-media);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+@media (max-width: 767px) {
+  .service-support > a,
+  .service-support > a:first-child {
+    padding: 22px;
+  }
+  .service-support {
+    gap: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-main:hover,
+  .service-support > a:hover {
+    transform: none;
+  }
+}
