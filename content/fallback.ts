@@ -71,7 +71,7 @@ export const services: Service[] = [
     goodFor: "Nights out · Travel · Busy weekends",
     price: 190,
     showPrice: true,
-    image: null,
+    image: { src: "/services/reset.webp", alt: "A woman relaxing on a sofa with a glass of water in a sunny living room", width: 2000, height: 1242 },
   },
   {
     id: "service-myers",
