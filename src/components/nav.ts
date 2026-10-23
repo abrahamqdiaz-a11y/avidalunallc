@@ -3,6 +3,7 @@ export const mainNav = [
   { href: "/#how", label: "How it works" },
   { href: "/about", label: "Meet your nurse" },
   { href: "/events", label: "Group & corporate" },
+  { href: "/wellness-education", label: "Wellness education" },
   { href: "/faq", label: "FAQ" },
 ] as const;
 
@@ -10,5 +11,4 @@ export const mainNav = [
 export const secondaryNav = [
   { href: "/contact", label: "Contact" },
   { href: "/add-ons", label: "Wellness add-ons" },
-  { href: "/wellness-education", label: "Wellness education" },
 ] as const;
