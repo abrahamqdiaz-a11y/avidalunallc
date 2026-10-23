@@ -6,8 +6,6 @@ import { useEffect, useRef, useState } from "react";
 type StepPhoto = { src: string; alt: string; position?: string } | null;
 
 // Step photos for the sticky card. A step with no photo keeps the line drawing.
-// Step 01 needs public/how/step-01-request.webp: a phone showing a booking screen
-// on a table in a bright Sarasota home. Add it, then set its src below.
 const steps: {
   label: string;
   title: string;
@@ -24,7 +22,11 @@ const steps: {
     detail: "01 / YOUR DETAILS",
     visual: "Your care starts with a conversation.",
     note: "A simple first step. About 30 seconds.",
-    photo: null,
+    photo: {
+      src: "/how/step-01-request.webp",
+      alt: "A phone showing the Avida Luna booking screen on a table beside a coffee mug in a bright Sarasota home",
+      position: "40% 60%",
+    },
   },
   {
     label: "Assessment",
