@@ -1356,3 +1356,104 @@ body:has(.home-design) .fixed.inset-x-0.bottom-0 .btn {
     font-size: 15px;
   }
 }
+
+/* Wellness education teaser: intro on the left, latest reading on the right. */
+.home-education {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 8%;
+}
+.home-education h2 {
+  margin-block: 25px;
+}
+.home-education > div > p:not(.home-label) {
+  font-size: 14px;
+  color: #53604f;
+  max-width: 380px;
+}
+.home-education .education-note {
+  font-size: 12px !important;
+  margin-top: 16px;
+  max-width: 340px;
+}
+.home-education .home-text-link {
+  margin-top: 24px;
+}
+.education-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.education-list li {
+  border-top: 1px solid #bec7b5;
+}
+.education-list li:last-child {
+  border-bottom: 1px solid #bec7b5;
+}
+.education-list a {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 24px;
+  padding-block: 28px;
+}
+.education-index {
+  font-size: 10px;
+  color: #53604f;
+  padding-top: 8px;
+}
+.education-list h3 {
+  font-size: 26px;
+  line-height: 1.2;
+}
+.education-list p {
+  font-size: 14px;
+  color: #53604f;
+  margin-top: 8px;
+}
+.education-list svg {
+  margin-top: 8px;
+  transition: transform 0.2s;
+}
+.education-list a:hover h3 {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+}
+.education-list a:hover svg {
+  transform: rotate(-45deg) translate(3px, 0);
+}
+@media (max-width: 767px) {
+  .home-education {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .home-education h2 br {
+    display: none;
+  }
+  .home-education h2 {
+    font-size: 42px;
+  }
+  .home-education > div > p:not(.home-label) {
+    font-size: 15px;
+  }
+  .home-education .education-note,
+  .education-index {
+    font-size: 12px !important;
+  }
+  .education-list a {
+    gap: 16px;
+    padding-block: 22px;
+  }
+  .education-list h3 {
+    font-size: 21px;
+  }
+  .education-list p {
+    font-size: 15px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .education-list svg {
+    transition: none;
+  }
+}
