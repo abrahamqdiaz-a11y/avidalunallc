@@ -49,7 +49,7 @@ export const services: Service[] = [
     goodFor: "Training · Endurance · Rest days",
     price: 180,
     showPrice: true,
-    image: { src: "/services/athlete-recovery.webp", alt: "A woman resting on a mat with a towel and water bottle after a workout", width: 1448, height: 1086 },
+    image: { src: "/services/athlete-recovery-towel.webp", alt: "A man resting on a mat with a towel around his neck and a water bottle after a workout", width: 1190, height: 892 },
   },
   {
     id: "service-energy",
