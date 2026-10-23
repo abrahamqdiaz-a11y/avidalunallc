@@ -1,5 +1,5 @@
 :root {
-  --color-cream: #f7f4ed;
+  --color-cream: #fdfcf9;
   --color-paper: #fcfaf5;
   --color-ink: #29372d;
   --color-muted: #53604f;
@@ -153,7 +153,7 @@ form.card {
   margin-top: 28px;
 }
 .site-header {
-  background: #f7f4ed !important;
+  background: #fdfcf9 !important;
   backdrop-filter: none !important;
 }
 .site-header > .container-page {
@@ -419,7 +419,7 @@ footer .border-t {
   border-radius: 2px;
 }
 .addon-layout .fixed {
-  background: #f7f4ed;
+  background: #fdfcf9;
 }
 .addon-layout .fixed p {
   font-size: 13px;

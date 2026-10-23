@@ -1,7 +1,7 @@
 .home-design {
   --home-dark: #29372d;
   --home-olive: #4b6246;
-  --home-cream: #f7f4ed;
+  --home-cream: #fdfcf9;
   --home-sage: #dce2d2;
   background: var(--home-cream);
   color: var(--home-dark);
@@ -588,7 +588,7 @@
   margin-top: 32px;
 }
 .area-card {
-  background: #fbf9f4;
+  background: #fff;
   border: 1px solid #e1ddd1;
   border-radius: var(--radius-media);
   padding: clamp(28px, 3.4vw, 48px);
@@ -710,7 +710,7 @@
 }
 /* The homepage previews its own visual direction; other page styles stay intact. */
 body:has(.home-design) > header {
-  background: #f7f4ed;
+  background: #fdfcf9;
   border-color: #d6d9cd;
   backdrop-filter: none;
 }
