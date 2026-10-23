@@ -22,11 +22,11 @@ const manrope = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Mobile IV Therapy in Lakewood Ranch, FL | Avida Luna Wellness",
+    default: "Mobile IV Therapy in Lakewood Ranch & Sarasota | Avida Luna",
     template: `%s | ${BRAND_NAME}`,
   },
   description:
-    "Nurse-led mobile IV hydration in Lakewood Ranch, FL. Shary Gonzalez, RN, BSN, brings professional IV care to your home, office or event. Se habla español.",
+    "Nurse-led mobile IV therapy at your home, office or event in Lakewood Ranch, Sarasota and Bradenton. IV drips from $99 with Shary Gonzalez, RN, BSN.",
   applicationName: BRAND_NAME,
   robots: allowIndexing ? undefined : { index: false, follow: false },
   formatDetection: { telephone: false },

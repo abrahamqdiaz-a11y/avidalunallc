@@ -63,7 +63,10 @@ export type Article = {
   todo?: string;
 };
 
-export type Faq = { id: string; question: string; answer: string; todo?: string };
+/** Where a question shows: the FAQ page (default) or the Services page. */
+export type FaqPlacement = "faq" | "services";
+
+export type Faq = { id: string; question: string; answer: string; placement?: FaqPlacement; todo?: string };
 
 export type Testimonial = { id: string; quote: string; firstName: string };
 

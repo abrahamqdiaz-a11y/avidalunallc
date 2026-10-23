@@ -3,27 +3,32 @@ import Link from "next/link";
 import { FinalCta } from "@/components/FinalCta";
 import { HowItWorks } from "@/components/HowItWorks";
 import { IvServiceCard } from "@/components/Cards";
+import { FaqList } from "@/components/FaqList";
 import { ArrowRightIcon } from "@/components/Icons";
+import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
-import { getAddOns, getPageText, getServices } from "@/lib/content";
+import { getAddOns, getFaqs, getPageText, getServices } from "@/lib/content";
 import { formatDuration, formatPrice } from "@/lib/format";
+import { faqSchema, servicesSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 import type { Service } from "@/lib/types";
+import { cityAreas, serviceAreas } from "@content/fallback";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Nurse-Led Mobile IV Hydration in Lakewood Ranch",
+  title: "IV Drips & B12 Shots at Home in Lakewood Ranch | Avida Luna",
   description:
-    "Mobile IV drips, vitamin injections, consultations and group visits from Shary Gonzalez, RN, BSN, at your home, office or event in Lakewood Ranch, FL. Screened before every visit.",
+    "IV drip menu: Hydration from $99, Myers cocktail, Energy and Athlete Recovery, plus B12 shots. A registered nurse comes to you in Lakewood Ranch and Sarasota.",
   path: "/services",
 });
 
 export default async function ServicesPage() {
-  const [text, services, addOns] = await Promise.all([
+  const [text, services, addOns, faqs] = await Promise.all([
     getPageText("services"),
     getServices(),
     getAddOns(),
+    getFaqs("services"),
   ]);
   const s = text.sections;
   const drips = services.filter((x) => x.category === "iv");
@@ -37,7 +42,10 @@ export default async function ServicesPage() {
     { href: "#consultation", label: "Consultations", show: true },
     { href: "#add-ons", label: "Wellness add-ons", show: true },
     { href: "#groups", label: "Groups", show: true },
+    { href: "#areas", label: "Areas", show: true },
+    { href: "#questions", label: "Questions", show: faqs.length > 0 },
   ].filter((l) => l.show);
+  const otherAreas = serviceAreas.filter((a) => !cityAreas.some((c) => c.city === a));
 
   return (
     <>
@@ -197,18 +205,37 @@ export default async function ServicesPage() {
         <div className="practice-feature">
           <div>
             <p className="eyebrow mb-4">CARE, TOGETHER</p>
-            <h2>Group & corporate wellness</h2>
+            <h2>{s.groups?.heading}</h2>
           </div>
           <div>
-            <p>
-              Professional mobile care for your workplace, private group or
-              event. Plan the timing and setup directly with Shary.
-            </p>
+            <p>{s.groups?.text}</p>
             <Link href="/events" className="btn btn-outline mt-6">
-              Plan a group visit <ArrowRightIcon />
+              Plan a group IV event <ArrowRightIcon />
             </Link>
           </div>
         </div>
+      </section>
+
+      <section
+        id="areas"
+        className="container-page scroll-mt-32 pb-12 md:pb-16"
+        aria-labelledby="areas-heading"
+      >
+        <p className="eyebrow">We come to you</p>
+        <h2 id="areas-heading" className="mt-2 text-3xl md:text-4xl">
+          {s.areas?.heading}
+        </h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-3 md:gap-6">
+          {cityAreas.map((c) => (
+            <div key={c.city} className="card p-5 md:p-6">
+              <h3 className="text-xl">Mobile IV therapy in {c.city}</h3>
+              <p className="mt-2 text-muted">{c.text}</p>
+            </div>
+          ))}
+        </div>
+        <p className="prose-width mt-6 text-muted">
+          Also serving {otherAreas.join(", ")}. {s.areas?.text}
+        </p>
       </section>
       <section className="band-sage on-sage" aria-labelledby="how-heading">
         <div className="container-page py-12 md:py-16">
@@ -222,6 +249,27 @@ export default async function ServicesPage() {
       </section>
 
 
+      {faqs.length ? (
+        <section
+          id="questions"
+          className="container-page max-w-3xl scroll-mt-32 py-12 md:py-16"
+          aria-labelledby="questions-heading"
+        >
+          <h2 id="questions-heading" className="text-3xl md:text-4xl">
+            {s.faq?.heading}
+          </h2>
+          <div className="mt-6">
+            <FaqList faqs={faqs} />
+          </div>
+          <p className="mt-6">
+            More about booking, safety and payment on our{" "}
+            <Link href="/faq">mobile IV FAQ</Link>.
+          </p>
+          <JsonLd data={faqSchema(faqs)} />
+        </section>
+      ) : null}
+
+      <JsonLd data={servicesSchema(services)} />
       <FinalCta />
     </>
   );

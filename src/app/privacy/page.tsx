@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Privacy Notice",
+  title: "Privacy Notice | Avida Luna Wellness",
   description:
     "What the Avida Luna Wellness website collects, why, and how to ask us to delete it.",
   path: "/privacy",

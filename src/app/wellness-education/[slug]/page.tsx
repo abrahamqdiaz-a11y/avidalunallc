@@ -22,7 +22,7 @@ export async function generateMetadata({
   const article = await getArticle(slug);
   if (!article) return {};
   return pageMetadata({
-    title: article.title,
+    title: `${article.title} | ${BRAND_NAME}`,
     description: article.summary,
     path: `/wellness-education/${slug}`,
   });

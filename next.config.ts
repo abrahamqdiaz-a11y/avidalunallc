@@ -21,6 +21,7 @@ const legacyRedirects: Array<[string, string]> = [
   ["/wellnesseducation/:slug*", "/wellness-education"],
   ["/faq-1", "/faq"],
   ["/home", "/"],
+  ["/welcome", "/"],
 ];
 
 const nextConfig: NextConfig = {

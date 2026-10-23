@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Terms of Use",
+  title: "Terms of Use | Avida Luna Wellness",
   description:
     "Terms for using the Avida Luna Wellness website and buying wellness add-ons.",
   path: "/terms",

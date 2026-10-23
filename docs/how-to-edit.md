@@ -14,7 +14,7 @@ Changes show on avidaluna.com **about a minute after you press Publish**. You do
 | **Add-ons** | Red light, aromatherapy and other rituals, with prices people pay online |
 | **Events** | Public events and pop-ups. They disappear from the site by themselves after the date. |
 | **Wellness articles** | Your Wellness Education articles |
-| **FAQ** | The questions and answers |
+| **FAQ** | The questions and answers. "Show on" picks the FAQ page or the Services page |
 | **Page text** | Headings and short intros on each page |
 | **Contact info** | Phone, email, service area, Instagram, Facebook, footer note |
 | **Testimonials** | Client quotes (hidden on the site until you add one) |
