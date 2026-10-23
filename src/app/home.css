@@ -46,8 +46,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  background: var(--home-olive);
-  color: #fff !important;
+  background: var(--color-terracotta);
+  color: var(--color-on-terracotta) !important;
   min-height: 54px;
   padding: 16px 22px;
   border-radius: 2px;
@@ -63,7 +63,7 @@
   height: 18px;
 }
 .home-button:hover {
-  background: #354c32;
+  background: var(--color-terracotta-hover);
   transform: translateY(-2px);
 }
 .home-text-link {
@@ -688,13 +688,6 @@
   font-size: 14px;
   color: #d6ddcd;
 }
-.home-final .home-button {
-  background: #dce2d2;
-  color: #29372d !important;
-}
-.home-final .home-button:hover {
-  background: #f7f4ed;
-}
 .home-quotes {
   display: flex;
   gap: 40px;
@@ -735,7 +728,7 @@ body:has(.home-design) > header .btn {
   font-size: 11px;
   min-height: 44px;
   padding-inline: 16px;
-  background: #4b6246;
+  background: var(--color-terracotta);
 }
 body:has(.home-design) > header nav ul {
   gap: 20px;
@@ -1132,7 +1125,7 @@ body:has(.home-design) > footer [data-todo] {
   display: none;
 }
 body:has(.home-design) > footer .band-ink {
-  background: #29372d;
+  background: var(--color-terracotta);
 }
 body:has(.home-design) > footer .container-page {
   max-width: 1440px;
@@ -1219,7 +1212,7 @@ body:has(.home-design) .fixed.inset-x-0.bottom-0 .btn {
   border-radius: 999px;
 }
 .home-button {
-  box-shadow: 0 10px 22px -12px rgb(41 55 45 / 0.55);
+  box-shadow: 0 10px 22px -12px rgb(120 72 44 / 0.55);
 }
 .portrait-frame,
 .meet-photo {
