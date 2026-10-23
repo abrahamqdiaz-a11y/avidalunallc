@@ -7,15 +7,16 @@ import { Todo } from "@/components/Todo";
 import { BRAND_NAME, SITE_URL } from "@/lib/constants";
 import { getPageText, getUpcomingEvents, todayInFlorida } from "@/lib/content";
 import { floridaIso, formatEventDate, formatTime } from "@/lib/format";
+import { groupEventsSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 import type { EventItem } from "@/lib/types";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Group and Corporate Mobile IV in Lakewood Ranch",
+  title: "Group IV Therapy & IV Parties in Sarasota | Avida Luna",
   description:
-    "Coordinated mobile IV hydration for private groups, workplaces and special events in Lakewood Ranch, FL, led by Shary Gonzalez, RN, BSN. Request a group visit.",
+    "IV hydration parties, bachelorette IV and corporate wellness days in Sarasota, Lakewood Ranch and Bradenton. A registered nurse screens every guest.",
   path: "/events",
 });
 
@@ -26,11 +27,11 @@ const steps = [
 ];
 
 const audiences = [
-  "Workplace and team wellness days",
-  "Corporate and community events",
-  "Private gatherings and celebrations",
-  "Bridal parties and group trips",
-  "On-site visits at local businesses",
+  "Workplace and corporate wellness days",
+  "Bachelorette and bridal parties",
+  "Private IV hydration parties and celebrations",
+  "Group trips and visiting friends",
+  "Community events and local businesses",
 ];
 
 function eventSchema(e: EventItem) {
@@ -57,13 +58,13 @@ export default async function EventsPage() {
     <>
       <PageHero eyebrow="Group & corporate" heading={text.heading} intro={text.intro}>
         <a href="#request" className="btn btn-primary mt-7">
-          Request a group visit
+          Request a group IV event
         </a>
       </PageHero>
 
       <section className="container-page py-12 md:py-16" aria-labelledby="who-heading">
         <h2 id="who-heading" className="text-3xl md:text-4xl">
-          Who we work with
+          {s.who?.heading}
         </h2>
         <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {audiences.map((a) => (
@@ -144,6 +145,7 @@ export default async function EventsPage() {
           </div>
         </div>
       </section>
+      <JsonLd data={groupEventsSchema()} />
     </>
   );
 }

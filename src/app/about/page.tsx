@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 import { FinalCta } from "@/components/FinalCta";
 import { CheckIcon } from "@/components/Icons";
+import { JsonLd } from "@/components/JsonLd";
 import { Portrait } from "@/components/Portrait";
 import { Todo } from "@/components/Todo";
 import { credentials, getPageText } from "@/lib/content";
+import { profilePageSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "About Shary Gonzalez, RN, BSN",
+  title: "Shary Gonzalez, RN, BSN | Mobile IV Nurse, Lakewood Ranch",
   description:
-    "Meet Shary Gonzalez, RN, BSN: a registered nurse with 17+ years in nursing who founded Avida Luna to bring professional mobile IV care to Lakewood Ranch, FL.",
+    "Meet Shary Gonzalez, RN, BSN, the registered nurse behind Avida Luna Wellness: 17+ years in nursing, bilingual, bringing mobile IV therapy to Lakewood Ranch.",
   path: "/about",
 });
 
@@ -27,7 +29,7 @@ export default async function AboutPage() {
             <p className="eyebrow">Meet your nurse</p>
             <h1 className="mt-3 text-4xl md:text-[3.25rem]">{text.heading}</h1>
             <p className="mt-2 font-semibold text-olive">
-              Founder and registered nurse, Avida Luna
+              Mobile IV nurse and founder of Avida Luna Wellness
             </p>
             <p className="prose-width mt-5 text-lg text-muted md:text-xl">
               {text.intro}
@@ -39,6 +41,9 @@ export default async function AboutPage() {
 
       <section className="container-page grid gap-10 py-12 md:grid-cols-[1.4fr_1fr] md:py-16">
         <div className="prose-width">
+          {s.story?.heading ? (
+            <h2 className="mb-4 text-3xl">{s.story.heading}</h2>
+          ) : null}
           {paragraphs.map((p, i) => (
             <p key={i} className={i ? "mt-4" : ""}>
               {p}
@@ -84,6 +89,7 @@ export default async function AboutPage() {
         )}
       </section>
 
+      <JsonLd data={profilePageSchema()} />
       <FinalCta
         secondary={{ href: "/contact", label: "Ask Shary a question" }}
       />

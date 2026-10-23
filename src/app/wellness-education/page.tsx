@@ -9,9 +9,9 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Wellness Education",
+  title: "IV Therapy Education from a Registered Nurse | Avida Luna",
   description:
-    "Plain-language reading on IV hydration and wellness from Shary Gonzalez, RN, BSN. General information, not medical advice.",
+    "Plain-language reading on IV hydration and mobile IV therapy from Shary Gonzalez, RN, BSN, in Lakewood Ranch, FL. General information, not medical advice.",
   path: "/wellness-education",
 });
 

@@ -10,9 +10,9 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Optional Wellness Add-ons: Red Light and Aromatherapy",
+  title: "Red Light & Aromatherapy IV Add-ons | Avida Luna Wellness",
   description:
-    "Optional red light or aromatherapy add-ons for a mobile IV appointment with Avida Luna Wellness in Lakewood Ranch, FL. Pay online or at your visit.",
+    "Add red light therapy or aromatherapy to your mobile IV appointment in Lakewood Ranch or Sarasota. Optional extras after you book. Pay online or at your visit.",
   path: "/add-ons",
 });
 

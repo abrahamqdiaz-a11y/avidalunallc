@@ -8,9 +8,9 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Book a Mobile IV Appointment in Lakewood Ranch",
+  title: "Book In-Home IV Therapy in Lakewood Ranch | Avida Luna",
   description:
-    "Book an appointment with Shary Gonzalez, RN, BSN. Share your name and email, then choose your service and time and complete a short health screening.",
+    "Book mobile IV therapy at home in Lakewood Ranch, Sarasota or Bradenton. Share your name and email, then pick your drip and time and complete a short screening.",
   path: "/book",
 });
 

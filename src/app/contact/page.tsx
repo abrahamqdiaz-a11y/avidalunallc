@@ -10,9 +10,9 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Contact Shary, Mobile IV Nurse in Lakewood Ranch",
+  title: "Contact Avida Luna | Mobile IV Nurse in Lakewood Ranch, FL",
   description:
-    "Call, email or message Shary Gonzalez, RN, BSN, at Avida Luna Wellness in Lakewood Ranch, FL. Questions, group events and partnerships. Se habla español.",
+    "Call (941) 348-6972 or email Shary Gonzalez, RN, BSN, about mobile IV therapy, group IV events or partnerships in Lakewood Ranch and Sarasota. Se habla español.",
   path: "/contact",
 });
 
@@ -50,7 +50,7 @@ export default async function ContactPage() {
               </li>
             ) : null}
           </ul>
-          <h3 className="mt-8 text-lg">Service area</h3>
+          <h3 className="mt-8 text-lg">Mobile IV service area</h3>
           <p>{settings.serviceArea}</p>
           <Todo className="mt-2">Confirm the service area with Shary.</Todo>
           <p className="mt-4 font-semibold">Se habla español.</p>

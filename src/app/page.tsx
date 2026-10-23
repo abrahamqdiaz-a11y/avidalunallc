@@ -15,9 +15,9 @@ import "./home.css";
 
 export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
-  title: "Mobile IV Therapy in Lakewood Ranch, FL | Avida Luna Wellness",
+  title: "Mobile IV Therapy in Lakewood Ranch & Sarasota | Avida Luna",
   description:
-    "Nurse-led mobile IV hydration in Lakewood Ranch, FL. Shary Gonzalez, RN, BSN, brings 17+ years of nursing experience to your home, office or event.",
+    "Nurse-led mobile IV therapy at your home, office or event in Lakewood Ranch, Sarasota and Bradenton. IV drips from $99 with Shary Gonzalez, RN, BSN.",
   path: "/",
 });
 
@@ -67,9 +67,9 @@ export default async function HomePage() {
   );
   const menu = liveMenu.length ? liveMenu : previewMenu;
   const questions = [
+    "faq-what-is",
+    "faq-cost",
     "faq-eligibility",
-    "faq-before",
-    "faq-during",
     "faq-book",
   ].flatMap((id) => faqs.filter((f) => f.id === id));
   return (
@@ -79,7 +79,7 @@ export default async function HomePage() {
         <div className="hero-copy">
           <p className="home-label">
             <span className="label-line" />
-            Mobile IV therapy · Lakewood Ranch, FL
+            Mobile IV therapy · Lakewood Ranch · Sarasota · Bradenton
           </p>
           <h1>{text.heading}</h1>
           <p className="hero-intro">{text.intro}</p>
@@ -147,8 +147,8 @@ export default async function HomePage() {
                 hydration
               </h3>
               <p>
-                Personalized IV hydration, provided by your nurse at your home,
-                office or event.
+                IV drips and vitamin injections, given by your nurse at your
+                home, office or event.
               </p>
             </div>
             <span className="service-bottom">
@@ -174,13 +174,13 @@ export default async function HomePage() {
             <Link href="/events">
               <span className="home-label">CARE, TOGETHER</span>
               <h3>
-                Group & corporate
+                Group IV &
                 <br />
-                wellness
+                corporate events
               </h3>
               <p>
-                Professional mobile care for your workplace, private group or
-                event.
+                IV hydration for your workplace, bachelorette party, private
+                group or event.
               </p>
               <span className="service-bottom">
                 Plan a group visit <ArrowRightIcon />
@@ -244,12 +244,10 @@ export default async function HomePage() {
         <div className="home-wrap home-section">
           <div className="section-heading">
             <p className="home-label">04 / The IV menu</p>
-            <h2>
-              Clear pricing.
-              <br />
-              No surprises.
-            </h2>
+            <h2>{s.menu?.heading}</h2>
             <p>
+              Clear pricing. No surprises.
+              <br />
               Your options, at a glance.
               <br />
               Your nurse helps you find the right fit.
@@ -310,11 +308,8 @@ export default async function HomePage() {
       >
         <div className="area-copy">
           <p className="home-label">05 / Where we provide care</p>
-          <h2 id="areas-heading">Mobile wellness, wherever you are.</h2>
-          <p>
-            Professional, nurse-led IV hydration delivered to homes, offices,
-            and private events throughout Sarasota and surrounding communities.
-          </p>
+          <h2 id="areas-heading">{s.areas?.heading}</h2>
+          <p>{s.areas?.text}</p>
           <div className="area-actions">
             <Book />
             <Link href="/contact" className="home-text-link">
@@ -323,10 +318,10 @@ export default async function HomePage() {
           </div>
         </div>
         <div className="area-card">
-          <h3>Areas we serve</h3>
+          <h3>Mobile IV near you</h3>
           <p className="area-sub">
-            Mobile IV Hydration in Sarasota, FL and nearby communities. We come
-            to you.
+            In-home IV hydration in Lakewood Ranch, Sarasota, Bradenton and
+            nearby communities. We come to you.
           </p>
           <ul className="area-tags" aria-label="Communities we serve">
             {serviceAreas.map((area) => (
