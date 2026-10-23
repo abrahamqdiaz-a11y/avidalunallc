@@ -1,5 +1,5 @@
 :root {
-  --color-cream: #f7f4ed;
+  --color-cream: #fdfcf9;
   --color-paper: #fcfaf5;
   --color-ink: #29372d;
   --color-muted: #53604f;
@@ -7,6 +7,11 @@
   --color-olive-dark: #354c32;
   --color-sage: #dce2d2;
   --color-line: #d6d9cd;
+  /* Terracotta buttons and footer. White on terracotta is only 3:1, so text
+     on it is deep forest green (5.0:1). */
+  --color-terracotta: #c08a67;
+  --color-terracotta-hover: #cb9774;
+  --color-on-terracotta: #1f2a22;
   --font-sans: var(--font-manrope), Arial, sans-serif;
   --font-display: var(--font-manrope), Arial, sans-serif;
   --radius-card: 20px;
@@ -148,7 +153,7 @@ form.card {
   margin-top: 28px;
 }
 .site-header {
-  background: #f7f4ed !important;
+  background: #fdfcf9 !important;
   backdrop-filter: none !important;
 }
 .site-header > .container-page {
@@ -414,7 +419,7 @@ footer .border-t {
   border-radius: 2px;
 }
 .addon-layout .fixed {
-  background: #f7f4ed;
+  background: #fdfcf9;
 }
 .addon-layout .fixed p {
   font-size: 13px;
@@ -1018,4 +1023,38 @@ form.card {
   footer .container-page:last-child {
     font-size: 12px;
   }
+}
+
+/* Terracotta primary buttons and footer, matching the brand card. */
+.btn-primary,
+.btn-secondary,
+.on-ink .btn-primary,
+.final-cta .btn-primary {
+  background: var(--color-terracotta);
+  color: var(--color-on-terracotta);
+}
+.btn-primary:hover:not(:disabled),
+.btn-secondary:hover:not(:disabled),
+.on-ink .btn-primary:hover:not(:disabled),
+.final-cta .btn-primary:hover:not(:disabled) {
+  background: var(--color-terracotta-hover);
+}
+footer .band-ink {
+  background: var(--color-terracotta);
+  color: var(--color-on-terracotta);
+}
+footer .band-ink h2,
+footer .band-ink h3,
+footer .band-ink a:not(.btn) {
+  color: var(--color-on-terracotta);
+}
+footer .band-ink :focus-visible {
+  outline-color: var(--color-on-terracotta);
+}
+footer .border-cream\/20 {
+  border-color: rgb(31 42 34 / 0.2);
+}
+footer .rounded-lg.bg-cream {
+  background: transparent;
+  padding: 0;
 }

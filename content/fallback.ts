@@ -28,6 +28,22 @@ export const siteSettings: SiteSettings = {
     "Medical services are booked and screened through our secure booking partner, Hydreight. This website is general information, not medical advice.",
 };
 
+// Communities shown as tags in the home page "Where we provide care" section.
+// TODO: Shary to confirm coverage before publication. Add, remove or reorder
+// names here; the section updates automatically.
+export const serviceAreas: string[] = [
+  "Sarasota",
+  "Lakewood Ranch",
+  "Bradenton",
+  "Siesta Key",
+  "Longboat Key",
+  "Palmer Ranch",
+  "University Park",
+  "Fruitville",
+  "Osprey",
+  "Bee Ridge",
+];
+
 export const services: Service[] = [
   {
     id: "service-recovery",
@@ -304,8 +320,8 @@ export const pageText: Record<PageKey, PageText> = {
       },
       how: { heading: "Three simple steps" },
       areas: {
-        heading: "Where we provide care",
-        text: "Shary is based in Lakewood Ranch and comes to homes, offices and event venues nearby. Not sure if you're in the area? Ask when you book.",
+        heading: "Mobile wellness, wherever you are.",
+        text: "Professional, nurse-led IV hydration delivered to homes, offices, and private events throughout Sarasota and surrounding communities.",
       },
       faq: { heading: "Frequently asked" },
       cta: {

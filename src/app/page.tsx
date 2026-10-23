@@ -11,6 +11,7 @@ import {
   getTestimonials,
 } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
+import { serviceAreas } from "@content/fallback";
 import "./home.css";
 
 export const revalidate = 3600;
@@ -305,69 +306,39 @@ export default async function HomePage() {
           </div>
         </section>
       )}
-      <section className="home-area home-wrap home-section" data-reveal>
-        <div>
-          <p className="home-label">05 / Close to home</p>
-          <h2>{s.areas?.heading}</h2>
-          <p>{s.areas?.text}</p>
-          <p className="area-note">
-            Nearby? Ask us about your location and any travel fee before
-            booking.
-          </p>
-          <Link href="/contact" className="home-text-link">
-            Ask about your location <ArrowRightIcon />
-          </Link>
-        </div>
-        <div className="area-map">
-          <svg
-            viewBox="0 0 620 480"
-            role="img"
-            aria-labelledby="map-title map-desc"
-          >
-            <title id="map-title">Lakewood Ranch service area</title>
-            <desc id="map-desc">
-              A schematic illustration of Lakewood Ranch in Florida. Nearby
-              travel availability is confirmed individually; this is not a
-              geographic coverage boundary.
-            </desc>
-            <path
-              className="map-water"
-              d="M0 0h82l18 95-29 75 40 80-16 80 53 70-4 80H0Z"
-            />
-            <g className="map-streets">
-              <path d="M135 0l32 87-14 114 38 90-6 189M260 0l-12 127 24 86-13 267M390 0l-20 100 25 133-10 247M510 0l-23 130 19 109-25 241M82 95l167 32 121-27 250 20M71 170l201 43 123 20 225 6M111 250l80 41 198 12 231 25M95 330l164 27 247 16 114 24" />
-              <path d="M192 0l-7 480M0 400l620 23" />
-            </g>
-            <path
-              className="map-highway"
-              d="M316 -10l-18 127 25 118-8 100 21 155"
-            />
-            <ellipse className="map-area" cx="425" cy="221" rx="112" ry="125" />
-            <circle cx="417" cy="221" r="7" className="map-pin" />
-            <circle cx="417" cy="221" r="16" className="map-pin-ring" />
-            <text x="445" y="217" className="map-name">
-              Lakewood
-            </text>
-            <text x="445" y="239" className="map-name">
-              Ranch
-            </text>
-            <text
-              x="35"
-              y="310"
-              className="map-water-label"
-              transform="rotate(-90 35 310)"
-            >
-              FLORIDA GULF COAST
-            </text>
-            <text x="304" y="67" className="map-road">
-              I-75
-            </text>
-            <text x="549" y="442" className="map-north">
-              N ↑
-            </text>
-          </svg>
+      <section
+        className="home-area home-wrap home-section"
+        aria-labelledby="areas-heading"
+        data-reveal
+      >
+        <div className="area-copy">
+          <p className="home-label">05 / Where we provide care</p>
+          <h2 id="areas-heading">Mobile wellness, wherever you are.</h2>
           <p>
-            LAKEWOOD RANCH, FL <span>SCHEMATIC · NOT TO SCALE</span>
+            Professional, nurse-led IV hydration delivered to homes, offices,
+            and private events throughout Sarasota and surrounding communities.
+          </p>
+          <div className="area-actions">
+            <Book />
+            <Link href="/contact" className="home-text-link">
+              Ask about your location <ArrowRightIcon />
+            </Link>
+          </div>
+        </div>
+        <div className="area-card">
+          <h3>Areas we serve</h3>
+          <p className="area-sub">
+            Mobile IV Hydration in Sarasota, FL and nearby communities. We come
+            to you.
+          </p>
+          <ul className="area-tags" aria-label="Communities we serve">
+            {serviceAreas.map((area) => (
+              <li key={area}>{area}</li>
+            ))}
+          </ul>
+          <p className="area-note">
+            Don’t see your neighborhood? Contact us to confirm availability and
+            any applicable travel fees.
           </p>
         </div>
       </section>

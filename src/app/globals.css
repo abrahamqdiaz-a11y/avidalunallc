@@ -10,7 +10,7 @@
  *   Never: olive text on sage (3.7), terracotta (#C08A67) as text. It's for thin accent lines only.
  */
 @theme {
-  --color-cream: #f7f3ee;
+  --color-cream: #fdfcf9;
   --color-paper: #ffffff;
   --color-ink: #3e4436;
   --color-muted: #5f6657;
