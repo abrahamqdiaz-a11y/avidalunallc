@@ -1356,3 +1356,27 @@ body:has(.home-design) .fixed.inset-x-0.bottom-0 .btn {
     font-size: 15px;
   }
 }
+
+/* How a visit works on phones: the sticky card only makes sense beside the
+   steps, so it's hidden and each step shows its own photo instead. */
+.visit-step-photo {
+  display: none;
+}
+@media (max-width: 767px) {
+  .visit-story .visit-visual {
+    display: none;
+  }
+  .visit-step-photo {
+    display: block;
+    position: relative;
+    grid-column: 1 / -1;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-media);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 6px;
+  }
+  .visit-step-photo img {
+    object-fit: cover;
+  }
+}
