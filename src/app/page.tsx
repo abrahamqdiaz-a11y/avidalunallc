@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ArrowRightIcon } from "@/components/Icons";
 import { HomeExperience, HomeMotion } from "@/components/HomeExperience";
 import {
-  getArticles,
   getFaqs,
   getPageText,
   getServices,
@@ -56,14 +55,12 @@ const Book = () => (
 );
 
 export default async function HomePage() {
-  const [text, faqs, services, testimonials, articles] = await Promise.all([
+  const [text, faqs, services, testimonials] = await Promise.all([
     getPageText("home"),
     getFaqs(),
     getServices(),
     getTestimonials(),
-    getArticles(),
   ]);
-  const reading = articles.slice(0, 3);
   const s = text.sections;
   const liveMenu = services.filter(
     (s) => s.category === "iv" && !s.todo && s.showPrice && s.price !== null,
@@ -342,50 +339,9 @@ export default async function HomePage() {
           </p>
         </div>
       </section>
-      {reading.length > 0 && (
-        <section
-          id="education"
-          className="home-education home-wrap home-section"
-          data-reveal
-        >
-          <div>
-            <p className="home-label">06 / Wellness education</p>
-            <h2>
-              Know more.{" "}
-              <br />
-              Feel at ease.
-            </h2>
-            <p>
-              Plain-language reading from Shary on IV hydration and everyday
-              wellness.
-            </p>
-            <p className="education-note">
-              General information, not medical advice. For questions about your
-              own health, talk with your healthcare provider.
-            </p>
-            <Link href="/wellness-education" className="home-text-link">
-              All wellness reading <ArrowRightIcon />
-            </Link>
-          </div>
-          <ul className="education-list">
-            {reading.map((a, i) => (
-              <li key={a.id}>
-                <Link href={`/wellness-education/${a.slug}`}>
-                  <span className="education-index">0{i + 1}</span>
-                  <div>
-                    <h3>{a.title}</h3>
-                    <p>{a.summary}</p>
-                  </div>
-                  <ArrowRightIcon className="home-diagonal-arrow" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
       <section className="home-faq home-wrap home-section" data-reveal>
         <div>
-          <p className="home-label">07 / A little clarity</p>
+          <p className="home-label">06 / A little clarity</p>
           <h2>{s.faq?.heading}</h2>
           <Link href="/faq" className="home-text-link">
             All your questions <ArrowRightIcon />

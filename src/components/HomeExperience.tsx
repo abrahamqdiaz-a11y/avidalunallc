@@ -111,6 +111,17 @@ export function HomeExperience() {
             data-step={i}
             className={i === active ? "is-active" : ""}
           >
+            {step.photo ? (
+              <div className="visit-step-photo">
+                <Image
+                  src={step.photo.src}
+                  alt={step.photo.alt}
+                  fill
+                  sizes="100vw"
+                  style={{ objectPosition: step.photo.position }}
+                />
+              </div>
+            ) : null}
             <span className="step-index">0{i + 1}</span>
             <div>
               <p className="home-label">{step.label}</p>
