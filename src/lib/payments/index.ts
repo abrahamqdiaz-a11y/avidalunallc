@@ -54,10 +54,10 @@ export async function priceAddOns(items: { id: string; quantity: number }[]): Pr
 export async function createAddOnCheckout(
   items: { id: string; quantity: number }[],
   email: string | undefined,
-  urls: { successUrl: string; cancelUrl: string },
+  opts: { successUrl: string; cancelUrl: string; followUpId?: string },
 ): Promise<CheckoutSession> {
   const lines = await priceAddOns(items);
-  return provider.createCheckout(lines, { email: email || undefined, ...urls });
+  return provider.createCheckout(lines, { email: email || undefined, ...opts });
 }
 
 export function getPaidSummary(sessionId: string) {

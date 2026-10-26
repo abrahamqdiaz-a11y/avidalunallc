@@ -15,6 +15,8 @@ export const testEnv = {
   MAILCHIMP_API_BASE: `${MOCK}/mailchimp/3.0`,
   RESEND_API_KEY: "re_mock",
   RESEND_API_BASE: `${MOCK}/resend`,
+  FOLLOWUP_FROM: "Avida Luna Wellness <hello@avidaluna.com>",
+  STRIPE_WEBHOOK_SECRET: "whsec_test_mock",
   HYDREIGHT_HOOK_SECRET: "test-hook-secret",
 };
 

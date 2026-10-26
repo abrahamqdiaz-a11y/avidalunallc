@@ -45,7 +45,7 @@ Things the code can't do for us, in roughly the order to do them. Every service 
 - [ ] API key → `MAILCHIMP_API_KEY`; server prefix (the part after the dash, e.g. `us21`) → `MAILCHIMP_SERVER_PREFIX`; Audience ID → `MAILCHIMP_AUDIENCE_ID`.
 - [ ] Confirm the audience has the default `FNAME`, `LNAME` and `PHONE` merge fields. No others are used.
 - [ ] Tags the site applies: `booking-intake`, `event-signup`, `event-<slug>`, `contact-form`, `group-request`, `addon-purchased`.
-- [ ] Welcome email on the `booking-intake` tag, with the Hydreight link and the `/add-ons` link.
+- [ ] Welcome email on the `booking-intake` tag: **no longer needed.** The site now sends that email itself through Resend (see section 5b). Don't set up both, or opted-in people get two.
   - ⚠️ Mailchimp's free plan reportedly **no longer includes automations** (2026) and is capped at **250 contacts / 500 sends a month**. Check her plan first. If automations aren't available, the alternative is sending that email from the site through Resend (not built yet; ask the developer).
 - [ ] Only people who tick the opt-in box are added to Mailchimp.
 
@@ -54,6 +54,16 @@ Things the code can't do for us, in roughly the order to do them. Every service 
 - [ ] `NOTIFY_EMAIL` = `YourRNShary@gmail.com` (or leave unset; it defaults to `CONTACT_EMAIL`).
 - [ ] Later (optional): verify `avidaluna.com` in Resend after the domain moves, set `RESEND_FROM`, and swap `CONTACT_EMAIL` for a business address (env var + Sanity Contact info).
 - [ ] Until `RESEND_API_KEY` is set, the contact and group forms show "Please email … instead."
+
+## 5b. Booking follow-up email (Resend, from avidaluna.com)
+About 60 minutes after someone submits step 1 on /book, Resend sends them one email with the Hydreight link and the add-ons link (first name and email only). It's cancelled automatically if they pay for add-ons first (Stripe webhook) or choose "Pay at my visit".
+- [ ] Resend → Domains → Add `avidaluna.com`. Add the DNS records Resend shows at the domain's DNS host, exactly as given: an **MX** record and an **SPF TXT** record on the `send` subdomain, and a **DKIM TXT** record (`resend._domainkey`). Wait for "Verified".
+- [ ] Recommended: add a **DMARC TXT** record on `_dmarc` if there isn't one yet, e.g. `v=DMARC1; p=none;`.
+- [ ] Netlify env: `FOLLOWUP_FROM` = `Shary at Avida Luna <hello@avidaluna.com>` (any address on the verified domain). **Nothing is sent until this is set**, so set it only after the domain is verified.
+- [ ] Replies go to `CONTACT_EMAIL`. People opt out by replying "stop": check that inbox.
+- [ ] The Stripe webhook (section 3) must be live with `checkout.session.completed`; that's what cancels the email after an add-on purchase.
+- [ ] Free plan: 3,000 emails/month, 100/day. One follow-up per booking-link request (at most one per address per 24 hours).
+- [ ] Test: set `FOLLOWUP_DELAY_MINUTES=2` on a deploy preview, submit step 1 with your own email, wait. Remove it (default 60) for production.
 
 ## 6. Hydreight
 - [ ] Check that the booking link works: https://booking.hydreight.com/widget-business/an92x
@@ -109,6 +119,8 @@ Things the code can't do for us, in roughly the order to do them. Every service 
 | `MAILCHIMP_SERVER_PREFIX` | e.g. `us21` |
 | `MAILCHIMP_AUDIENCE_ID` | |
 | `RESEND_API_KEY` | Resend is the chosen form email service |
+| `FOLLOWUP_FROM` | Sender for the booking follow-up, e.g. `Shary at Avida Luna <hello@avidaluna.com>`. Domain must be verified in Resend. Leave unset to turn the follow-up off. |
+| `FOLLOWUP_DELAY_MINUTES` | Optional. Default `60`. Use a small number only for testing. |
 | `HYDREIGHT_HOOK_SECRET` | Long random string, for the future automation stub |
 | `NEXT_PUBLIC_HIDE_TODOS` | Optional. `1` hides TODO boxes (launch only) |
 

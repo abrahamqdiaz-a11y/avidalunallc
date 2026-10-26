@@ -27,7 +27,7 @@ export async function resetMock(request: APIRequestContext, extra: Record<string
 
 export async function mockRequests(request: APIRequestContext) {
   const res = await request.get(`${MOCK}/__requests`);
-  return (await res.json()) as { method: string; path: string; body: string }[];
+  return (await res.json()) as { method: string; path: string; body: string; headers: Record<string, string> }[];
 }
 
 /** The server rejects forms sent faster than a person could fill them in. */

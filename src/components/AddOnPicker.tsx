@@ -5,7 +5,7 @@ import { formatDuration, formatPrice } from "@/lib/format";
 import type { AddOn } from "@/lib/types";
 import { PhotoSlot } from "./Portrait";
 import { FormError, Honeypot, TextField } from "./forms/fields";
-import { postJson, readForm, safeSession, STORAGE } from "./forms/submit";
+import { postJson, readForm, safeSession, session, STORAGE } from "./forms/submit";
 import { useStartedAt } from "./forms/useGuard";
 import { CheckIcon, MinusIcon, PlusIcon } from "./Icons";
 
@@ -90,8 +90,9 @@ export function AddOnPicker({
       id,
       quantity,
     }));
-    const email = safeSession()?.getItem(STORAGE.email) ?? "";
-    const result = (await postJson("/api/checkout", { items, email })) as
+    const email = session.get(STORAGE.email) ?? "";
+    const followUpId = session.get(STORAGE.followUpId) ?? "";
+    const result = (await postJson("/api/checkout", { items, email, followUpId })) as
       { ok: true; url?: string } | { ok: false; error: string };
     if (result.ok && "url" in result && result.url) {
       window.location.assign(result.url);
@@ -128,6 +129,7 @@ export function AddOnPicker({
       items: Object.entries(qty).map(([id, quantity]) => ({ id, quantity })),
       firstName: str("firstName"),
       email: str("email"),
+      followUpId: session.get(STORAGE.followUpId) ?? "",
       website: str("website"),
       startedAt: startedAt.current,
     });

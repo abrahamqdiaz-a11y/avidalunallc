@@ -58,7 +58,9 @@ export default async function PrivacyPage() {
           <li>Stripe processes add-on payments.</li>
           <li>
             Resend delivers contact and group event form messages to us by
-            email.
+            email, and sends you one note with your booking link and add-on
+            options about an hour after you ask for it (your first name and
+            email only).
           </li>
           <li>
             Sanity stores the website&apos;s text and photos (not your form
@@ -72,7 +74,8 @@ export default async function PrivacyPage() {
 
         <h2 className="pt-4 text-2xl">Unsubscribe or delete your details</h2>
         <p>
-          Every email has an unsubscribe link. To ask us to delete your details,
+          Every newsletter has an unsubscribe link. To stop the one-time
+          booking-link note, reply &ldquo;stop&rdquo;. To ask us to delete your details,
           email <a href={`mailto:${email}`}>{email}</a>.
         </p>
 

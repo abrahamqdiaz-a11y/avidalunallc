@@ -3,7 +3,7 @@ import "server-only";
 // Spam protection with no third-party scripts:
 //  1. a honeypot field real people never see or fill,
 //  2. a minimum time between opening the form and sending it,
-//  3. a per-IP rate limit.
+//  3. a per-IP (and, where it matters, per-email) rate limit.
 // The rate limit lives in memory, so it's per server instance. That's enough to
 // slow down a script hammering one form; it is not a hard global limit.
 
@@ -23,7 +23,11 @@ export function clientIp(req: Request): string {
 
 /** Returns true when this IP has sent too many requests to this route recently. */
 export function isRateLimited(req: Request, route: string, max = MAX_PER_WINDOW): boolean {
-  const key = `${route}:${clientIp(req)}`;
+  return isKeyRateLimited(`${route}:${clientIp(req)}`, max);
+}
+
+/** Same limit for any key, e.g. one email address across IPs. */
+export function isKeyRateLimited(key: string, max = MAX_PER_WINDOW): boolean {
   const now = Date.now();
   const recent = (hits.get(key) ?? []).filter((t) => now - t < WINDOW_MS);
   recent.push(now);
