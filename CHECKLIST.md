@@ -9,12 +9,13 @@ Things the code can't do for us, in roughly the order to do them. Every service 
 - [ ] Shary approves `/docs/copy-deck.md` in writing (all medical wording is her responsibility under our agreement), and the "Needs review" list goes to a qualified professional.
 
 ## 1. Sanity (her account, free plan)
-- [ ] Create the project "Avida Luna", dataset `production`, in **Shary's** Sanity account. Invite Abe as Administrator.
+- [x] Project created: **AvidaLunaWebsite**, project ID `p388w82e`, dataset `production` (already set in `studio/sanity.cli.ts` and `studio/sanity.config.ts`). Skip Sanity's "Set up Sanity" wizard: the Studio already exists in `/studio`.
+- [ ] Make sure the project is in **Shary's** Sanity account, with Abe invited as Administrator.
 - [ ] Create an API token (Viewer) → `SANITY_API_READ_TOKEN`.
 - [ ] Deploy the Studio to `avidaluna.sanity.studio`:
-      `cd studio && npm install && SANITY_STUDIO_PROJECT_ID=<id> npx sanity deploy`
+      `cd studio && npm install && npx sanity login && npx sanity deploy`
 - [ ] Import the starting content: `npm run seed:build` (from the repo root), then
-      `cd studio && SANITY_STUDIO_PROJECT_ID=<id> npm run seed` (`--replace` overwrites seeded documents with the same IDs).
+      `cd studio && npm run seed` (`--replace` overwrites seeded documents with the same IDs).
 - [ ] CORS origins (sanity.io/manage → API → CORS): `http://localhost:3000`, the Netlify preview URL, `https://www.avidaluna.com`. No credentials needed for the site; the Studio host is added automatically.
 - [ ] Webhook (sanity.io/manage → API → Webhooks):
   - URL `https://www.avidaluna.com/api/revalidate` (add a second one for the preview URL while testing)
@@ -108,7 +109,7 @@ About 60 minutes after someone submits step 1 on /book, Resend sends them one em
 | `HYDREIGHT_BOOKING_URL` | `https://booking.hydreight.com/widget-business/an92x` (also the code default) |
 | `CONTACT_EMAIL` | `YourRNShary@gmail.com` (also the code default) |
 | `NOTIFY_EMAIL` | Same as `CONTACT_EMAIL` unless changed |
-| `NEXT_PUBLIC_SANITY_PROJECT_ID` | From sanity.io/manage |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | `p388w82e` |
 | `NEXT_PUBLIC_SANITY_DATASET` | `production` |
 | `SANITY_API_READ_TOKEN` | Viewer token (used only by checkout for live prices) |
 | `SANITY_REVALIDATE_SECRET` | Long random string; same value in the Sanity webhook |
