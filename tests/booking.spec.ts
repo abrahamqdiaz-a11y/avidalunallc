@@ -18,7 +18,7 @@ test.describe("/book intake", () => {
     await expect(button).toHaveAttribute("rel", /noopener/);
     await expect(page.getByText("booking.hydreight.com/widget-business/an92x")).toBeVisible();
     await expect(page.getByRole("heading", { name: "You're in, Ana." })).toBeVisible();
-    await expect(page.getByRole("link", { name: "See add-ons" })).toBeVisible();
+    await expect(page.getByTestId("booked-button")).toBeVisible();
 
     expect((await intake).status()).toBe(200);
     const calls = await mockRequests(request);

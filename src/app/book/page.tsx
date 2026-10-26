@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { IntakeForm } from "@/components/forms/IntakeForm";
 import { PageHero } from "@/components/PageHero";
 import { HYDREIGHT_BOOKING_URL } from "@/lib/constants";
-import { getPageText } from "@/lib/content";
+import { getAddOns, getPageText } from "@/lib/content";
+import { paymentsEnabled } from "@/lib/payments";
 import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 3600;
@@ -15,12 +16,18 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default async function BookPage() {
-  const text = await getPageText("book");
+  const [text, addOns] = await Promise.all([getPageText("book"), getAddOns()]);
   return (
     <div className="booking-page">
       <PageHero eyebrow="Book" heading={text.heading} intro={text.intro} />
-      <section className="container-page max-w-2xl py-10 md:py-14">
-        <IntakeForm mode="book" hydreightUrl={HYDREIGHT_BOOKING_URL} />
+      {/* Steps 1 and 2 are narrow; step 3 (add-ons) uses the full width. */}
+      <section className="container-page py-10 md:py-14">
+        <IntakeForm
+          mode="book"
+          hydreightUrl={HYDREIGHT_BOOKING_URL}
+          addOns={addOns}
+          paymentsEnabled={paymentsEnabled()}
+        />
       </section>
     </div>
   );

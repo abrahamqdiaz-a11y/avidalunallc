@@ -12,6 +12,7 @@ The website for **Avida Luna LLC, doing business as Avida Luna Wellness** (avida
 | Add-on payments | Stripe Checkout (hosted page), behind `src/lib/payments` so another processor can replace it |
 | Email list | Mailchimp (opted-in contacts only) |
 | Form notifications | Resend (contact and group-event forms → Shary's inbox) |
+| Booking follow-up | Resend scheduled email, 60 min after /book step 1; cancelled by the Stripe webhook or "Pay at my visit" (`src/lib/followup.ts`) |
 | IV booking | Hydreight: https://booking.hydreight.com/widget-business/an92x |
 
 ## Accounts and owners
@@ -100,7 +101,7 @@ The tests cover booking (including Mailchimp failing), checkout price integrity,
 - Layout, design or new page types (e.g. town pages for the Local Growth Package).
 - Adding or renaming old-URL redirects (`next.config.ts`).
 - Changing processors, Mailchimp tags or form fields.
-- Building the Hydreight automation or the Resend welcome email.
+- Building the Hydreight automation.
 - Upgrading dependencies (versions are pinned on purpose).
 
 Shary can do everything else in Sanity: see `/docs/how-to-edit.md`.

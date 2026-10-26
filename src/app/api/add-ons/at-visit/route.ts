@@ -1,6 +1,7 @@
 import { fail, ok, readJson } from "@/lib/api";
 import { CONTACT_EMAIL } from "@/lib/constants";
 import { formatPrice } from "@/lib/format";
+import { cancelFollowUps } from "@/lib/followup";
 import { tagIfSubscribed } from "@/lib/mailchimp";
 import { notifyEnabled, sendNotification } from "@/lib/notify";
 import { CheckoutError, priceAddOns } from "@/lib/payments";
@@ -43,6 +44,9 @@ export async function POST(req: Request) {
   });
   if (!sent) return fail(502, `Sorry, that didn't send. Just tell Shary at your visit, or email ${CONTACT_EMAIL}.`);
 
-  await tagIfSubscribed(d.email, "addon-at-visit");
+  await Promise.all([
+    tagIfSubscribed(d.email, "addon-at-visit"),
+    cancelFollowUps({ id: d.followUpId, email: d.email }),
+  ]);
   return ok();
 }
