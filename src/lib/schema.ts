@@ -19,8 +19,7 @@ export function founderSchema() {
   return {
     "@type": "Person",
     "@id": FOUNDER_ID,
-    name: "Shamarith Gonzalez",
-    alternateName: "Shary Gonzalez",
+    name: "Shary Gonzalez",
     jobTitle: "Registered Nurse, BSN",
     url: `${SITE_URL}/about`,
     image: `${SITE_URL}/brand/shary.webp`,

@@ -120,7 +120,7 @@ Where it lives: this copy is in `/content/fallback.ts` (what the site shows with
 ## About `/about`
 
 - Eyebrow: Meet your nurse · H1: **Shary Gonzalez, RN, BSN** · Founder and registered nurse, Avida Luna
-- Intro: Shamarith "Shary" Gonzalez is a registered nurse with a BSN, more than 17 years in nursing and 25 years in healthcare. She founded Avida Luna to bring professional, personalized care directly to her community.
+- Intro: Shary Gonzalez is a registered nurse with a BSN, more than 17 years in nursing and 25 years in healthcare. She founded Avida Luna to bring professional, personalized care directly to her community.
 - Story (DRAFT from facts only, now in the third person; Shary to replace or edit it in her own words):
   > Shary started Avida Luna because she wanted care to feel personal again: one nurse, who knows your name, taking the time to do things properly.
   >
