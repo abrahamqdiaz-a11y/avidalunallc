@@ -48,7 +48,7 @@ export async function GET() {
     `> Nurse-led mobile IV therapy in Lakewood Ranch, Sarasota and Bradenton, Florida. Shary Gonzalez, RN, BSN, brings IV hydration drips, vitamin injections and group IV events to clients' homes, offices and events. There is no clinic or IV lounge: every service is mobile.`,
     "",
     `- Business: ${LEGAL_LINE}`,
-    "- Nurse and founder: Shamarith \"Shary\" Gonzalez, Registered Nurse (BSN), 17+ years in nursing, 25 years in healthcare",
+    "- Nurse and founder: Shary Gonzalez, Registered Nurse (BSN), 17+ years in nursing, 25 years in healthcare",
     "- Languages: English and Spanish (se habla español)",
     `- Areas served: ${cityAreas.map((c) => c.city).join(", ")}, and nearby ${serviceAreas.filter((a) => !cityAreas.some((c) => c.city === a)).join(", ")} (Florida). Home base: Lakewood Ranch.`,
     `- Phone: ${settings.phoneDisplay}`,

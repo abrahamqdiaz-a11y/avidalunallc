@@ -480,7 +480,7 @@ export const pageText: Record<PageKey, PageText> = {
   about: {
     heading: "Shary Gonzalez, RN, BSN",
     intro:
-      'Shamarith "Shary" Gonzalez is a registered nurse with a BSN, more than 17 years in nursing and 25 years in healthcare. She founded Avida Luna to bring professional, personalized care directly to her community.',
+      'Shary Gonzalez is a registered nurse with a BSN, more than 17 years in nursing and 25 years in healthcare. She founded Avida Luna to bring professional, personalized care directly to her community.',
     sections: {
       story: {
         heading: "Why Shary brings IV therapy to you",

@@ -105,7 +105,7 @@ export default async function HomePage() {
             />
           </div>
           <figcaption>
-            <span>Shamarith “Shary” Gonzalez</span>
+            <span>Shary Gonzalez</span>
             <span>YOUR NURSE. YOUR NEIGHBOR.</span>
           </figcaption>
         </figure>
