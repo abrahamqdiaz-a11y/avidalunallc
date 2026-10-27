@@ -97,7 +97,7 @@ export default async function EventsPage() {
         </ol>
         <Todo className="mt-5 max-w-2xl">
           Group pricing or minimums (only if Shary wants them listed), and how each guest books and is screened on
-          Hydreight for a group visit.
+          the booking page for a group visit.
         </Todo>
       </section>
 

@@ -250,8 +250,8 @@ export function IntakeForm({
         <p className="eyebrow mb-4">YOUR BOOKING LINK</p>
         <h2 className="text-3xl">You&apos;re in, {firstName}.</h2>
         <p className="mt-3">
-          Your booking link is ready. It opens our secure booking page (powered
-          by Hydreight) in a new tab.
+          Your booking link is ready. It opens our secure, HIPAA-compliant
+          booking page in a new tab.
         </p>
         <a
           href={hydreightUrl}
@@ -273,7 +273,7 @@ export function IntakeForm({
             className="break-all"
             onClick={onBookClick}
           >
-            {hydreightUrl.replace(/^https:\/\//, "")}
+            Open the secure booking page
           </a>
         </p>
         <button
@@ -287,7 +287,7 @@ export function IntakeForm({
         <div className="mt-6 border-t border-olive/15 pt-5">
           <p className="eyebrow mb-3">WHAT HAPPENS NEXT</p>
           <ol className="list-decimal space-y-1 pl-5">
-            <li>Pick your services and a time on Hydreight.</li>
+            <li>Pick your services and a time on the booking page.</li>
             <li>
               Complete a quick, secure health screening and pay for your IV
               there.

@@ -36,7 +36,7 @@ export default async function TermsPage() {
         <h2 className="pt-4 text-2xl">Medical services</h2>
         <p>
           IV and other medical services are booked, screened and paid on
-          Hydreight, our booking partner, under its own terms. A visit happens
+          our secure, HIPAA-compliant booking partner, under its own terms. A visit happens
           only if you are cleared through that screening.
         </p>
 

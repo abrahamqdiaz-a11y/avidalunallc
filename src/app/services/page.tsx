@@ -83,8 +83,8 @@ export default async function ServicesPage() {
         <div className="iv-note">
           <p>
             Every visit begins with a clinical assessment by your registered
-            nurse. Eligibility is confirmed through a short health screening on
-            Hydreight before any IV is placed, and some services may not be
+            nurse. Eligibility is confirmed through a short, HIPAA-compliant health
+            screening before any IV is placed, and some services may not be
             right for everyone. Availability depends on your location and
             scheduling.
           </p>
@@ -92,7 +92,7 @@ export default async function ServicesPage() {
             {drips.some((service) => service.todo)
               ? "Starting prices and menu details are pending Shary’s confirmation. "
               : ""}
-            Final service selection and pricing are confirmed on Hydreight.
+            Final service selection and pricing are confirmed when you book.
           </p>
         </div>
       </section>

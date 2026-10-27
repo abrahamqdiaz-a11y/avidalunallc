@@ -193,7 +193,7 @@ test("fallback button opens step 3 when the tab never switched; No thanks is res
 test("the text link counts as Book now too", async ({ page }) => {
   await completeStep1(page, uniqueEmail("textlink"));
   const popup = page.waitForEvent("popup");
-  await page.getByRole("link", { name: "booking.hydreight.com/widget-business/an92x" }).click();
+  await page.getByRole("link", { name: "Open the secure booking page" }).click();
   await popup;
   await leaveAndReturn(page);
   await expect(page.getByTestId("book-addons")).toBeVisible();

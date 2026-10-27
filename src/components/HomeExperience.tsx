@@ -18,7 +18,7 @@ const steps: {
   {
     label: "Request",
     title: "A little about you. Then a time that works.",
-    text: "Tap Book and share your name and email. Your booking link appears instantly, then you pick your services and a time on Hydreight. No health information is collected on this website.",
+    text: "Tap Book and share your name and email. Your booking link appears instantly, then you pick your services and a time on our secure, HIPAA-compliant booking page. No health information is collected on this website.",
     detail: "01 / YOUR DETAILS",
     visual: "Your care starts with a conversation.",
     note: "A simple first step. About 30 seconds.",
@@ -31,10 +31,10 @@ const steps: {
   {
     label: "Assessment",
     title: "Professional care starts with listening.",
-    text: "Complete your confidential health screening and payment on Hydreight. Before your IV begins, Shary reviews it with you and checks that the service is a good fit.",
+    text: "Complete your confidential health screening and payment on our secure, HIPAA-compliant booking page. Before your IV begins, Shary reviews it with you and checks that the service is a good fit.",
     detail: "02 / BOOKING & SCREENING",
     visual: "Personal attention. From the very beginning.",
-    note: "Medical screening happens securely on Hydreight.",
+    note: "Medical screening happens on a secure, HIPAA-compliant booking page.",
     photo: {
       src: "/services/vitamin-vials.webp",
       alt: "Labeled vitamin vials and IV supplies neatly arranged on a stone tray in a sunlit home",

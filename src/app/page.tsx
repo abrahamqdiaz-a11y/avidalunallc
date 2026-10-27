@@ -278,8 +278,8 @@ export default async function HomePage() {
           <div className="menu-foot">
             <p>
               {!liveMenu.length
-                ? "Starting prices are pending Shary’s confirmation. Final service selection and pricing are on Hydreight."
-                : "Service selection and final pricing are confirmed on Hydreight."}
+                ? "Starting prices are pending Shary’s confirmation. Final service selection and pricing are confirmed when you book."
+                : "Service selection and final pricing are confirmed when you book."}
             </p>
             <Link href="/services" className="home-text-link">
               View all services <ArrowRightIcon />

@@ -47,7 +47,7 @@ export default async function PrivacyPage() {
           This website does not ask for or store health information: no
           symptoms, conditions, medications or health history. Please don&apos;t
           include medical information in any message. Medical booking and
-          screening happen on Hydreight, our secure, HIPAA-compliant booking
+          screening happen with our secure, HIPAA-compliant booking
           partner, which has its own privacy policy.
         </p>
 
