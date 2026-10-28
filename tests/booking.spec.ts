@@ -16,7 +16,7 @@ test.describe("/book intake", () => {
     await expect(button).toHaveAttribute("href", HYDREIGHT);
     await expect(button).toHaveAttribute("target", "_blank");
     await expect(button).toHaveAttribute("rel", /noopener/);
-    await expect(page.getByText("booking.hydreight.com/widget-business/an92x")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Open the secure booking page" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "You're in, Ana." })).toBeVisible();
     await expect(page.getByTestId("booked-button")).toBeVisible();
 

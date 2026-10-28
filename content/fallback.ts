@@ -25,7 +25,7 @@ export const siteSettings: SiteSettings = {
   instagram: null,
   facebook: null,
   footerNote:
-    "Medical services are booked and screened through our secure booking partner, Hydreight. This website is general information, not medical advice.",
+    "Medical services are booked and screened through our secure, HIPAA-compliant booking partner. This website is general information, not medical advice.",
 };
 
 // Communities shown as tags in the home page "Where we provide care" section.
@@ -215,7 +215,7 @@ export const articles: Article[] = [
     body: [
       {
         type: "p",
-        text: "A mobile IV visit brings nursing care to your location. Booking starts with your name and email on this website. Service selection, scheduling and confidential health screening happen on Hydreight. Before an IV begins, Shary reviews your screening with you and checks that the service is a good fit. She stays with you throughout the visit.",
+        text: "A mobile IV visit brings nursing care to your location. Booking starts with your name and email on this website. Service selection, scheduling and confidential health screening happen on our secure, HIPAA-compliant booking page. Before an IV begins, Shary reviews your screening with you and checks that the service is a good fit. She stays with you throughout the visit.",
       },
     ],
     sources: [],
@@ -245,7 +245,7 @@ export const faqs: Faq[] = [
     id: "faq-cost",
     question: "How much does mobile IV therapy cost?",
     answer:
-      "IV drips start at $99 for Hydration. Athlete Recovery and Energy are $180, Reset is $190, and Myers is $199 ($240 with chromium). Vitamin injections start at $40, and vitamin add-ins for your drip start at $35. Final pricing is confirmed when you book on Hydreight.",
+      "IV drips start at $99 for Hydration. Athlete Recovery and Energy are $180, Reset is $190, and Myers is $199 ($240 with chromium). Vitamin injections start at $40, and vitamin add-ins for your drip start at $35. Final pricing is confirmed when you book.",
   },
   {
     id: "faq-spanish",
@@ -258,13 +258,13 @@ export const faqs: Faq[] = [
     id: "faq-book",
     question: "How do I book?",
     answer:
-      "Tap Book and share your name and email. You'll get your booking link right away, then pick your services, a time, and complete your screening and payment on our secure booking page on Hydreight. Optional add-ons come after.",
+      "Tap Book and share your name and email. You'll get your booking link right away, then pick your services, a time, and complete your screening and payment on our secure, HIPAA-compliant booking page. Optional add-ons come after.",
   },
   {
     id: "faq-pay",
     question: "How do I pay?",
     answer:
-      "IV services are booked and paid on Hydreight. Add-ons can be paid at your visit (tap to pay or card) or online by card on our Add-ons page.",
+      "IV services are booked and paid on our secure, HIPAA-compliant booking page. Add-ons can be paid at your visit (tap to pay or card) or online by card on our Add-ons page.",
   },
   {
     id: "faq-addons",
@@ -289,8 +289,8 @@ export const faqs: Faq[] = [
     id: "faq-before",
     question: "What happens before my appointment?",
     answer:
-      "Every appointment includes a confidential health screening on Hydreight, our secure booking partner, and Shary reviews it before your IV begins. Your health information stays there, never on this website.",
-    todo: "Confirm with Shary exactly what Hydreight asks clients before a visit.",
+      "Every appointment includes a confidential health screening on our secure, HIPAA-compliant booking page, and Shary reviews it before your IV begins. Your health information stays there, never on this website.",
+    todo: "Confirm with Shary exactly what the booking screening asks clients before a visit.",
   },
   {
     id: "faq-during",
@@ -324,7 +324,7 @@ export const faqs: Faq[] = [
     question: "Who places my IV, and how is safety handled?",
     answer:
       "Shary, a registered nurse with more than 17 years of nursing experience, places and monitors every IV herself. She uses sterile, single-use supplies and stays with you for the whole visit.",
-    todo: "Shary to confirm the safety details (supplies, monitoring, medical director oversight through Hydreight).",
+    todo: "Shary to confirm the safety details (supplies, monitoring, medical director oversight through the booking partner).",
   },
   // Service area and group events
   {
@@ -381,7 +381,7 @@ export const faqs: Faq[] = [
     placement: "services",
     question: "Do I need a health screening for an IV or injection?",
     answer:
-      "Yes, for every IV and injection. You complete a confidential screening on Hydreight when you book, and Shary reviews it and assesses you in person before anything begins. If a service isn't a good fit for you, she'll tell you.",
+      "Yes, for every IV and injection. You complete a confidential, HIPAA-compliant screening when you book, and Shary reviews it and assesses you in person before anything begins. If a service isn't a good fit for you, she'll tell you.",
   },
 ];
 

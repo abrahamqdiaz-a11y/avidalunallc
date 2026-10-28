@@ -5,12 +5,12 @@ const steps = [
   {
     label: "Request",
     title: "Request an appointment",
-    text: "Tap Book and leave your name and email. You get your booking link right away, then pick your services and a time on our secure booking page, powered by Hydreight.",
+    text: "Tap Book and leave your name and email. You get your booking link right away, then pick your services and a time on our secure, HIPAA-compliant booking page.",
   },
   {
     label: "Assessment",
     title: "Health screening and assessment",
-    text: "You complete a confidential health screening and pay for your IV on Hydreight when you book. Before your IV starts, Shary reviews it with you and checks that IV hydration is a good fit.",
+    text: "You complete a confidential health screening and pay for your IV on our secure, HIPAA-compliant booking page when you book. Before your IV starts, Shary reviews it with you and checks that IV hydration is a good fit.",
   },
   {
     label: "Visit",
@@ -37,7 +37,7 @@ export function HowItWorks({ compact = false }: { compact?: boolean }) {
         ))}
       </ol>
       <Todo className="mt-5 max-w-2xl">
-        Shary to confirm the assessment step wording: what Hydreight screens for and what she checks in person before
+        Shary to confirm the assessment step wording: what the booking screening covers and what she checks in person before
         starting an IV.
       </Todo>
       {compact ? null : (
