@@ -6,15 +6,20 @@ export type ImageRef = {
   height?: number;
 } | null;
 
-export type ServiceCategory = "iv" | "vitamin" | "consultation";
+export type ServiceCategory = "iv" | "boost" | "vitamin" | "consultation";
 
 export type Service = {
   id: string;
   name: string;
   category: ServiceCategory;
   description: string;
+  /** Short "Good for" line on drip cards, e.g. "Training · Recovery days". */
+  goodFor?: string | null;
   price: number | null;
   showPrice: boolean;
+  /** One upgrade shown on the same card, e.g. Myers "With chromium" at $240. */
+  optionName?: string | null;
+  optionPrice?: number | null;
   image: ImageRef;
   todo?: string;
 };
@@ -58,7 +63,10 @@ export type Article = {
   todo?: string;
 };
 
-export type Faq = { id: string; question: string; answer: string; todo?: string };
+/** Where a question shows: the FAQ page (default) or the Services page. */
+export type FaqPlacement = "faq" | "services";
+
+export type Faq = { id: string; question: string; answer: string; placement?: FaqPlacement; todo?: string };
 
 export type Testimonial = { id: string; quote: string; firstName: string };
 

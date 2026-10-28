@@ -1,225 +1,369 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { ArchPhoto } from "@/components/ArchPhoto";
-import { AddOnTeaserCard, OfferCard } from "@/components/Cards";
-import { FaqList } from "@/components/FaqList";
-import { HowItWorks } from "@/components/HowItWorks";
-import { FinalCta } from "@/components/FinalCta";
 import { ArrowRightIcon } from "@/components/Icons";
-import { Testimonials } from "@/components/Testimonials";
-import { Todo } from "@/components/Todo";
-import { WaveDivider } from "@/components/WaveDivider";
-import { getAddOns, getArticles, getFaqs, getPageText, getTestimonials } from "@/lib/content";
+import { HomeExperience, HomeMotion } from "@/components/HomeExperience";
+import {
+  getFaqs,
+  getPageText,
+  getServices,
+  getTestimonials,
+} from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
+import { serviceAreas } from "@content/fallback";
+import "./home.css";
 
 export const revalidate = 3600;
-
 export const metadata: Metadata = pageMetadata({
-  title: "Mobile IV Therapy in Lakewood Ranch, FL | Avida Luna Wellness",
+  title: "Mobile IV Therapy in Lakewood Ranch & Sarasota | Avida Luna",
   description:
-    "Wellness that comes to you. IV hydration and wellness add-ons from Shary Gonzalez, RN, BSN, at your home, office or event in Lakewood Ranch, FL.",
+    "Nurse-led mobile IV therapy at your home, office or event in Lakewood Ranch, Sarasota and Bradenton. IV drips from $99 with Shary Gonzalez, RN, BSN.",
   path: "/",
 });
 
-const trustItems = [
-  "Registered Nurse, BSN",
-  "17+ years in nursing",
-  "Se habla español",
-  "She comes to you",
-  "Secure booking through Hydreight",
-];
-
-const offers = [
+const previewMenu = [
   {
-    title: "IV hydration and wellness drips",
-    text: "Choose a drip and relax at home, at work or at your event while Shary takes care of the rest.",
-    href: "/services",
-    linkLabel: "See services",
+    name: "Hydration",
+    description: "Our starting option for IV hydration.",
+    price: 99,
   },
   {
-    title: "Wellness add-ons",
-    text: "Add red light or aromatherapy to turn your visit into a calm hour for yourself.",
-    href: "/add-ons",
-    linkLabel: "See add-ons",
+    name: "Athlete Recovery",
+    description: "An IV option for your post-training plans.",
+    price: 180,
   },
   {
-    title: "Group events",
-    text: "Hydration and a little self-care for birthdays, bridal parties, team days and pop-ups.",
-    href: "/events",
-    linkLabel: "Plan a group event",
+    name: "Energy",
+    description: "Personalized IV wellness, with your nurse.",
+    price: 180,
   },
   {
-    title: "Personalized wellness programs",
-    text: "Some services start with a consultation, so you can talk through your goals with Shary first.",
-    href: "/services#consultation",
-    linkLabel: "About consultations",
+    name: "Myers",
+    description: "Discuss this IV option with Shary.",
+    price: 199,
+  },
+  {
+    name: "Myers with Chromium",
+    description: "A Myers option with chromium.",
+    price: 240,
   },
 ];
+const Book = () => (
+  <Link href="/book" className="home-button">
+    Book an appointment <ArrowRightIcon />
+  </Link>
+);
 
 export default async function HomePage() {
-  const [text, addOns, articles, faqs, testimonials] = await Promise.all([
+  const [text, faqs, services, testimonials] = await Promise.all([
     getPageText("home"),
-    getAddOns(),
-    getArticles(),
     getFaqs(),
+    getServices(),
     getTestimonials(),
   ]);
   const s = text.sections;
-  const latest = articles[0];
-  const faqPreview = faqs.filter((f) => !f.todo).slice(0, 4);
-
+  const liveMenu = services.filter(
+    (s) => s.category === "iv" && !s.todo && s.showPrice && s.price !== null,
+  );
+  const menu = liveMenu.length ? liveMenu : previewMenu;
+  const questions = [
+    "faq-what-is",
+    "faq-cost",
+    "faq-eligibility",
+    "faq-book",
+  ].flatMap((id) => faqs.filter((f) => f.id === id));
   return (
-    <>
-      {/* 1. Hero */}
-      <section className="band-sage on-sage">
-        <div className="container-page grid items-center gap-10 pb-16 pt-10 md:grid-cols-[1.15fr_1fr] md:pb-20 md:pt-16">
-          <div>
-            <p className="eyebrow">Mobile IV and wellness · Lakewood Ranch, FL</p>
-            <h1 className="mt-3 text-[2.75rem] leading-[1.05] md:text-6xl">{text.heading}</h1>
-            <p className="prose-width mt-5 text-lg md:text-xl">{text.intro}</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/book" className="btn btn-primary">
-                Book your IV
-              </Link>
-              <Link href="/services" className="btn btn-outline">
-                See services
-              </Link>
-            </div>
+    <div className="home-design">
+      <HomeMotion />
+      <section className="home-hero home-wrap">
+        <div className="hero-copy">
+          <p className="home-label">
+            <span className="label-line" />
+            Mobile IV therapy · Lakewood Ranch · Sarasota · Bradenton
+          </p>
+          <h1>{text.heading}</h1>
+          <p className="hero-intro">{text.intro}</p>
+          <div className="hero-actions">
+            <Book />
+            <a className="home-text-link" href="#meet">
+              Meet your nurse <ArrowRightIcon className="home-diagonal-arrow" />
+            </a>
           </div>
-          <ArchPhoto
-            image={null}
-            priority
-            caption={
-              <>
-                <span className="font-semibold">Shary Gonzalez, RN, BSN</span> · Founder
-              </>
-            }
-          />
+          <p className="hero-credentials">
+            RN, BSN <span>·</span> 17+ years in nursing <span>·</span> English &
+            Spanish
+          </p>
+        </div>
+        <figure className="hero-portrait">
+          <div className="portrait-frame">
+            <Image
+              src="/brand/shary-hero.webp"
+              alt="Shary Gonzalez, RN, BSN, founder of Avida Luna Wellness"
+              fill
+              priority
+              sizes="(min-width: 900px) 42vw, 100vw"
+            />
+          </div>
+          <figcaption>
+            <span>Shary Gonzalez</span>
+            <span>YOUR NURSE. YOUR NEIGHBOR.</span>
+          </figcaption>
+        </figure>
+        <div className="hero-bottom">
+          <p>Professional care. Personally delivered.</p>
+          <a href="#services">
+            Explore the practice <span aria-hidden>↓</span>
+          </a>
         </div>
       </section>
-      <WaveDivider from="sage" to="cream" />
-
-      {/* 2. Trust strip */}
-      <section aria-label="Why Avida Luna" className="container-page -mt-2 pb-4">
-        <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-center text-[0.9375rem] font-semibold">
-          {trustItems.map((item) => (
-            <li key={item} className="flex items-center gap-2">
-              <span aria-hidden className="size-1.5 rounded-full bg-gold" />
-              {item}
-            </li>
-          ))}
-        </ul>
-        <Todo className="mx-auto mt-4 max-w-xl">Shary to confirm each trust-strip item.</Todo>
+      <section
+        id="services"
+        className="home-services home-wrap home-section"
+        data-reveal
+      >
+        <div className="section-heading">
+          <p className="home-label">01 / Care, on your terms</p>
+          <h2>{s.services?.heading}</h2>
+          <p>
+            Experienced hands. Personal attention.
+            <br />
+            Without the trip to a clinic.
+          </p>
+        </div>
+        <div className="service-editorial">
+          <Link href="/services" className="service-main">
+            <Image
+              src="/services/iv-hydration.webp"
+              alt=""
+              fill
+              className="service-photo"
+              sizes="(min-width: 768px) 55vw, 100vw"
+            />
+            <span className="home-label">THE CORE OF OUR PRACTICE</span>
+            <div>
+              <h3>
+                Mobile IV
+                <br />
+                hydration
+              </h3>
+              <p>
+                IV drips and vitamin injections, given by your nurse at your
+                home, office or event.
+              </p>
+            </div>
+            <span className="service-bottom">
+              Explore IV services <ArrowRightIcon />
+            </span>
+          </Link>
+          <div className="service-support">
+            <Link href="/services#consultation">
+              <span className="home-label">LET’S TALK</span>
+              <h3>
+                Personalized
+                <br />
+                consultations
+              </h3>
+              <p>
+                Time to discuss your goals and the services that may be right
+                for you.
+              </p>
+              <span className="service-bottom">
+                Learn more <ArrowRightIcon />
+              </span>
+            </Link>
+            <Link href="/events">
+              <span className="home-label">CARE, TOGETHER</span>
+              <h3>
+                Group IV &
+                <br />
+                corporate events
+              </h3>
+              <p>
+                IV hydration for your workplace, bachelorette party, private
+                group or event.
+              </p>
+              <span className="service-bottom">
+                Plan a group visit <ArrowRightIcon />
+              </span>
+            </Link>
+          </div>
+        </div>
+        <p className="small-addons">
+          A little extra, if you’d like.{" "}
+          <Link href="/add-ons">
+            Explore optional red light and aromatherapy add-ons{" "}
+            <ArrowRightIcon className="home-diagonal-arrow" />
+          </Link>
+        </p>
       </section>
-
-      {/* 3. What we offer */}
-      <section className="container-page py-14 md:py-20" aria-labelledby="offer-heading">
-        <h2 id="offer-heading" className="text-3xl md:text-4xl">
-          {s.offer?.heading}
-        </h2>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {offers.map((o) => (
-            <OfferCard key={o.title} {...o} />
-          ))}
+      <section id="meet" className="home-meet" data-reveal>
+        <div className="home-wrap meet-grid">
+          <figure>
+            <div className="meet-photo">
+              <Image
+                src="/brand/shary-meet.webp"
+                alt="Shary Gonzalez, RN, BSN, smiling outdoors in black scrubs"
+                fill
+                sizes="(min-width: 900px) 36vw, 90vw"
+              />
+            </div>
+            <figcaption>Shary Gonzalez, RN, BSN · Founder</figcaption>
+          </figure>
+          <div className="meet-copy">
+            <p className="home-label">02 / Meet your nurse</p>
+            <h2>{s.meet?.heading}</h2>
+            <p>{s.meet?.text}</p>
+            <div className="meet-credentials">
+              <p>Registered Nurse, BSN · 17+ years in nursing</p>
+              <p>
+                Mental health, women’s health, maternal health,
+                <br />
+                surgery and neurology
+              </p>
+              <p>English & Spanish · Se habla español</p>
+            </div>
+            <Link href="/about" className="home-text-link">
+              Get to know Shary <ArrowRightIcon />
+            </Link>
+          </div>
         </div>
       </section>
-
-      {/* 4. How it works */}
-      <section className="container-page pb-14 md:pb-20" aria-labelledby="how-heading">
-        <h2 id="how-heading" className="text-3xl md:text-4xl">
-          {s.how?.heading}
-        </h2>
-        <div className="mt-8">
-          <HowItWorks />
+      <section id="how" className="home-how home-wrap home-section" data-reveal>
+        <div className="section-heading">
+          <p className="home-label">03 / How a visit works</p>
+          <h2>{s.how?.heading}</h2>
+          <p>
+            From your first hello
+            <br />
+            to your own front door.
+          </p>
         </div>
+        <HomeExperience />
       </section>
-
-      {/* 5. Make it a ritual */}
-      <WaveDivider from="cream" to="sage" flip />
-      <section className="band-sage on-sage" aria-labelledby="ritual-heading">
-        <div className="container-page py-14 md:py-20">
-          <h2 id="ritual-heading" className="text-3xl md:text-4xl">
-            {s.ritual?.heading}
-          </h2>
-          <p className="prose-width mt-3">{s.ritual?.text}</p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {addOns.map((a) => (
-              <AddOnTeaserCard key={a.id} addOn={a} />
+      <section className="home-menu" data-reveal>
+        <div className="home-wrap home-section">
+          <div className="section-heading">
+            <p className="home-label">04 / The IV menu</p>
+            <h2>{s.menu?.heading}</h2>
+            <p>
+              Clear pricing. No surprises.
+              <br />
+              Your options, at a glance.
+              <br />
+              Your nurse helps you find the right fit.
+            </p>
+          </div>
+          <div className="iv-menu">
+            {menu.map((item, i) => (
+              <details key={item.name}>
+                <summary>
+                  <span className="menu-index">0{i + 1}</span>
+                  <h3>{item.name}</h3>
+                  <span className="menu-price">
+                    <small>FROM</small> ${item.price}
+                  </span>
+                  <span className="menu-plus" aria-hidden>
+                    +
+                  </span>
+                </summary>
+                <div className="menu-detail">
+                  <p>{item.description}</p>
+                  <Link href="/book">
+                    Book an appointment <ArrowRightIcon />
+                  </Link>
+                </div>
+              </details>
             ))}
           </div>
+          <div className="menu-foot">
+            <p>
+              {!liveMenu.length
+                ? "Starting prices are pending Shary’s confirmation. Final service selection and pricing are confirmed when you book."
+                : "Service selection and final pricing are confirmed when you book."}
+            </p>
+            <Link href="/services" className="home-text-link">
+              View all services <ArrowRightIcon />
+            </Link>
+          </div>
         </div>
       </section>
-      <WaveDivider from="sage" to="cream" />
-
-      {/* 6. Group events teaser */}
-      <section className="container-page py-14 md:py-20" aria-labelledby="events-heading">
-        <div className="card grid items-center gap-6 p-6 md:grid-cols-[1fr_auto] md:p-10">
-          <div>
-            <h2 id="events-heading" className="text-3xl md:text-4xl">
-              {s.events?.heading}
-            </h2>
-            <p className="prose-width mt-3">{s.events?.text}</p>
+      {testimonials.length > 0 && (
+        <section className="home-wrap home-section" data-reveal>
+          <p className="home-label">Patient experiences</p>
+          <h2>In their own words.</h2>
+          <div className="home-quotes">
+            {testimonials.map((t) => (
+              <figure key={t.id}>
+                <blockquote>“{t.quote}”</blockquote>
+                <figcaption>{t.firstName}</figcaption>
+              </figure>
+            ))}
           </div>
-          <Link href="/events" className="btn btn-secondary">
-            Plan your group event
+        </section>
+      )}
+      <section
+        className="home-area home-wrap home-section"
+        aria-labelledby="areas-heading"
+        data-reveal
+      >
+        <div className="area-copy">
+          <p className="home-label">05 / Where we provide care</p>
+          <h2 id="areas-heading">{s.areas?.heading}</h2>
+          <p>{s.areas?.text}</p>
+          <div className="area-actions">
+            <Book />
+            <Link href="/contact" className="home-text-link">
+              Ask about your location <ArrowRightIcon />
+            </Link>
+          </div>
+        </div>
+        <div className="area-card">
+          <h3>Mobile IV near you</h3>
+          <p className="area-sub">
+            In-home IV hydration in Lakewood Ranch, Sarasota, Bradenton and
+            nearby communities. We come to you.
+          </p>
+          <ul className="area-tags" aria-label="Communities we serve">
+            {serviceAreas.map((area) => (
+              <li key={area}>{area}</li>
+            ))}
+          </ul>
+          <p className="area-note">
+            Don’t see your neighborhood? Contact us to confirm availability and
+            any applicable travel fees.
+          </p>
+        </div>
+      </section>
+      <section className="home-faq home-wrap home-section" data-reveal>
+        <div>
+          <p className="home-label">06 / A little clarity</p>
+          <h2>{s.faq?.heading}</h2>
+          <Link href="/faq" className="home-text-link">
+            All your questions <ArrowRightIcon />
           </Link>
         </div>
+        <div>
+          {questions.map((f) => (
+            <details key={f.id}>
+              <summary>
+                <h3>{f.question}</h3>
+                <span aria-hidden>+</span>
+              </summary>
+              <p>{f.answer}</p>
+            </details>
+          ))}
+        </div>
       </section>
-
-      {/* 7. Meet Shary */}
-      <section className="container-page pb-14 md:pb-20" aria-labelledby="meet-heading">
-        <div className="grid items-center gap-10 md:grid-cols-[1fr_1.2fr]">
-          <ArchPhoto image={null} />
+      <section className="home-final">
+        <div className="home-wrap">
+          <p className="home-label">YOUR PLACE. YOUR PACE. YOUR NURSE.</p>
+          <h2>{s.cta?.heading}</h2>
           <div>
-            <p className="eyebrow">Meet your nurse</p>
-            <h2 id="meet-heading" className="mt-2 text-3xl md:text-4xl">
-              {s.meet?.heading}
-            </h2>
-            <p className="prose-width mt-4">{s.meet?.text}</p>
-            <Link href="/about" className="mt-5 inline-flex items-center gap-1.5 font-semibold text-olive-dark">
-              More about Shary <ArrowRightIcon />
-            </Link>
+            <p>{s.cta?.text}</p>
+            <Book />
           </div>
         </div>
       </section>
-
-      <Testimonials items={testimonials} />
-
-      {/* 8. Wellness Education teaser */}
-      {latest ? (
-        <section className="container-page pb-14 md:pb-20" aria-labelledby="edu-heading">
-          <h2 id="edu-heading" className="text-3xl md:text-4xl">
-            {s.education?.heading}
-          </h2>
-          <article className="card mt-6 p-6 md:p-8">
-            <h3 className="text-2xl">
-              <Link href={`/wellness-education/${latest.slug}`} className="text-olive no-underline hover:underline">
-                {latest.title}
-              </Link>
-            </h3>
-            <p className="prose-width mt-2">{latest.summary}</p>
-            <Link href="/wellness-education" className="mt-4 inline-flex items-center gap-1.5 font-semibold text-olive-dark">
-              All articles <ArrowRightIcon />
-            </Link>
-          </article>
-        </section>
-      ) : null}
-
-      {/* 9. FAQ preview */}
-      <section className="container-page pb-14 md:pb-20" aria-labelledby="faq-heading">
-        <h2 id="faq-heading" className="text-3xl md:text-4xl">
-          {s.faq?.heading}
-        </h2>
-        <div className="mt-6">
-          <FaqList faqs={faqPreview} />
-        </div>
-        <Link href="/faq" className="mt-5 inline-flex items-center gap-1.5 font-semibold text-olive-dark">
-          All questions <ArrowRightIcon />
-        </Link>
-      </section>
-
-      {/* 10. Final CTA */}
-      <FinalCta heading={s.cta?.heading} text={s.cta?.text} />
-    </>
+    </div>
   );
 }

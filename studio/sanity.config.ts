@@ -6,7 +6,7 @@ import { structure } from "./structure";
 export default defineConfig({
   name: "default",
   title: "Avida Luna",
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || "TODO-project-id",
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || "p388w82e",
   dataset: process.env.SANITY_STUDIO_DATASET || "production",
   plugins: [structureTool({ structure })],
   schema: {

@@ -8,8 +8,9 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Join the Avida Luna List",
-  description: "Sign up for Avida Luna Wellness event news and offers by email. Unsubscribe anytime.",
+  title: "Join the Avida Luna List: IV Events & Offers",
+  description:
+    "Get Avida Luna Wellness news on IV hydration events and offers in Lakewood Ranch and Sarasota by email. Unsubscribe anytime.",
   path: "/join",
 });
 

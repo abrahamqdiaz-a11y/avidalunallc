@@ -54,6 +54,8 @@ test.describe("redirects", () => {
     "/cart": "/add-ons",
     "/wellnesseducation": "/wellness-education",
     "/faq-1": "/faq",
+    "/home": "/",
+    "/welcome": "/",
   };
   for (const [from, to] of Object.entries(map)) {
     test(`${from} -> ${to} (301)`, async ({ request }) => {
@@ -83,14 +85,37 @@ test.describe("SEO and privacy basics", () => {
     }
   });
 
-  test("structured data is present on Home and FAQ", async ({ page }) => {
+  test("structured data is present on Home, Services and FAQ", async ({ page }) => {
     await page.goto("/");
     const ld = await page.locator('script[type="application/ld+json"]').allTextContents();
-    expect(ld.join()).toContain('"LocalBusiness"');
+    expect(ld.join()).toContain('"MedicalBusiness"');
     expect(ld.join()).toContain('"knowsLanguage":["en","es"]');
     expect(ld.join()).not.toContain("streetAddress");
     await page.goto("/faq");
     expect((await page.locator('script[type="application/ld+json"]').allTextContents()).join()).toContain("FAQPage");
+    await page.goto("/services");
+    const services = (await page.locator('script[type="application/ld+json"]').allTextContents()).join();
+    expect(services).toContain("FAQPage");
+    expect(services).toContain("OfferCatalog");
+  });
+
+  test("titles fit in 60 characters and descriptions in 160", async ({ page }) => {
+    for (const path of ["/", "/services", "/add-ons", "/events", "/wellness-education", "/about", "/faq", "/contact", "/book", "/join"]) {
+      await page.goto(path);
+      expect((await page.title()).length, `title on ${path}`).toBeLessThanOrEqual(60);
+      const meta = (await page.locator('meta[name="description"]').getAttribute("content")) ?? "";
+      expect(meta.length, `description on ${path}`).toBeLessThanOrEqual(160);
+    }
+  });
+
+  test("llms.txt is plain text with the services and no flagged words", async ({ request }) => {
+    const res = await request.get("/llms.txt");
+    expect(res.status()).toBe(200);
+    expect(res.headers()["content-type"]).toContain("text/plain");
+    const body = await res.text();
+    expect(body).toMatch(/^# Avida Luna Wellness/);
+    expect(body).toContain("## IV drips");
+    expect(findComplianceWord(body)).toBeNull();
   });
 
   test("no third-party scripts or requests", async ({ page }) => {
@@ -112,11 +137,12 @@ test.describe("SEO and privacy basics", () => {
   });
 
   test("sticky mobile bar shows on content pages and hides on /book and /add-ons", async ({ page }) => {
+    const barLink = page.locator(".fixed.inset-x-0.bottom-0").getByRole("link", { name: "Book an appointment" });
     await page.goto("/services");
-    await expect(page.getByRole("link", { name: /Call Shary/ })).toBeVisible();
+    await expect(barLink).toBeVisible();
     await page.goto("/book");
-    await expect(page.getByRole("link", { name: /Call Shary/ })).toHaveCount(0);
+    await expect(barLink).toHaveCount(0);
     await page.goto("/add-ons");
-    await expect(page.getByRole("link", { name: /Call Shary/ })).toHaveCount(0);
+    await expect(barLink).toHaveCount(0);
   });
 });

@@ -28,7 +28,9 @@ content.services
       name: s.name,
       category: s.category,
       description: s.description,
+      ...(s.goodFor ? { goodFor: s.goodFor } : {}),
       ...(s.price ? { price: s.price } : {}),
+      ...(s.optionName && s.optionPrice ? { optionName: s.optionName, optionPrice: s.optionPrice } : {}),
       showPrice: s.showPrice,
       order: i + 1,
       visible: true,
@@ -83,7 +85,7 @@ content.articles.forEach((a) =>
 );
 
 content.faqs.forEach((f, i) =>
-  docs.push({ _id: f.id, _type: "faq", question: f.question, answer: f.answer, order: i + 1, visible: true }),
+  docs.push({ _id: f.id, _type: "faq", question: f.question, answer: f.answer, placement: f.placement ?? "faq", order: i + 1, visible: true }),
 );
 
 for (const [page, text] of Object.entries(content.pageText)) {

@@ -1,31 +1,32 @@
 @import "tailwindcss";
 
 /*
- * Brand tokens sampled from Shary's logo and current site.
+ * Shary's brand colors, used with clinical restraint.
  * Contrast (WCAG 2.2 AA), checked:
- *   ink on cream 9.1 · olive on cream 5.1 · ink on sage 5.8 · cream on olive 5.1
- *   white on terracotta-deep 4.8 (primary buttons)
- *   olive on sage 3.2 -> large headings only. terracotta-deep on cream 4.3 -> never small text.
- *   Never: cream/white on sage, white body text on terracotta, gold as text.
+ *   ink on cream 9.1 · ink on sage 6.7 · muted on cream 5.4 (6.0 on white)
+ *   olive on cream 5.1 · white on olive 5.7 (buttons) · olive-dark on sage 5.1 (links on sage)
+ *   cream on ink 9.1 (final band, footer)
+ *   terracotta-deep on cream 5.5 (eyebrows) · terracotta-ink on sage 4.6 (eyebrows on sage)
+ *   Never: olive text on sage (3.7), terracotta (#C08A67) as text. It's for thin accent lines only.
  */
 @theme {
-  --color-cream: #f7f3ee;
-  --color-sage: #b7caa3;
-  --color-moon: #b8bc98;
+  --color-cream: #fdfcf9;
+  --color-paper: #ffffff;
+  --color-ink: #3e4436;
+  --color-muted: #5f6657;
   --color-olive: #576d52;
   --color-olive-dark: #45583f;
-  --color-ink: #3e4436;
+  --color-sage: #c9d7b8;
   --color-terracotta: #c08a67;
-  --color-terracotta-deep: #9c6646;
-  --color-terracotta-press: #86553a;
-  --color-gold: #d4aa30;
-  --color-paper: #fffdfa;
+  --color-terracotta-deep: #8a5638;
+  --color-terracotta-ink: #7e4e33;
+  --color-line: #e4ddd3;
 
-  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
-  --font-sans: var(--font-montserrat), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-manrope), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --radius-card: 1.25rem;
-  --shadow-soft: 0 1px 2px rgb(62 68 54 / 0.06), 0 8px 24px -12px rgb(62 68 54 / 0.18);
+  --radius-card: 0.75rem;
+  --shadow-soft: 0 1px 2px rgb(62 68 54 / 0.05), 0 6px 20px -12px rgb(62 68 54 / 0.16);
 }
 
 @layer base {
@@ -51,10 +52,11 @@
   h1,
   h2,
   h3 {
-    font-family: var(--font-serif);
-    font-weight: 400;
+    font-family: var(--font-display);
+    font-weight: 600;
     line-height: 1.15;
-    color: var(--color-olive);
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
     text-wrap: balance;
   }
 
@@ -112,7 +114,7 @@
     gap: 0.5rem;
     min-height: 3rem;
     padding: 0.75rem 1.5rem;
-    border-radius: 999px;
+    border-radius: 0.5rem;
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.2;
@@ -125,34 +127,37 @@
     opacity: 0.55;
     cursor: not-allowed;
   }
-  .btn-primary {
-    background: var(--color-terracotta-deep);
-    color: #fff;
-  }
-  .btn-primary:hover:not(:disabled) {
-    background: var(--color-terracotta-press);
-  }
+  .btn-primary,
   .btn-secondary {
     background: var(--color-olive);
-    color: var(--color-cream);
+    color: #fff;
   }
+  .btn-primary:hover:not(:disabled),
   .btn-secondary:hover:not(:disabled) {
     background: var(--color-olive-dark);
   }
   .btn-outline {
     background: transparent;
-    color: var(--color-olive-dark);
-    border: 2px solid currentColor;
+    color: var(--color-olive);
+    border: 1.5px solid currentColor;
   }
   .btn-outline:hover {
     background: rgb(87 109 82 / 0.08);
   }
   .on-sage .btn-outline {
+    color: var(--color-olive-dark);
+  }
+  .on-ink .btn-primary {
+    background: var(--color-cream);
     color: var(--color-ink);
+  }
+  .on-ink .btn-primary:hover:not(:disabled) {
+    background: #fff;
   }
 
   .card {
     background: var(--color-paper);
+    border: 1px solid var(--color-line);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-soft);
   }
@@ -160,32 +165,61 @@
   .eyebrow {
     font-size: 0.8125rem;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-olive-dark);
+    color: var(--color-terracotta-deep);
   }
   .on-sage .eyebrow {
-    color: var(--color-ink);
+    color: var(--color-terracotta-ink);
+  }
+  /* Short terracotta rule above an eyebrow or step: the one decorative accent. */
+  .accent-rule {
+    display: block;
+    width: 2rem;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--color-terracotta);
   }
 
-  /* Sage band with the faint speckle texture from her current site. */
   .band-sage {
     background-color: var(--color-sage);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='%23F7F3EE' fill-opacity='.35'%3E%3Ccircle cx='12' cy='18' r='1.2'/%3E%3Ccircle cx='70' cy='9' r='.8'/%3E%3Ccircle cx='101' cy='44' r='1.4'/%3E%3Ccircle cx='38' cy='61' r='.9'/%3E%3Ccircle cx='84' cy='88' r='1.1'/%3E%3Ccircle cx='17' cy='103' r='.7'/%3E%3Ccircle cx='55' cy='112' r='1'/%3E%3C/g%3E%3Cg fill='%23576D52' fill-opacity='.12'%3E%3Ccircle cx='29' cy='37' r='.9'/%3E%3Ccircle cx='92' cy='68' r='.8'/%3E%3Ccircle cx='63' cy='82' r='1.2'/%3E%3C/g%3E%3C/svg%3E");
     color: var(--color-ink);
   }
   .band-sage a:not(.btn) {
-    color: var(--color-ink);
+    color: var(--color-olive-dark);
   }
 
-  .band-olive {
-    background: var(--color-olive);
+  /* Large numerals and short labels in the hero and trust sections. */
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--color-olive);
+  }
+  @media (max-width: 479px) {
+    .stat-value {
+      font-size: 1.125rem;
+    }
+  }
+  .stat-label {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+
+  .band-ink {
+    background: var(--color-ink);
     color: var(--color-cream);
   }
-  .band-olive h2,
-  .band-olive h3,
-  .band-olive a:not(.btn) {
+  .band-ink h2,
+  .band-ink h3,
+  .band-ink a:not(.btn) {
     color: var(--color-cream);
+  }
+  .band-ink :focus-visible {
+    outline-color: var(--color-cream);
   }
 
   .field-label {
@@ -199,7 +233,7 @@
     min-height: 3rem;
     padding: 0.625rem 0.875rem;
     border: 1.5px solid #8a927f;
-    border-radius: 0.75rem;
+    border-radius: 0.5rem;
     background: #fff;
     color: var(--color-ink);
     font: inherit;
@@ -217,7 +251,7 @@
   }
   .field-hint {
     font-size: 0.9375rem;
-    color: #5a6150;
+    color: var(--color-muted);
     margin-top: 0.25rem;
   }
 
@@ -261,5 +295,16 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Text-color utilities that must change on colored bands (muted on sage is only 3.9:1). */
+@layer utilities {
+  .band-sage .text-muted {
+    color: var(--color-ink);
+  }
+  .band-ink .text-muted,
+  .band-ink .text-ink {
+    color: var(--color-cream);
   }
 }

@@ -101,26 +101,3 @@ export function ExternalIcon({ className = "size-4" }: IconProps) {
     </svg>
   );
 }
-
-/** Crescent with a small sprig and sun-ray lines: a decorative nod to her logo, not a logo. */
-export function CrescentSprig({ className = "size-8" }: IconProps) {
-  return (
-    <svg viewBox="0 0 48 48" className={className} aria-hidden focusable={false}>
-      <g stroke="#D4AA30" strokeWidth="1.2" strokeLinecap="round">
-        <path d="M24 3v4M10 9l2.5 3M38 9l-2.5 3M4 22h4M40 22h4" />
-      </g>
-      <path
-        d="M30 12a14 14 0 1 0 6 22 12 12 0 1 1-6-22z"
-        fill="#B8BC98"
-        stroke="#576D52"
-        strokeWidth="1.2"
-      />
-      <g fill="#576D52">
-        <path d="M17 36c3-4 7-6 12-7" stroke="#576D52" strokeWidth="1.2" fill="none" />
-        <ellipse cx="20" cy="32.5" rx="2.2" ry="1.1" transform="rotate(-35 20 32.5)" />
-        <ellipse cx="24" cy="30.5" rx="2.2" ry="1.1" transform="rotate(-20 24 30.5)" />
-        <ellipse cx="22" cy="35.5" rx="2.2" ry="1.1" transform="rotate(20 22 35.5)" />
-      </g>
-    </svg>
-  );
-}

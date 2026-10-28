@@ -7,6 +7,7 @@ import type {
   Article,
   EventItem,
   Faq,
+  FaqPlacement,
   ImageRef,
   PageKey,
   PageText,
@@ -80,13 +81,15 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 export async function getServices(): Promise<Service[]> {
   const data = await fetchTagged<Service[]>(
     `*[_type == "service" && visible != false] | order(order asc, name asc){
-      "id": _id, name, category, description, price, "showPrice": coalesce(showPrice, false), ${imageProjection}
+      "id": _id, name, category, description, goodFor, price, "showPrice": coalesce(showPrice, false), optionName, optionPrice, ${imageProjection}
     }`,
     {},
     ["service"],
   );
   if (!data) return fallback.services;
-  return data.map((s) => ({ ...s, image: normalizeImage(s.image) }));
+  // Until Shary uploads her own, a service keeps the site's stock photo for its id.
+  const stockPhoto = (id: string) => fallback.services.find((f) => f.id === id)?.image ?? null;
+  return data.map((s) => ({ ...s, image: normalizeImage(s.image) ?? stockPhoto(s.id) }));
 }
 
 const addOnProjection = `{
@@ -188,13 +191,13 @@ export async function getArticle(slug: string): Promise<Article | null> {
   return all.find((a) => a.slug === slug) ?? null;
 }
 
-export async function getFaqs(): Promise<Faq[]> {
+export async function getFaqs(placement: FaqPlacement = "faq"): Promise<Faq[]> {
   const data = await fetchTagged<Faq[]>(
-    `*[_type == "faq" && visible != false] | order(order asc){ "id": _id, question, answer }`,
-    {},
+    `*[_type == "faq" && visible != false && coalesce(placement, "faq") == $placement] | order(order asc){ "id": _id, question, answer, placement }`,
+    { placement },
     ["faq"],
   );
-  return data ?? fallback.faqs;
+  return data ?? fallback.faqs.filter((f) => (f.placement ?? "faq") === placement);
 }
 
 export async function getTestimonials(): Promise<Testimonial[]> {

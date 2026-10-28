@@ -14,6 +14,19 @@ export const faq = defineType({
       validation: (rule) => [rule.required().error("Please add the question."), rule.custom(complianceCheck).warning()],
     }),
     checkedText("answer", "Answer", "A short, plain answer.", 4),
+    defineField({
+      name: "placement",
+      title: "Show on",
+      type: "string",
+      options: {
+        list: [
+          { title: "FAQ page", value: "faq" },
+          { title: "Services page", value: "services" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "faq",
+    }),
     orderField,
     visibleField,
   ],

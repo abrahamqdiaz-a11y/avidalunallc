@@ -10,20 +10,28 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Wellness Add-ons: Red Light and Aromatherapy",
+  title: "Red Light & Aromatherapy IV Add-ons | Avida Luna Wellness",
   description:
-    "Add red light or aromatherapy to your mobile IV visit with Avida Luna Wellness in Lakewood Ranch, FL. Pay online or at your visit.",
+    "Add red light therapy or aromatherapy to your mobile IV appointment in Lakewood Ranch or Sarasota. Optional extras after you book. Pay online or at your visit.",
   path: "/add-ons",
 });
 
 export default async function AddOnsPage() {
-  const [text, addOns] = await Promise.all([getPageText("addons"), getAddOns()]);
+  const [text, addOns] = await Promise.all([
+    getPageText("addons"),
+    getAddOns(),
+  ]);
   const todos = addOns.filter((a) => a.todo);
   return (
     <>
-      <PageHero heading={text.heading} intro={text.intro}>
+      <PageHero
+        eyebrow="After you book"
+        heading={text.heading}
+        intro={text.intro}
+      >
         <p className="mt-3 text-[0.9375rem]">
-          Haven&apos;t booked yet? <Link href="/book">Book your IV first</Link>.
+          Haven&apos;t booked yet?{" "}
+          <Link href="/book">Book an appointment first</Link>.
         </p>
       </PageHero>
       <section className="container-page py-10 md:py-14">

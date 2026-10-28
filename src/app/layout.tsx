@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Playfair_Display } from "next/font/google";
+import localFont from "next/font/local";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
@@ -9,31 +9,24 @@ import { getSiteSettings } from "@/lib/content";
 import { allowIndexing } from "@/lib/env";
 import { localBusinessSchema } from "@/lib/schema";
 import "./globals.css";
+import "./site.css";
 
-// next/font downloads these at build time and serves them from our own domain,
-// so visitors never make a request to Google.
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-});
-
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+// Bundled variable font: no external font requests at build time or in the browser.
+const manrope = localFont({
+  src: "../../public/fonts/manrope-latin-variable.woff2",
+  variable: "--font-manrope",
+  weight: "200 800",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Mobile IV Therapy in Lakewood Ranch, FL | Avida Luna Wellness",
+    default: "Mobile IV Therapy in Lakewood Ranch & Sarasota | Avida Luna",
     template: `%s | ${BRAND_NAME}`,
   },
   description:
-    "Nurse-led mobile IV hydration and wellness add-ons in Lakewood Ranch, FL. Shary Gonzalez, RN, BSN, comes to your home, office or event. Se habla español.",
+    "Nurse-led mobile IV therapy at your home, office or event in Lakewood Ranch, Sarasota and Bradenton. IV drips from $99 with Shary Gonzalez, RN, BSN.",
   applicationName: BRAND_NAME,
   robots: allowIndexing ? undefined : { index: false, follow: false },
   formatDetection: { telephone: false },
@@ -46,14 +39,17 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const settings = await getSiteSettings();
   return (
-    <html lang="en" className={`${playfair.variable} ${montserrat.variable} antialiased`}>
+    <html lang="en" className={`${manrope.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
-        <Header />
+        <Header
+          phoneTel={settings.phoneTel}
+          phoneDisplay={settings.phoneDisplay}
+        />
         <main id="main" className="flex-1">
           {children}
         </main>
         <Footer settings={settings} />
-        <StickyBookBar phoneTel={settings.phoneTel} phoneDisplay={settings.phoneDisplay} />
+        <StickyBookBar />
         <JsonLd data={localBusinessSchema(settings)} />
       </body>
     </html>

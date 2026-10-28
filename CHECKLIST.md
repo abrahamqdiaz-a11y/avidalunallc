@@ -9,12 +9,13 @@ Things the code can't do for us, in roughly the order to do them. Every service 
 - [ ] Shary approves `/docs/copy-deck.md` in writing (all medical wording is her responsibility under our agreement), and the "Needs review" list goes to a qualified professional.
 
 ## 1. Sanity (her account, free plan)
-- [ ] Create the project "Avida Luna", dataset `production`, in **Shary's** Sanity account. Invite Abe as Administrator.
+- [x] Project created: **AvidaLunaWebsite**, project ID `p388w82e`, dataset `production` (already set in `studio/sanity.cli.ts` and `studio/sanity.config.ts`). Skip Sanity's "Set up Sanity" wizard: the Studio already exists in `/studio`.
+- [ ] Make sure the project is in **Shary's** Sanity account, with Abe invited as Administrator.
 - [ ] Create an API token (Viewer) → `SANITY_API_READ_TOKEN`.
 - [ ] Deploy the Studio to `avidaluna.sanity.studio`:
-      `cd studio && npm install && SANITY_STUDIO_PROJECT_ID=<id> npx sanity deploy`
+      `cd studio && npm install && npx sanity login && npx sanity deploy`
 - [ ] Import the starting content: `npm run seed:build` (from the repo root), then
-      `cd studio && SANITY_STUDIO_PROJECT_ID=<id> npm run seed` (`--replace` overwrites seeded documents with the same IDs).
+      `cd studio && npm run seed` (`--replace` overwrites seeded documents with the same IDs).
 - [ ] CORS origins (sanity.io/manage → API → CORS): `http://localhost:3000`, the Netlify preview URL, `https://www.avidaluna.com`. No credentials needed for the site; the Studio host is added automatically.
 - [ ] Webhook (sanity.io/manage → API → Webhooks):
   - URL `https://www.avidaluna.com/api/revalidate` (add a second one for the preview URL while testing)
@@ -45,7 +46,7 @@ Things the code can't do for us, in roughly the order to do them. Every service 
 - [ ] API key → `MAILCHIMP_API_KEY`; server prefix (the part after the dash, e.g. `us21`) → `MAILCHIMP_SERVER_PREFIX`; Audience ID → `MAILCHIMP_AUDIENCE_ID`.
 - [ ] Confirm the audience has the default `FNAME`, `LNAME` and `PHONE` merge fields. No others are used.
 - [ ] Tags the site applies: `booking-intake`, `event-signup`, `event-<slug>`, `contact-form`, `group-request`, `addon-purchased`.
-- [ ] Welcome email on the `booking-intake` tag, with the Hydreight link and the `/add-ons` link.
+- [ ] Welcome email on the `booking-intake` tag: **no longer needed.** The site now sends that email itself through Resend (see section 5b). Don't set up both, or opted-in people get two.
   - ⚠️ Mailchimp's free plan reportedly **no longer includes automations** (2026) and is capped at **250 contacts / 500 sends a month**. Check her plan first. If automations aren't available, the alternative is sending that email from the site through Resend (not built yet; ask the developer).
 - [ ] Only people who tick the opt-in box are added to Mailchimp.
 
@@ -54,6 +55,16 @@ Things the code can't do for us, in roughly the order to do them. Every service 
 - [ ] `NOTIFY_EMAIL` = `YourRNShary@gmail.com` (or leave unset; it defaults to `CONTACT_EMAIL`).
 - [ ] Later (optional): verify `avidaluna.com` in Resend after the domain moves, set `RESEND_FROM`, and swap `CONTACT_EMAIL` for a business address (env var + Sanity Contact info).
 - [ ] Until `RESEND_API_KEY` is set, the contact and group forms show "Please email … instead."
+
+## 5b. Booking follow-up email (Resend, from avidaluna.com)
+About 60 minutes after someone submits step 1 on /book, Resend sends them one email with the Hydreight link and the add-ons link (first name and email only). It's cancelled automatically if they pay for add-ons first (Stripe webhook) or choose "Pay at my visit".
+- [ ] Resend → Domains → Add `avidaluna.com`. Add the DNS records Resend shows at the domain's DNS host, exactly as given: an **MX** record and an **SPF TXT** record on the `send` subdomain, and a **DKIM TXT** record (`resend._domainkey`). Wait for "Verified".
+- [ ] Recommended: add a **DMARC TXT** record on `_dmarc` if there isn't one yet, e.g. `v=DMARC1; p=none;`.
+- [ ] Netlify env: `FOLLOWUP_FROM` = `Shary at Avida Luna <hello@avidaluna.com>` (any address on the verified domain). **Nothing is sent until this is set**, so set it only after the domain is verified.
+- [ ] Replies go to `CONTACT_EMAIL`. People opt out by replying "stop": check that inbox.
+- [ ] The Stripe webhook (section 3) must be live with `checkout.session.completed`; that's what cancels the email after an add-on purchase.
+- [ ] Free plan: 3,000 emails/month, 100/day. One follow-up per booking-link request (at most one per address per 24 hours).
+- [ ] Test: set `FOLLOWUP_DELAY_MINUTES=2` on a deploy preview, submit step 1 with your own email, wait. Remove it (default 60) for production.
 
 ## 6. Hydreight
 - [ ] Check that the booking link works: https://booking.hydreight.com/widget-business/an92x
@@ -98,7 +109,7 @@ Things the code can't do for us, in roughly the order to do them. Every service 
 | `HYDREIGHT_BOOKING_URL` | `https://booking.hydreight.com/widget-business/an92x` (also the code default) |
 | `CONTACT_EMAIL` | `YourRNShary@gmail.com` (also the code default) |
 | `NOTIFY_EMAIL` | Same as `CONTACT_EMAIL` unless changed |
-| `NEXT_PUBLIC_SANITY_PROJECT_ID` | From sanity.io/manage |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | `p388w82e` |
 | `NEXT_PUBLIC_SANITY_DATASET` | `production` |
 | `SANITY_API_READ_TOKEN` | Viewer token (used only by checkout for live prices) |
 | `SANITY_REVALIDATE_SECRET` | Long random string; same value in the Sanity webhook |
@@ -109,6 +120,8 @@ Things the code can't do for us, in roughly the order to do them. Every service 
 | `MAILCHIMP_SERVER_PREFIX` | e.g. `us21` |
 | `MAILCHIMP_AUDIENCE_ID` | |
 | `RESEND_API_KEY` | Resend is the chosen form email service |
+| `FOLLOWUP_FROM` | Sender for the booking follow-up, e.g. `Shary at Avida Luna <hello@avidaluna.com>`. Domain must be verified in Resend. Leave unset to turn the follow-up off. |
+| `FOLLOWUP_DELAY_MINUTES` | Optional. Default `60`. Use a small number only for testing. |
 | `HYDREIGHT_HOOK_SECRET` | Long random string, for the future automation stub |
 | `NEXT_PUBLIC_HIDE_TODOS` | Optional. `1` hides TODO boxes (launch only) |
 

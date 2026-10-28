@@ -9,15 +9,16 @@ test.describe("/book intake", () => {
     await page.goto("/book");
     await fillIntake(page, { optIn: true });
     const intake = page.waitForResponse((r) => r.url().endsWith("/api/intake"));
-    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "Get my booking link" }).click();
 
     const button = page.getByTestId("hydreight-button");
     await expect(button).toBeVisible();
     await expect(button).toHaveAttribute("href", HYDREIGHT);
     await expect(button).toHaveAttribute("target", "_blank");
     await expect(button).toHaveAttribute("rel", /noopener/);
-    await expect(page.getByText("booking.hydreight.com/widget-business/an92x")).toBeVisible();
-    await expect(page.getByRole("link", { name: "See add-ons" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Open the secure booking page" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "You're in, Ana." })).toBeVisible();
+    await expect(page.getByTestId("booked-button")).toBeVisible();
 
     expect((await intake).status()).toBe(200);
     const calls = await mockRequests(request);
@@ -36,7 +37,7 @@ test.describe("/book intake", () => {
     await page.goto("/book");
     await fillIntake(page, { optIn: true });
     const intake = page.waitForResponse((r) => r.url().endsWith("/api/intake"));
-    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "Get my booking link" }).click();
     await expect(page.getByTestId("hydreight-button")).toBeVisible();
     expect((await intake).status()).toBe(200);
   });
@@ -46,7 +47,7 @@ test.describe("/book intake", () => {
     await page.goto("/book");
     await fillIntake(page, { optIn: false });
     const intake = page.waitForResponse((r) => r.url().endsWith("/api/intake"));
-    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "Get my booking link" }).click();
     await expect(page.getByTestId("hydreight-button")).toBeVisible();
     await intake;
     expect((await mockRequests(request)).filter((c) => c.path.includes("mailchimp"))).toHaveLength(0);
@@ -54,7 +55,7 @@ test.describe("/book intake", () => {
 
   test("shows field errors and stays on the form when required fields are empty", async ({ page }) => {
     await page.goto("/book");
-    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "Get my booking link" }).click();
     await expect(page.getByText("Please enter your name.").first()).toBeVisible();
     await expect(page.getByTestId("hydreight-button")).toHaveCount(0);
   });

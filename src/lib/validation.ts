@@ -82,6 +82,13 @@ export type GroupRequestInput = z.infer<typeof groupRequestSchema>;
 
 export const MAX_ADDON_QUANTITY = 10;
 
+const followUpId = z
+  .string()
+  .regex(/^[0-9a-f-]{36}$/i)
+  .optional()
+  .or(z.literal(""))
+  .catch("");
+
 /** The browser sends only ids and quantities. Any price field is stripped and ignored. */
 export const checkoutSchema = z.object({
   items: z
@@ -93,8 +100,20 @@ export const checkoutSchema = z.object({
     )
     .max(20),
   email: z.string().trim().toLowerCase().email().max(254).optional().or(z.literal("")),
+  /** The scheduled follow-up email to cancel once they've bought add-ons. Not personal data. */
+  followUpId: followUpId,
 });
 export type CheckoutInput = z.infer<typeof checkoutSchema>;
+
+/** "Pay at my visit": the add-ons plus who to bring them for. No prices, no health details. */
+export const atVisitSchema = z.object({
+  items: checkoutSchema.shape.items,
+  firstName: name,
+  email,
+  followUpId,
+  ...guard,
+});
+export type AtVisitInput = z.infer<typeof atVisitSchema>;
 
 /** Field errors keyed by field name, first message only. */
 export function fieldErrors(error: z.ZodError): Record<string, string> {

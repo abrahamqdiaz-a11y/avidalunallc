@@ -1,45 +1,51 @@
 import Link from "next/link";
+import { Todo } from "./Todo";
 
 const steps = [
   {
-    title: "Share your name and email",
-    text: "It takes about 30 seconds.",
+    label: "Request",
+    title: "Request an appointment",
+    text: "Tap Book and leave your name and email. You get your booking link right away, then pick your services and a time on our secure, HIPAA-compliant booking page.",
   },
   {
-    title: "Book your IV",
-    text: "Pick your drip and a time on our secure booking page, powered by Hydreight.",
+    label: "Assessment",
+    title: "Health screening and assessment",
+    text: "You complete a confidential health screening and pay for your IV on our secure, HIPAA-compliant booking page when you book. Before your IV starts, Shary reviews it with you and checks that IV hydration is a good fit.",
   },
   {
-    title: "Shary comes to you",
-    text: "At your home, office or event in the Lakewood Ranch area.",
+    label: "Visit",
+    title: "Your nurse comes to you",
+    text: "Shary arrives at your home, office or event in the Lakewood Ranch area and stays with you for the whole visit. Pay for any add-ons at your visit or online.",
   },
 ];
 
 export function HowItWorks({ compact = false }: { compact?: boolean }) {
   return (
     <div>
-      <ol className={`grid gap-4 ${compact ? "md:grid-cols-3" : "md:grid-cols-3 md:gap-6"}`}>
+      <ol className={`grid gap-8 ${compact ? "md:grid-cols-3" : "md:grid-cols-3 md:gap-10"}`}>
         {steps.map((s, i) => (
-          <li key={s.title} className="card flex gap-4 p-5 md:flex-col md:p-6">
-            <span
-              aria-hidden
-              className="grid size-10 shrink-0 place-items-center rounded-full bg-sage font-serif text-xl text-ink"
-            >
-              {i + 1}
-            </span>
-            <div>
-              <h3 className="font-sans text-lg font-semibold text-ink">
-                <span className="sr-only">Step {i + 1}: </span>
-                {s.title}
-              </h3>
-              <p className="mt-1">{s.text}</p>
-            </div>
+          <li key={s.title} className="border-t-[3px] border-terracotta pt-5">
+            <p aria-hidden className="eyebrow">
+              {String(i + 1).padStart(2, "0")}
+            </p>
+            <h3 className="mt-1 text-xl">
+              <span className="sr-only">Step {i + 1}: </span>
+              {s.label}
+            </h3>
+            <p className="mt-2 text-muted">{s.text}</p>
           </li>
         ))}
       </ol>
-      <p className="mt-5">
-        Optional: <Link href="/add-ons">add a wellness ritual</Link> like red light or aromatherapy after you book.
-      </p>
+      <Todo className="mt-5 max-w-2xl">
+        Shary to confirm the assessment step wording: what the booking screening covers and what she checks in person before
+        starting an IV.
+      </Todo>
+      {compact ? null : (
+        <p className="mt-5 text-muted">
+          Optional <Link href="/add-ons">wellness add-ons</Link>, like red light or aromatherapy, can be added after you
+          book. Pay for them at your visit or online.
+        </p>
+      )}
     </div>
   );
 }

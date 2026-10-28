@@ -25,8 +25,33 @@ export function readForm(form: HTMLFormElement) {
 /** Keys for sessionStorage. Never put personal data in URLs. */
 export const STORAGE = {
   email: "avidaluna:email",
+  firstName: "avidaluna:firstName",
   selection: "avidaluna:addons",
+  /** Booking step to restore on refresh: "book" (step 2) or "addons" (step 3). */
+  step: "avidaluna:step",
+  /** Set when "Book now" was clicked, so coming back to the tab opens step 3. */
+  bookClicked: "avidaluna:bookClicked",
+  /** Resend id of the scheduled follow-up email, so add-on checkout can cancel it. */
+  followUpId: "avidaluna:followUpId",
 } as const;
+
+/** sessionStorage reads and writes that never throw (private mode, blocked storage). */
+export const session = {
+  get(key: string): string | null {
+    try {
+      return safeSession()?.getItem(key) ?? null;
+    } catch {
+      return null;
+    }
+  },
+  set(key: string, value: string) {
+    try {
+      safeSession()?.setItem(key, value);
+    } catch {
+      // Storage full or blocked: the in-memory state still works for this visit.
+    }
+  },
+};
 
 export function safeSession() {
   try {

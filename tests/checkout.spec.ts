@@ -2,12 +2,44 @@ import { expect, test } from "@playwright/test";
 import { mockRequests, resetMock } from "./helpers";
 
 test.describe("add-on checkout", () => {
-  test("Pay now is disabled until a ritual is chosen", async ({ page }) => {
+  test("Pay buttons are disabled until a ritual is chosen", async ({ page }) => {
     await page.goto("/add-ons");
-    const pay = page.getByRole("button", { name: "Pay now" }).locator("visible=true");
+    const pay = page.getByRole("button", { name: "Pay now by card" }).locator("visible=true");
+    const atVisit = page.getByRole("button", { name: "Pay at my visit" }).locator("visible=true");
     await expect(pay).toBeDisabled();
+    await expect(atVisit).toBeDisabled();
     await page.getByRole("button", { name: "Add one Red Light Therapy" }).click();
     await expect(pay).toBeEnabled();
+    await expect(atVisit).toBeEnabled();
+  });
+
+  test("pay at my visit tells Shary which add-ons to bring, at server prices", async ({ page, request }) => {
+    await resetMock(request);
+    await page.goto("/add-ons");
+    await page.evaluate(() => {
+      sessionStorage.setItem("avidaluna:firstName", "Ana");
+      sessionStorage.setItem("avidaluna:email", "ana@example.com");
+    });
+    await page.getByRole("button", { name: "Add one Red Light Therapy" }).click();
+    await page.getByRole("button", { name: "Pay at my visit" }).locator("visible=true").click();
+    const dialog = page.getByTestId("at-visit-dialog");
+    await expect(dialog.getByLabel("First name")).toHaveValue("Ana");
+    await expect(dialog.getByLabel("Email")).toHaveValue("ana@example.com");
+    await page.waitForTimeout(2700);
+    await dialog.getByRole("button", { name: "Confirm add-ons" }).click();
+    await expect(dialog.getByRole("heading", { name: "You're all set." })).toBeVisible();
+
+    const email = (await mockRequests(request)).find((c) => c.path === "/resend/emails");
+    expect(email?.body).toContain("Red Light Therapy × 1: $29");
+    expect(email?.body).toContain("Total to collect at the visit: $29");
+    expect(page.url()).not.toMatch(/ana|example\.com|%40/i);
+  });
+
+  test("pay at my visit needs a name and email", async ({ request }) => {
+    const res = await request.post("/api/add-ons/at-visit", {
+      data: { items: [{ id: "addon-red-light", quantity: 1 }], firstName: "", email: "nope", startedAt: 0 },
+    });
+    expect(res.status()).toBe(400);
   });
 
   test("the API rejects zero items", async ({ request }) => {
@@ -48,7 +80,7 @@ test.describe("add-on checkout", () => {
     await page.goto("/add-ons");
     await page.getByRole("button", { name: "Add one Red Light Therapy" }).click();
     await page.getByRole("button", { name: "Add one Aromatherapy" }).click();
-    await page.getByRole("button", { name: "Pay now" }).locator("visible=true").click();
+    await page.getByRole("button", { name: "Pay now by card" }).locator("visible=true").click();
     await expect(page).toHaveURL(/\/add-ons\/success\?session_id=cs_test_/);
     await expect(page.getByRole("heading", { name: "You're all set." })).toBeVisible();
     await expect(page.getByText("Red Light Therapy × 1")).toBeVisible();
