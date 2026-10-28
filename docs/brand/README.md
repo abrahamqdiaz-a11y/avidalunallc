@@ -14,7 +14,7 @@ Drop Shary's files here with these exact names, then rebuild/redeploy. The site 
 
 - `public/brand/logo.png`: Shary's logo (stacked), trimmed from the 360px file she supplied. A larger original or SVG
   from her designer would look sharper in the header.
-- `public/brand/shary-hero.webp`: home hero photo, 1030 × 1281, cropped from her Instagram portrait (profile icon removed).
+- `public/brand/shary-hero.webp`: home hero photo, 1067 × 1600, outdoor portrait in scrubs.
 - `public/brand/shary.webp`: her photo, 427 × 640. Usable, but soft on large screens. Replace with the full-resolution
   original (at least 1200px wide) when available.
 - `docs/brand/logo-horizontal-mockup.png`: **mock-up for Shary to approve**, built by placing her mark beside her
