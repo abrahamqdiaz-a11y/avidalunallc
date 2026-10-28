@@ -143,7 +143,7 @@
 }
 .portrait-frame img {
   object-fit: cover;
-  object-position: 50% 34%;
+  object-position: 50% 55%;
 }
 .hero-portrait figcaption {
   display: flex;
@@ -863,7 +863,7 @@ body:has(.home-design):not(.home-past-hero) .fixed.inset-x-0.bottom-0 {
     max-height: none;
   }
   .portrait-frame img {
-    object-position: 50% 35%;
+    object-position: 50% 55%;
   }
   .hero-portrait figcaption {
     flex-direction: row;
