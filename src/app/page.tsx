@@ -97,7 +97,7 @@ export default async function HomePage() {
         <figure className="hero-portrait">
           <div className="portrait-frame">
             <Image
-              src={process.env.BRAND_PORTRAIT || "/brand/shary.webp"}
+              src="/brand/shary-hero.webp"
               alt="Shary Gonzalez, RN, BSN, founder of Avida Luna Wellness"
               fill
               priority
