@@ -258,7 +258,7 @@ export const faqs: Faq[] = [
     id: "faq-book",
     question: "How do I book?",
     answer:
-      "Tap Book and share your name and email. You'll get your booking link right away, then pick your services, a time, and complete your screening and payment on our secure, HIPAA-compliant booking page. Optional add-ons come after.",
+      "Tap Book and share your name and email. You'll get your booking link right away, then pick your services, a time, and complete your screening and payment on our secure, HIPAA-compliant booking page. Once Shary reviews your screening, you'll be asked to get cleared by our medical provider before your visit. Optional add-ons come after.",
   },
   {
     id: "faq-pay",
