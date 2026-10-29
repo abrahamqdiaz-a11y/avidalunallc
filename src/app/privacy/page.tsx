@@ -37,6 +37,10 @@ export default async function PrivacyPage() {
             for events the date, city, group size and event type.
           </li>
           <li>
+            If you choose to pay for add-ons at your visit: your first name,
+            email and the add-ons to bring.
+          </li>
+          <li>
             For add-on payments: the appointment date you enter at checkout, and
             your payment, handled by Stripe.
           </li>
@@ -53,15 +57,20 @@ export default async function PrivacyPage() {
 
         <h2 className="pt-4 text-2xl">Who processes it</h2>
         <ul className="list-disc space-y-1 pl-6">
-          <li>Netlify hosts this website.</li>
-          <li>Mailchimp stores email-list contacts, only if you opted in.</li>
-          <li>Stripe processes add-on payments.</li>
           <li>
-            Resend delivers contact and group event form messages to us by
-            email, and sends you one note with your booking link and add-on
-            options about an hour after you ask for it (your first name and
-            email only).
+            Netlify hosts this website. It also receives and stores the
+            messages you send through our contact, group event and
+            &ldquo;pay at my visit&rdquo; forms, and emails them to us.
           </li>
+          <li>
+            Mailchimp runs our email list. When you ask for a booking link, it
+            gets your first name, last name and email, plus where you signed
+            up and whether you ticked the box, so it can send you one note with
+            your booking link. We only send you other emails if you ticked the
+            box. On /join, and on the contact and group event forms when you
+            tick the box, it gets the same details.
+          </li>
+          <li>Stripe processes add-on payments.</li>
           <li>
             Sanity stores the website&apos;s text and photos (not your form
             details).
@@ -74,8 +83,7 @@ export default async function PrivacyPage() {
 
         <h2 className="pt-4 text-2xl">Unsubscribe or delete your details</h2>
         <p>
-          Every newsletter has an unsubscribe link. To stop the one-time
-          booking-link note, reply &ldquo;stop&rdquo;. To ask us to delete your details,
+          Every email from our list has an unsubscribe link. To ask us to delete your details,
           email <a href={`mailto:${email}`}>{email}</a>.
         </p>
 

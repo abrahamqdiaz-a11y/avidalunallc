@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-// Form schemas. Shared by the browser (instant feedback) and the API routes (the real check).
-// None of these accept health information: there is no health field, and free-text
-// boxes carry "Please don't include medical information here."
+// Form schemas, checked in the browser before anything is sent (Netlify Forms, Mailchimp)
+// and, for checkout, again on the server. None of these accept health information: there
+// is no health field, and free-text boxes carry "Please don't include medical information here."
 
 const name = z.string().trim().min(1, "Please enter your name.").max(60, "That's a bit long.");
 const email = z.string().trim().toLowerCase().email("Please enter a valid email address.").max(254);
@@ -15,19 +15,11 @@ const phone = z
   .default("");
 const shortText = (max: number) => z.string().trim().max(max, `Please keep this under ${max} characters.`);
 
-/** Spam guard fields sent by every form: an empty honeypot and the time the form was opened. */
-const guard = {
-  website: z.string().max(200).optional().default(""),
-  startedAt: z.number().int().nonnegative(),
-};
-
 export const intakeSchema = z.object({
   firstName: name,
   lastName: name,
   email,
-  phone,
   optIn: z.boolean().default(false),
-  ...guard,
 });
 export type IntakeInput = z.infer<typeof intakeSchema>;
 
@@ -52,7 +44,6 @@ export const contactSchema = z.object({
   topic: z.enum(contactTopics, { error: "Please choose a topic." }),
   message: shortText(1000).min(1, "Please write a short message."),
   optIn: z.boolean().default(false),
-  ...guard,
 });
 export type ContactInput = z.infer<typeof contactSchema>;
 
@@ -76,18 +67,10 @@ export const groupRequestSchema = z.object({
   eventType: z.enum(eventTypes, { error: "Please choose an event type." }),
   note: shortText(1000).optional().default(""),
   optIn: z.boolean().default(false),
-  ...guard,
 });
 export type GroupRequestInput = z.infer<typeof groupRequestSchema>;
 
 export const MAX_ADDON_QUANTITY = 10;
-
-const followUpId = z
-  .string()
-  .regex(/^[0-9a-f-]{36}$/i)
-  .optional()
-  .or(z.literal(""))
-  .catch("");
 
 /** The browser sends only ids and quantities. Any price field is stripped and ignored. */
 export const checkoutSchema = z.object({
@@ -100,8 +83,6 @@ export const checkoutSchema = z.object({
     )
     .max(20),
   email: z.string().trim().toLowerCase().email().max(254).optional().or(z.literal("")),
-  /** The scheduled follow-up email to cancel once they've bought add-ons. Not personal data. */
-  followUpId: followUpId,
 });
 export type CheckoutInput = z.infer<typeof checkoutSchema>;
 
@@ -110,8 +91,6 @@ export const atVisitSchema = z.object({
   items: checkoutSchema.shape.items,
   firstName: name,
   email,
-  followUpId,
-  ...guard,
 });
 export type AtVisitInput = z.infer<typeof atVisitSchema>;
 

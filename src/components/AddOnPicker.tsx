@@ -4,9 +4,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { formatDuration, formatPrice } from "@/lib/format";
 import type { AddOn } from "@/lib/types";
 import { PhotoSlot } from "./Portrait";
+import { atVisitSchema, fieldErrors } from "@/lib/validation";
 import { FormError, Honeypot, TextField } from "./forms/fields";
-import { postJson, readForm, safeSession, session, STORAGE } from "./forms/submit";
-import { useStartedAt } from "./forms/useGuard";
+import { HONEYPOT, postJson, readForm, safeSession, session, STORAGE, submitNetlifyForm } from "./forms/submit";
 import { CheckIcon, MinusIcon, PlusIcon } from "./Icons";
 
 const MAX = 10;
@@ -41,7 +41,6 @@ export function AddOnPicker({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
-  const startedAt = useStartedAt();
   const [contact, setContact] = useState({ firstName: "", email: "" });
   const [visitErrors, setVisitErrors] = useState<Record<string, string>>({});
   const [visitError, setVisitError] = useState<string | null>(null);
@@ -91,8 +90,7 @@ export function AddOnPicker({
       quantity,
     }));
     const email = session.get(STORAGE.email) ?? "";
-    const followUpId = session.get(STORAGE.followUpId) ?? "";
-    const result = (await postJson("/api/checkout", { items, email, followUpId })) as
+    const result = (await postJson("/api/checkout", { items, email })) as
       { ok: true; url?: string } | { ok: false; error: string };
     if (result.ok && "url" in result && result.url) {
       window.location.assign(result.url);
@@ -119,29 +117,40 @@ export function AddOnPicker({
     dialog.current?.showModal();
   }
 
+  // Sent to Netlify Forms as "add-ons-at-visit", which emails Shary what to bring.
+  // Nothing is charged, so the prices here are the ones shown on the page.
   async function sendAtVisit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (visitPending) return;
     const { str } = readForm(e.currentTarget);
-    setVisitPending(true);
-    setVisitError(null);
-    const result = await postJson("/api/add-ons/at-visit", {
+    const parsed = atVisitSchema.safeParse({
       items: Object.entries(qty).map(([id, quantity]) => ({ id, quantity })),
       firstName: str("firstName"),
       email: str("email"),
-      followUpId: session.get(STORAGE.followUpId) ?? "",
-      website: str("website"),
-      startedAt: startedAt.current,
+    });
+    if (!parsed.success) {
+      setVisitErrors(fieldErrors(parsed.error));
+      return;
+    }
+    setVisitErrors({});
+    setVisitError(null);
+    const chosen = addOns.filter((a) => qty[a.id]);
+    setVisitPending(true);
+    const sent = await submitNetlifyForm("add-ons-at-visit", {
+      firstName: parsed.data.firstName,
+      email: parsed.data.email,
+      addOns: chosen.map((a) => `${a.name} × ${qty[a.id]}: ${formatPrice(a.price * qty[a.id])}`).join("\n"),
+      total: formatPrice(total),
+      [HONEYPOT]: str(HONEYPOT),
     });
     setVisitPending(false);
-    if (result.ok) {
-      safeSession()?.setItem(STORAGE.email, str("email"));
-      safeSession()?.setItem(STORAGE.firstName, str("firstName"));
+    if (sent) {
+      session.set(STORAGE.email, parsed.data.email);
+      session.set(STORAGE.firstName, parsed.data.firstName);
       setVisitSent(true);
       setQty({});
     } else {
-      setVisitErrors(result.fields ?? {});
-      setVisitError(result.error);
+      setVisitError("Sorry, that didn't send. Please try again, or just tell Shary at your visit.");
     }
   }
 

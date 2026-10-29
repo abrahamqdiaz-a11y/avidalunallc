@@ -22,7 +22,7 @@ export class CheckoutError extends Error {
 
 /**
  * Prices the requested add-ons from Sanity (live read). Prices come only from the server,
- * so the price shown and the price charged (or quoted to Shary) always match.
+ * so the price shown and the price charged always match.
  */
 export async function priceAddOns(items: { id: string; quantity: number }[]): Promise<PricedLine[]> {
   const wanted = new Map<string, number>();
@@ -54,7 +54,7 @@ export async function priceAddOns(items: { id: string; quantity: number }[]): Pr
 export async function createAddOnCheckout(
   items: { id: string; quantity: number }[],
   email: string | undefined,
-  opts: { successUrl: string; cancelUrl: string; followUpId?: string },
+  opts: { successUrl: string; cancelUrl: string },
 ): Promise<CheckoutSession> {
   const lines = await priceAddOns(items);
   return provider.createCheckout(lines, { email: email || undefined, ...opts });

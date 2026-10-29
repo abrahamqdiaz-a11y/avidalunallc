@@ -1,5 +1,4 @@
-import { expect, test } from "@playwright/test";
-import { mockRequests, resetMock } from "./helpers";
+import { expect, mockRequests, resetMock, test } from "./helpers";
 
 test.describe("add-on checkout", () => {
   test("Pay buttons are disabled until a ritual is chosen", async ({ page }) => {
@@ -13,8 +12,7 @@ test.describe("add-on checkout", () => {
     await expect(atVisit).toBeEnabled();
   });
 
-  test("pay at my visit tells Shary which add-ons to bring, at server prices", async ({ page, request }) => {
-    await resetMock(request);
+  test("pay at my visit sends Shary the add-ons through Netlify Forms", async ({ page, mocks }) => {
     await page.goto("/add-ons");
     await page.evaluate(() => {
       sessionStorage.setItem("avidaluna:firstName", "Ana");
@@ -25,21 +23,37 @@ test.describe("add-on checkout", () => {
     const dialog = page.getByTestId("at-visit-dialog");
     await expect(dialog.getByLabel("First name")).toHaveValue("Ana");
     await expect(dialog.getByLabel("Email")).toHaveValue("ana@example.com");
-    await page.waitForTimeout(2700);
     await dialog.getByRole("button", { name: "Confirm add-ons" }).click();
     await expect(dialog.getByRole("heading", { name: "You're all set." })).toBeVisible();
 
-    const email = (await mockRequests(request)).find((c) => c.path === "/resend/emails");
-    expect(email?.body).toContain("Red Light Therapy × 1: $29");
-    expect(email?.body).toContain("Total to collect at the visit: $29");
+    expect(mocks.netlify).toHaveLength(1);
+    const sent = mocks.netlify[0];
+    expect(Object.fromEntries(sent)).toEqual({
+      "form-name": "add-ons-at-visit",
+      firstName: "Ana",
+      email: "ana@example.com",
+      addOns: "Red Light Therapy × 1: $29",
+      total: "$29",
+      "bot-field": "",
+    });
+    expect(mocks.mailchimp).toHaveLength(0);
     expect(page.url()).not.toMatch(/ana|example\.com|%40/i);
   });
 
-  test("pay at my visit needs a name and email", async ({ request }) => {
-    const res = await request.post("/api/add-ons/at-visit", {
-      data: { items: [{ id: "addon-red-light", quantity: 1 }], firstName: "", email: "nope", startedAt: 0 },
-    });
-    expect(res.status()).toBe(400);
+  test("pay at my visit needs a name and email, and says so if Netlify fails", async ({ page, mocks }) => {
+    await page.goto("/add-ons");
+    await page.getByRole("button", { name: "Add one Red Light Therapy" }).click();
+    await page.getByRole("button", { name: "Pay at my visit" }).locator("visible=true").click();
+    const dialog = page.getByTestId("at-visit-dialog");
+    await dialog.getByRole("button", { name: "Confirm add-ons" }).click();
+    await expect(dialog.getByText("Please enter your name.")).toBeVisible();
+    expect(mocks.netlify).toHaveLength(0);
+
+    mocks.netlifyFails = true;
+    await dialog.getByLabel("First name").fill("Ana");
+    await dialog.getByLabel("Email").fill("ana@example.com");
+    await dialog.getByRole("button", { name: "Confirm add-ons" }).click();
+    await expect(dialog.getByText("Sorry, that didn't send. Please try again, or just tell Shary at your visit.")).toBeVisible();
   });
 
   test("the API rejects zero items", async ({ request }) => {

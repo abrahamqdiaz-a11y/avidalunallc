@@ -64,7 +64,7 @@ export default async function ContactPage() {
         <div>
           <h2 className="text-3xl">Send a message</h2>
           <div className="mt-5">
-            <ContactForm />
+            <ContactForm contactEmail={settings.email} />
           </div>
         </div>
       </section>

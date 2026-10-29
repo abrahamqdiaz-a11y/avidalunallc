@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AddOnPicker } from "@/components/AddOnPicker";
 import { ExternalIcon } from "@/components/Icons";
 import { NO_MEDICAL_INFO_NOTE } from "@/lib/constants";
+import { addToList } from "@/lib/mailchimp-signup";
 import type { AddOn } from "@/lib/types";
 import { fieldErrors, intakeSchema, joinSchema } from "@/lib/validation";
 import {
@@ -14,8 +15,7 @@ import {
   SelectField,
   TextField,
 } from "./fields";
-import { postJson, readForm, safeSession, session, STORAGE } from "./submit";
-import { useStartedAt } from "./useGuard";
+import { HONEYPOT, readForm, session, STORAGE } from "./submit";
 
 type Mode = "book" | "join";
 
@@ -29,7 +29,8 @@ const OPT_IN_LABEL =
 
 /**
  * The intake form used on /book (opt-in optional) and /join (opt-in required).
- * Name, email, optional phone and an opt-in. Nothing else, and no health questions.
+ * First name, last name, email and an opt-in. Nothing else, and no health questions.
+ * Both add the person to Shary's Mailchimp list from the browser (SOURCE booking or join).
  * On /book it then walks through step 2 (Hydreight, new tab) and step 3 (add-ons).
  */
 export function IntakeForm({
@@ -45,7 +46,6 @@ export function IntakeForm({
   addOns?: AddOn[];
   paymentsEnabled?: boolean;
 }) {
-  const startedAt = useStartedAt();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
@@ -107,10 +107,7 @@ export function IntakeForm({
       firstName: str("firstName"),
       lastName: str("lastName"),
       email: str("email"),
-      phone: str("phone"),
       optIn: bool("optIn"),
-      website: str("website"),
-      startedAt: startedAt.current,
       ...(mode === "join" ? { eventSlug: str("eventSlug") } : {}),
     };
 
@@ -121,33 +118,36 @@ export function IntakeForm({
       return;
     }
     setErrors({});
+    const d = parsed.data;
+    // A filled honeypot means a bot: carry on as normal, but never add it to the list.
+    const bot = Boolean(str(HONEYPOT));
+    const contact = { email: d.email, firstName: d.firstName, lastName: d.lastName };
 
     if (mode === "book") {
-      // Show the booking button right away. The intake request runs in the background;
-      // Mailchimp problems are handled on the server and never block booking.
-      session.set(STORAGE.email, parsed.data.email);
-      session.set(STORAGE.firstName, parsed.data.firstName);
-      setFirstName(parsed.data.firstName);
+      // Show the booking button right away. Everyone who asks for a booking link goes on
+      // Shary's list (OPTIN says whether they ticked the box); her Mailchimp automation sends
+      // the one booking-link note. A Mailchimp failure is logged and never blocks booking.
+      session.set(STORAGE.email, d.email);
+      session.set(STORAGE.firstName, d.firstName);
+      setFirstName(d.firstName);
       bookClicked.current = false;
       session.set(STORAGE.bookClicked, "");
       goTo("book");
-      void postJson("/api/intake", payload).then((result) => {
-        const id = result.ok && "followUpId" in result ? result.followUpId : null;
-        if (typeof id === "string") session.set(STORAGE.followUpId, id);
-      });
+      if (!bot) void addToList({ ...contact, source: "booking", optIn: d.optIn });
       return;
     }
 
+    const slug = "eventSlug" in d ? d.eventSlug : "";
     setPending(true);
-    const result = await postJson("/api/join", payload);
+    // Joining the list is the whole point of this form, so tell them if it didn't work.
+    const saved = bot || (await addToList({ ...contact, source: slug ? `join:${slug}` : "join", optIn: true }));
     setPending(false);
-    if (result.ok) {
-      safeSession()?.setItem(STORAGE.email, parsed.data.email);
+    if (saved) {
+      session.set(STORAGE.email, d.email);
       moved.current = true;
       setJoined(true);
     } else {
-      setErrors(result.fields ?? {});
-      setFormError(result.error);
+      setFormError("We couldn't add you right now. Please try again in a moment.");
     }
   }
 
@@ -314,8 +314,8 @@ export function IntakeForm({
       >
         <h2 className="text-3xl">You&apos;re on the list.</h2>
         <p className="mt-3">
-          Thanks for joining. Watch your inbox for event news and offers from
-          Shary.
+          Thanks for joining. Watch your inbox for your free copy of Wellness
+          Notes from a Nurse.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link href="/book" className="btn btn-primary">
@@ -363,15 +363,6 @@ export function IntakeForm({
         hint={mode === "book" ? "We'll email your booking link and visit details." : undefined}
         error={errors.email}
       />
-      <TextField
-        name="phone"
-        type="tel"
-        label="Phone"
-        autoComplete="tel"
-        inputMode="tel"
-        maxLength={25}
-        error={errors.phone}
-      />
       {mode === "join" && events.length ? (
         <SelectField
           name="eventSlug"
@@ -385,7 +376,7 @@ export function IntakeForm({
         name="optIn"
         label={
           mode === "join"
-            ? "Yes, email me Avida Luna event news and offers. Unsubscribe anytime."
+            ? "Yes, email me Wellness Notes from a Nurse and Avida Luna news and offers. Unsubscribe anytime."
             : OPT_IN_LABEL
         }
         required={mode === "join"}
@@ -397,7 +388,7 @@ export function IntakeForm({
         className="btn btn-primary w-full text-lg"
         disabled={pending}
       >
-        {mode === "book" ? "Get my booking link" : pending ? "Joining…" : "Join the list"}
+        {mode === "book" ? "Get my booking link" : pending ? "Sending…" : "Send me my free copy"}
       </button>
       <p className="text-[0.9375rem] text-[#5a6150]">
         {mode === "book"
