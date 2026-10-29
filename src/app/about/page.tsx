@@ -35,7 +35,13 @@ export default async function AboutPage() {
               {text.intro}
             </p>
           </div>
-          <Portrait priority />
+          <Portrait
+            priority
+            image={{
+              src: "/brand/shary-about.webp",
+              alt: "Shary Gonzalez, RN, BSN, smiling in black scrubs, seated in a striped armchair",
+            }}
+          />
         </div>
       </section>
 
