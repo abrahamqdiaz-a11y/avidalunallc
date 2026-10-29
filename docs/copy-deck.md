@@ -217,10 +217,10 @@ I'm not a lawyer and neither is the developer. Every item here needs a human che
 
 ## Decisions taken while building (for Abe)
 
-1. **Contacts who don't opt in are not stored in Mailchimp at all.** Mailchimp's free plan is reportedly capped at 250 contacts (and non-subscribed contacts count toward it), and storing them buys nothing because we can't market to them. Easy to change in `src/app/api/intake/route.ts`.
-2. **Form notification email: Resend (free tier: 3,000 emails/month, 100/day).** One server route handles validation, spam checks, the email to Shary and the Mailchimp opt-in together. Netlify Forms would need a separate static form for detection, and the opted-in Mailchimp step would still need a function.
+1. **Everyone who asks for a booking link goes into Mailchimp**, with `OPTIN` = `yes` or `no` so Shary's automation can send the one booking-link note and newsletters go only to `OPTIN` = `yes`. Sent from the browser through her public signup form (no API key). See `src/lib/mailchimp-signup.ts`.
+2. **Form email: Netlify Forms.** The contact form, group-event request and "Pay at my visit" are emailed to Shary by Netlify. No email service and no access to her inbox needed.
 3. **Studio hosting: `avidaluna.sanity.studio`** (Sanity's free hosting). That keeps the website bundle small, keeps the Studio out of the site's security policy, and doesn't use Netlify credits.
-4. **Welcome email risk:** Mailchimp's free plan reportedly no longer includes automations (2026). If so, the `booking-intake` welcome automation can't run on her free plan. Option: send that one email from `/api/intake` through Resend (transactional, includes the Hydreight and add-ons links). Not built; your call.
+4. **Booking-link email needs a paid Mailchimp plan:** the free plan reportedly has no automations (2026), so the `SOURCE` = `booking` automation needs a plan such as Essentials.
 5. **Checkout cancel URL** goes to `/add-ons/cancel` (the "No charge was made" page with the selection restored), not straight back to `/add-ons`.
 6. **Phone collection is off in Stripe Checkout**, to collect less personal data. The only custom field is "Appointment date".
 7. **Next.js 16 "cache components" mode is off.** The site uses the long-established tagged cache plus on-demand revalidation, which Netlify's adapter supports well.

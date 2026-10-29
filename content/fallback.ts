@@ -509,9 +509,9 @@ export const pageText: Record<PageKey, PageText> = {
     sections: {},
   },
   join: {
-    heading: "Join the Avida Luna list",
+    heading: "Wellness Notes from a Nurse",
     intro:
-      "Get event news and offers from Shary by email. Unsubscribe anytime.",
+      "Thoughtful, nurse-led notes and practical reminders to support your long-term health, one intentional choice at a time. #LiveWellLonger",
     sections: {},
   },
 };

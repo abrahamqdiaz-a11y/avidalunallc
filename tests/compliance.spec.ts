@@ -1,6 +1,5 @@
-import { expect, test } from "@playwright/test";
 import { COMPLIANCE_WORDS, findComplianceWord } from "../studio/lib/compliance";
-import { PUBLIC_PAGES } from "./helpers";
+import { expect, PUBLIC_PAGES, test } from "./helpers";
 
 test.describe("health wording", () => {
   for (const path of PUBLIC_PAGES) {
@@ -131,6 +130,17 @@ test.describe("SEO and privacy basics", () => {
   test("security headers are set", async ({ request }) => {
     const h = (await request.get("/")).headers();
     expect(h["content-security-policy"]).toContain("default-src 'self'");
+    // Mailchimp's JSONP reply is the only outside script allowed, and nothing else changed.
+    const csp = Object.fromEntries(
+      h["content-security-policy"].split(";").map((d) => {
+        const [name, ...values] = d.trim().split(/\s+/);
+        return [name, values.join(" ")];
+      }),
+    );
+    expect(csp["script-src"]).toBe("'self' 'unsafe-inline' https://avidaluna.us22.list-manage.com");
+    expect(csp["connect-src"]).toBe("'self'");
+    expect(csp["form-action"]).toBe("'self' https://checkout.stripe.com");
+    expect(csp["frame-src"]).toBe("'none'");
     expect(h["strict-transport-security"]).toContain("max-age=");
     expect(h["x-content-type-options"]).toBe("nosniff");
     expect(h["referrer-policy"]).toBe("strict-origin-when-cross-origin");
